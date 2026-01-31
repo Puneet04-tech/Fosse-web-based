@@ -1,0 +1,81 @@
+Equipment Name,Type,Flowrate,Pressure,Temperature
+Reactor A,Chemical Reactor,45.2,95.3,48.5
+Reactor B,Chemical Reactor,52.8,98.7,51.2
+Pump 1,Centrifugal Pump,78.3,120.5,65.8
+Pump 2,Centrifugal Pump,82.1,118.9,67.3
+Heat Exchanger 1,Heat Exchanger,125.6,85.4,78.9
+Heat Exchanger 2,Heat Exchanger,118.9,87.2,76.4
+Compressor 1,Compressor,35.7,200.3,55.2
+Compressor 2,Compressor,38.9,195.8,56.7
+Reactor A,Chemical Reactor,47.8,96.1,49.3
+Reactor B,Chemical Reactor,54.2,99.4,52.1
+Pump 1,Centrifugal Pump,79.8,122.1,66.9
+Pump 2,Centrifugal Pump,83.5,119.7,68.1
+Heat Exchanger 1,Heat Exchanger,127.3,86.8,79.5
+Heat Exchanger 2,Heat Exchanger,121.4,88.1,77.8
+Compressor 1,Compressor,36.8,202.1,56.3
+Compressor 2,Compressor,39.7,197.4,57.8
+Reactor A,Chemical Reactor,46.5,95.8,48.9
+Reactor B,Chemical Reactor,53.6,98.2,51.7
+Pump 1,Centrifugal Pump,77.9,121.3,66.2
+Pump 2,Centrifugal Pump,82.8,119.1,67.6
+Heat Exchanger 1,Heat Exchanger,126.1,86.1,78.7
+Heat Exchanger 2,Heat Exchanger,119.7,87.6,77.1
+Compressor 1,Compressor,37.2,201.7,55.8
+Compressor 2,Compressor,39.1,196.3,57.2
+Reactor A,Chemical Reactor,48.1,96.7,49.8
+Reactor B,Chemical Reactor,55.3,99.1,52.4
+Pump 1,Centrifugal Pump,250.0,125.8,68.9
+Pump 2,Centrifugal Pump,85.2,120.8,68.4
+Heat Exchanger 1,Heat Exchanger,128.9,87.5,80.1
+Heat Exchanger 2,Heat Exchanger,122.8,88.9,78.3
+Compressor 1,Compressor,38.5,203.8,57.1
+Compressor 2,Compressor,40.3,198.7,58.2
+Reactor A,Chemical Reactor,47.3,96.4,49.1
+Reactor B,Chemical Reactor,54.8,98.9,52.0
+Pump 1,Centrifugal Pump,79.3,122.7,67.1
+Pump 2,Centrifugal Pump,83.9,120.2,68.7
+Heat Exchanger 1,Heat Exchanger,127.8,87.2,79.8
+Heat Exchanger 2,Heat Exchanger,121.9,88.4,77.9
+Compressor 1,Compressor,37.8,202.9,56.9
+Compressor 2,Compressor,39.9,197.8,58.0
+Reactor A,Chemical Reactor,46.9,96.0,48.7
+Reactor B,Chemical Reactor,54.1,98.5,51.5
+Pump 1,Centrifugal Pump,78.7,121.8,66.5
+Pump 2,Centrifugal Pump,83.1,119.5,67.9
+Heat Exchanger 1,Heat Exchanger,126.7,86.7,79.2
+Heat Exchanger 2,Heat Exchanger,120.8,88.0,77.4
+Compressor 1,Compressor,37.5,201.3,56.5
+Compressor 2,Compressor,39.4,196.9,57.5
+Reactor A,Chemical Reactor,12.0,95.1,48.2
+Reactor B,Chemical Reactor,54.5,98.3,51.8
+Pump 1,Centrifugal Pump,79.1,122.3,66.8
+Pump 2,Centrifugal Pump,83.6,120.0,68.5
+Heat Exchanger 1,Heat Exchanger,127.1,87.0,79.6
+Heat Exchanger 2,Heat Exchanger,121.5,88.6,77.6
+Compressor 1,Compressor,37.9,202.4,56.7
+Compressor 2,Compressor,39.6,197.1,57.7
+Reactor A,Chemical Reactor,47.6,96.6,49.5
+Reactor B,Chemical Reactor,54.7,98.8,51.9
+Pump 1,Centrifugal Pump,79.5,122.5,67.3
+Pump 2,Centrifugal Pump,83.8,120.7,68.8
+Heat Exchanger 1,Heat Exchanger,127.6,87.8,80.3
+Heat Exchanger 2,Heat Exchanger,122.3,89.1,78.6
+Compressor 1,Compressor,38.2,203.2,57.4
+Compressor 2,Compressor,39.7,198.3,58.3
+Reactor A,Chemical Reactor,47.1,95.9,48.8
+Reactor B,Chemical Reactor,54.3,98.6,51.6
+Pump 1,Centrifugal Pump,78.9,121.9,66.6
+Pump 2,Centrifugal Pump,83.3,119.8,68.2
+Heat Exchanger 1,Heat Exchanger,126.9,86.9,79.3
+Heat Exchanger 2,Heat Exchanger,120.1,88.2,77.7
+Compressor 1,Compressor,37.6,201.9,56.6
+Compressor 2,Compressor,39.4,196.5,57.9
+Reactor A,Chemical Reactor,46.8,96.2,49.0
+Reactor B,Chemical Reactor,54.4,98.4,51.7
+Pump 1,Centrifugal Pump,5.0,121.5,66.7
+Pump 2,Centrifugal Pump,83.4,119.9,68.3
+Heat Exchanger 1,Heat Exchanger,127.2,87.1,79.4
+Heat Exchanger 2,Heat Exchanger,121.3,88.3,77.5
+Compressor 1,Compressor,37.7,202.0,56.8
+Compressor 2,Compressor,39.5,196.7,57.6
