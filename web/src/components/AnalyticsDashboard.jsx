@@ -500,8 +500,13 @@ const AnalyticsDashboard = () => {
                       dataKey="time" 
                       stroke="#9ca3af"
                       tick={{ fontSize: 12 }}
+                      allowDecimals={false}
                     />
-                    <YAxis stroke="#9ca3af" tick={{ fontSize: 12 }} />
+                    <YAxis 
+                      stroke="#9ca3af" 
+                      tick={{ fontSize: 12 }}
+                      allowDecimals={false}
+                    />
                     <Tooltip 
                       contentStyle={{ 
                         backgroundColor: '#1f2937', 
@@ -512,9 +517,27 @@ const AnalyticsDashboard = () => {
                     />
                     <Legend />
                     
-                    <ReferenceLine y={80} stroke="#22c55e" strokeDasharray="5 5" label="Max Safe" />
-                    <ReferenceLine y={40} stroke="#22c55e" strokeDasharray="5 5" label="Min Safe" />
-                    <ReferenceLine y={60} stroke="#3b82f6" strokeDasharray="3 3" label="Optimal" />
+                    <ReferenceLine 
+                      y={80} 
+                      stroke="#22c55e" 
+                      strokeDasharray="5 5" 
+                      label="Max Safe"
+                      strokeWidth={2}
+                    />
+                    <ReferenceLine 
+                      y={40} 
+                      stroke="#22c55e" 
+                      strokeDasharray="5 5" 
+                      label="Min Safe"
+                      strokeWidth={2}
+                    />
+                    <ReferenceLine 
+                      y={60} 
+                      stroke="#3b82f6" 
+                      strokeDasharray="3 3" 
+                      label="Optimal"
+                      strokeWidth={2}
+                    />
                     
                     <Line
                       type="monotone"
@@ -555,8 +578,13 @@ const AnalyticsDashboard = () => {
                       dataKey="time" 
                       stroke="#9ca3af"
                       tick={{ fontSize: 12 }}
+                      allowDecimals={false}
                     />
-                    <YAxis stroke="#9ca3af" tick={{ fontSize: 12 }} />
+                    <YAxis 
+                      stroke="#9ca3af" 
+                      tick={{ fontSize: 12 }}
+                      allowDecimals={false}
+                    />
                     <Tooltip 
                       contentStyle={{ 
                         backgroundColor: '#1f2937', 
@@ -608,8 +636,13 @@ const AnalyticsDashboard = () => {
                       dataKey="time" 
                       stroke="#9ca3af"
                       tick={{ fontSize: 12 }}
+                      allowDecimals={false}
                     />
-                    <YAxis stroke="#9ca3af" tick={{ fontSize: 12 }} />
+                    <YAxis 
+                      stroke="#9ca3af" 
+                      tick={{ fontSize: 12 }}
+                      allowDecimals={false}
+                    />
                     <Tooltip 
                       contentStyle={{ 
                         backgroundColor: '#1f2937', 
@@ -620,9 +653,27 @@ const AnalyticsDashboard = () => {
                     />
                     <Legend />
                     
-                    <ReferenceLine y={75} stroke="#22c55e" strokeDasharray="5 5" label="Max Safe" />
-                    <ReferenceLine y={25} stroke="#22c55e" strokeDasharray="5 5" label="Min Safe" />
-                    <ReferenceLine y={50} stroke="#3b82f6" strokeDasharray="3 3" label="Optimal" />
+                    <ReferenceLine 
+                      y={75} 
+                      stroke="#22c55e" 
+                      strokeDasharray="5 5" 
+                      label="Max Safe"
+                      strokeWidth={2}
+                    />
+                    <ReferenceLine 
+                      y={25} 
+                      stroke="#22c55e" 
+                      strokeDasharray="5 5" 
+                      label="Min Safe"
+                      strokeWidth={2}
+                    />
+                    <ReferenceLine 
+                      y={50} 
+                      stroke="#3b82f6" 
+                      strokeDasharray="3 3" 
+                      label="Optimal"
+                      strokeWidth={2}
+                    />
                     
                     <Line
                       type="monotone"
@@ -671,8 +722,13 @@ const AnalyticsDashboard = () => {
                           stroke="#9ca3af"
                           tick={{ fontSize: 12 }}
                           tickFormatter={(value) => safeTimeFormat(value, value)}
+                          allowDecimals={false}
                         />
-                        <YAxis stroke="#9ca3af" tick={{ fontSize: 12 }} />
+                        <YAxis 
+                          stroke="#9ca3af" 
+                          tick={{ fontSize: 12 }}
+                          allowDecimals={false}
+                        />
                         <Tooltip 
                           contentStyle={{ 
                             backgroundColor: '#1f2937', 
@@ -683,9 +739,27 @@ const AnalyticsDashboard = () => {
                         />
                         <Legend />
                         
-                        <ReferenceLine y={80} stroke="#22c55e" strokeDasharray="5 5" label="Max Safe" />
-                        <ReferenceLine y={40} stroke="#22c55e" strokeDasharray="5 5" label="Min Safe" />
-                        <ReferenceLine y={60} stroke="#3b82f6" strokeDasharray="3 3" label="Optimal" />
+                        <ReferenceLine 
+                          y={80} 
+                          stroke="#22c55e" 
+                          strokeDasharray="5 5" 
+                          label="Max Safe"
+                          strokeWidth={2}
+                        />
+                        <ReferenceLine 
+                          y={40} 
+                          stroke="#22c55e" 
+                          strokeDasharray="5 5" 
+                          label="Min Safe"
+                          strokeWidth={2}
+                        />
+                        <ReferenceLine 
+                          y={60} 
+                          stroke="#3b82f6" 
+                          strokeDasharray="3 3" 
+                          label="Optimal"
+                          strokeWidth={2}
+                        />
                         
                         {equipmentList.map(eq => (
                           <Line
@@ -723,8 +797,13 @@ const AnalyticsDashboard = () => {
                         stroke="#9ca3af"
                         tick={{ fontSize: 12 }}
                         tickFormatter={(value) => safeTimeFormat(value, value)}
+                        allowDecimals={false}
                       />
-                      <YAxis stroke="#9ca3af" tick={{ fontSize: 12 }} />
+                      <YAxis 
+                        stroke="#9ca3af" 
+                        tick={{ fontSize: 12 }}
+                        allowDecimals={false}
+                      />
                       <Tooltip 
                         contentStyle={{ 
                           backgroundColor: '#1f2937', 
@@ -735,9 +814,27 @@ const AnalyticsDashboard = () => {
                       />
                       <Legend />
                       
-                      <ReferenceLine y={80} stroke="#22c55e" strokeDasharray="5 5" label="Max Safe" />
-                      <ReferenceLine y={40} stroke="#22c55e" strokeDasharray="5 5" label="Min Safe" />
-                      <ReferenceLine y={60} stroke="#3b82f6" strokeDasharray="3 3" label="Optimal" />
+                      <ReferenceLine 
+                        y={80} 
+                        stroke="#22c55e" 
+                        strokeDasharray="5 5" 
+                        label="Max Safe"
+                        strokeWidth={2}
+                      />
+                      <ReferenceLine 
+                        y={40} 
+                        stroke="#22c55e" 
+                        strokeDasharray="5 5" 
+                        label="Min Safe"
+                        strokeWidth={2}
+                      />
+                      <ReferenceLine 
+                        y={60} 
+                        stroke="#3b82f6" 
+                        strokeDasharray="3 3" 
+                        label="Optimal"
+                        strokeWidth={2}
+                      />
                       
                       {equipmentList.map(eq => (
                         <Line
