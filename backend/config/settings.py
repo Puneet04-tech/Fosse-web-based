@@ -105,12 +105,13 @@ REST_FRAMEWORK = {
 if 'RENDER' in os.environ:
     # Production CORS settings
     CORS_ALLOWED_ORIGINS = [
+        "https://chemical-equipement.netlify.app",
         "https://*.netlify.app",
         "http://localhost:3000",
         "http://127.0.0.1:3000",
     ]
     CORS_ALLOW_CREDENTIALS = True
-    CORS_ALLOW_ALL_ORIGINS = False
+    CORS_ALLOW_ALL_ORIGINS = True  # Temporarily allow all for debugging
 else:
     # Development CORS settings
     CORS_ALLOW_ALL_ORIGINS = True
