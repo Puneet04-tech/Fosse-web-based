@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area, ReferenceLine } from 'recharts';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -63,14 +63,15 @@ const AnalyticsDashboard = () => {
   const [selectedDataset, setSelectedDataset] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const userHasSelectedDataset = useRef(false);
 
   // Load real data from backend
   useEffect(() => {
     loadRealData();
     
-    // Set up real-time polling
+    // Set up real-time polling - but only update datasets list, don't override selection
     const interval = setInterval(() => {
-      loadRealData();
+      updateDatasetsList();
     }, 10000); // Update every 10 seconds
 
     return () => clearInterval(interval);
@@ -83,14 +84,47 @@ const AnalyticsDashboard = () => {
     }
   }, [selectedDataset]);
 
+  // Update datasets list without overriding user selection
+  const updateDatasetsList = async () => {
+    try {
+      const datasetsList = await analyticsService.getDatasets();
+      setDatasets(datasetsList);
+      
+      // Only set latest dataset if no dataset is currently selected AND user hasn't manually selected one
+      if (datasetsList.length > 0 && !selectedDataset && !userHasSelectedDataset.current) {
+        const latestDataset = datasetsList[0];
+        setSelectedDataset(latestDataset);
+        
+        // Get real analysis data from backend
+        const analysis = await analyticsService.performRealTimeAnalysis(latestDataset.id);
+        
+        // Use real data from backend
+        setRealData(analysis.data || []);
+        
+        // Show real anomaly alerts
+        if (analysis.anomalies && analysis.anomalies.length > 0) {
+          const recentAnomalies = analysis.anomalies.slice(0, 3);
+          recentAnomalies.forEach(anomaly => {
+            toast.error(`🚨 Real Anomaly Detected: ${anomaly.equipment} - ${anomaly.parameter.toUpperCase()} is ${anomaly.value} (Z-score: ${anomaly.zScore})`, {
+              position: 'top-right',
+              autoClose: 8000,
+            });
+          });
+        }
+      }
+    } catch (err) {
+      console.error('Failed to update datasets list:', err);
+    }
+  };
+
   const loadRealData = async () => {
     try {
       setLoading(true);
       const datasetsList = await analyticsService.getDatasets();
       setDatasets(datasetsList);
       
-      // Only set latest dataset if no dataset is currently selected
-      if (datasetsList.length > 0 && !selectedDataset) {
+      // Only set latest dataset if no dataset is currently selected AND user hasn't manually selected one
+      if (datasetsList.length > 0 && !selectedDataset && !userHasSelectedDataset.current) {
         const latestDataset = datasetsList[0];
         setSelectedDataset(latestDataset);
         
@@ -353,6 +387,7 @@ const AnalyticsDashboard = () => {
                 const datasetId = e.target.value;
                 const dataset = datasets.find(d => d.id.toString() === datasetId);
                 if (dataset) {
+                  userHasSelectedDataset.current = true; // Mark that user has manually selected
                   setSelectedDataset(dataset);
                   toast.info(`📊 Loading dataset: ${dataset.file?.split('/').pop().split('\\').pop() || `Dataset ${dataset.id}`}`, {
                     position: 'top-right',
