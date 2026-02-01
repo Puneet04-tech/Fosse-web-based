@@ -3,7 +3,8 @@ import pandas as pd
 import numpy as np
 from django.http import JsonResponse, HttpResponse, FileResponse
 from rest_framework.views import APIView
-from rest_framework import generics, status, Response
+from rest_framework import generics, status
+from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.contrib.auth.models import User
