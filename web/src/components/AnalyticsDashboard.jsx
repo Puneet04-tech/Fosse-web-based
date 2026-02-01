@@ -111,6 +111,21 @@ const AnalyticsDashboard = () => {
             });
           });
         }
+      } else if (selectedDataset) {
+        // If a dataset is selected, update its data in real-time
+        const analysis = await analyticsService.performRealTimeAnalysis(selectedDataset.id);
+        setRealData(analysis.data || []);
+        
+        // Show anomaly alerts for updated data
+        if (analysis.anomalies && analysis.anomalies.length > 0) {
+          const recentAnomalies = analysis.anomalies.slice(0, 1);
+          recentAnomalies.forEach(anomaly => {
+            toast.warning(`📊 Updated: ${anomaly.equipment} - ${anomaly.parameter.toUpperCase()} is ${anomaly.value} (Z-score: ${anomaly.zScore})`, {
+              position: 'top-right',
+              autoClose: 3000,
+            });
+          });
+        }
       }
     } catch (err) {
       console.error('Failed to update datasets list:', err);
@@ -159,11 +174,17 @@ const AnalyticsDashboard = () => {
     try {
       setLoading(true);
       
+      console.log('Loading dataset data for ID:', datasetId);
+      
       // Get analysis data for selected dataset
       const analysis = await analyticsService.performRealTimeAnalysis(datasetId);
       
+      console.log('Analysis result:', analysis);
+      
       // Use real data from backend
       setRealData(analysis.data || []);
+      
+      console.log('Real data set:', analysis.data || []);
       
       // Show anomaly alerts for this dataset
       if (analysis.anomalies && analysis.anomalies.length > 0) {
@@ -363,8 +384,13 @@ const AnalyticsDashboard = () => {
   }, [realData, anomalyThreshold]);
 
   const chartData = useMemo(() => {
+    console.log('Generating chart data from realData:', realData);
+    console.log('Equipment list:', equipmentList);
+    console.log('Selected parameter:', selectedParameter);
+    
     // Get the last 50 data points for better visualization
     const recentData = filteredData.slice(-50);
+    console.log('Filtered recent data:', recentData);
     
     // Group data by timestamp to create proper chart structure
     const timestampGroups = {};
@@ -375,8 +401,10 @@ const AnalyticsDashboard = () => {
       timestampGroups[d.timestamp][d.equipment] = d;
     });
     
+    console.log('Timestamp groups:', timestampGroups);
+    
     // Convert to chart format
-    return Object.keys(timestampGroups).sort().map(timestamp => {
+    const chartDataResult = Object.keys(timestampGroups).sort().map(timestamp => {
       const dataPoint = { timestamp };
       
       equipmentList.forEach(eq => {
@@ -392,6 +420,9 @@ const AnalyticsDashboard = () => {
       
       return dataPoint;
     });
+    
+    console.log('Final chart data:', chartDataResult);
+    return chartDataResult;
   }, [filteredData, equipmentList, selectedParameter]);
 
   const statsCards = [
