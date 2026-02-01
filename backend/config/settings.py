@@ -76,6 +76,9 @@ if 'RENDER' in os.environ:
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
 
+# Debug mode for Render
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+
 AUTH_PASSWORD_VALIDATORS = []
 
 LANGUAGE_CODE = 'en-us'
