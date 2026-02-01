@@ -16,12 +16,25 @@ def api_root(request):
             'desktop_upload': '/api/desktop-upload/',
             'datasets': '/api/datasets/',
             'create_users': '/api/create-users/',
+            'test': '/api/test/',
         },
         'status': 'operational'
     })
 
+@api_view(['GET'])
+def test_endpoint(request):
+    """
+    Test endpoint to verify API is working
+    """
+    return Response({
+        'message': 'API is working!',
+        'cors': 'CORS headers should be present',
+        'timestamp': '2026-02-01T19:25:00Z'
+    })
+
 urlpatterns = [
     path('', api_root, name='api-root'),
+    path('test/', test_endpoint, name='test-endpoint'),
     path('upload/', UploadDatasetView.as_view(), name='upload-dataset'),  # Web - requires auth
     path('desktop-upload/', DesktopUploadDatasetView.as_view(), name='desktop-upload-dataset'),  # Desktop - no auth
     path('datasets/', DatasetListView.as_view(), name='dataset-list'),
