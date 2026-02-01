@@ -5,7 +5,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import './SummaryCards.css';
 
 const SummaryCards = React.memo(({ summary, datasetId, onMessage }) => {
+  console.log('SummaryCards rendered with:', { summary, datasetId });
+  
   if (!summary) {
+    console.log('SummaryCards: No summary data, showing loading state');
     return (
       <div className="summary-cards-container">
         <div className="row">
@@ -78,6 +81,7 @@ const SummaryCards = React.memo(({ summary, datasetId, onMessage }) => {
     );
   }
 
+  console.log('SummaryCards: Rendering with summary data');
   const { total_count, averages, anomalies, type_distribution } = summary;
 
   const download = async () => {
@@ -268,6 +272,17 @@ const SummaryCards = React.memo(({ summary, datasetId, onMessage }) => {
 
   return (
     <>
+      {/* Debug Test - Outside of all cards */}
+      <div style={{ padding: '20px', background: 'red', margin: '10px' }}>
+        <h3>DEBUG TEST BUTTON</h3>
+        <button 
+          onClick={() => alert('Direct button click works!')}
+          style={{ padding: '10px', background: 'yellow', border: '2px solid black' }}
+        >
+          DIRECT TEST BUTTON
+        </button>
+      </div>
+      
       <div className="summary-cards-container">
       <div className="row">
         {/* Total Equipment Card */}
@@ -327,6 +342,20 @@ const SummaryCards = React.memo(({ summary, datasetId, onMessage }) => {
             </div>
             <div className="summary-card-body">
               <div className="summary-actions">
+                {/* Inline test button */}
+                <button 
+                  onClick={() => alert('Inline test works!')}
+                  style={{ 
+                    padding: '8px', 
+                    background: 'orange', 
+                    border: '2px solid black',
+                    marginRight: '10px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  INLINE TEST
+                </button>
+                
                 <button className="summary-btn summary-btn-warning" onClick={testClick}>
                   <span>🧪</span>
                   Test Click
