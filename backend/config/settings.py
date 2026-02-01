@@ -55,30 +55,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# Database configuration
-# Use Render PostgreSQL if available, otherwise SQLite
-if 'DATABASE_URL' in os.environ:
-    DATABASES = {
-        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+# Database configuration - Simplified
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-
-# Render-specific settings
-if 'RENDER' in os.environ:
-    ALLOWED_HOSTS = ['*']  # Render handles this
-    SECURE_SSL_REDIRECT = True
-    SECURE_HSTS_SECONDS = 31536000
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD = True
-
-# Debug mode for Render
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+}
 
 AUTH_PASSWORD_VALIDATORS = []
 
@@ -102,36 +85,25 @@ REST_FRAMEWORK = {
     ]
 }
 
-# CORS Settings
-if 'RENDER' in os.environ:
-    # Production CORS settings
-    CORS_ALLOWED_ORIGINS = [
-        "https://chemical-equipement.netlify.app",
-        "https://*.netlify.app",
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-    ]
-    CORS_ALLOW_CREDENTIALS = True
-    CORS_ALLOW_ALL_ORIGINS = True  # Allow all for debugging
-    CORS_ALLOW_HEADERS = [
-        'accept',
-        'accept-encoding',
-        'authorization',
-        'content-type',
-        'dnt',
-        'origin',
-        'user-agent',
-        'x-csrftoken',
-        'x-requested-with',
-    ]
-    CORS_ALLOW_METHODS = [
-        'DELETE',
-        'GET',
-        'OPTIONS',
-        'PATCH',
-        'POST',
-        'PUT',
-    ]
-else:
-    # Development CORS settings
-    CORS_ALLOW_ALL_ORIGINS = True
+# CORS Settings - Simplified for debugging
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
