@@ -3,23 +3,13 @@ services:
     name: fosse-equipment-monitor
     env: python
     plan: free
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn config.wsgi:application"
+    buildCommand: "pip install -r requirements.txt && python manage.py migrate"
+    startCommand: "gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 3"
     envVars:
       - key: PYTHON_VERSION
         value: 3.9.16
       - key: SECRET_KEY
-        generateValue: true
+        value: django-insecure-change-me-in-production-very-long-secret-key-for-safety
       - key: DEBUG
-        value: false
+        value: true
     autoDeploy: true
-  - type: cron
-    name: create-users
-    schedule: "0 0 * * *"  # Daily at midnight
-    env: python
-    plan: free
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "python manage.py create_users"
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.9.16
