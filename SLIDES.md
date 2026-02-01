@@ -1,4 +1,4 @@
-# 📊 FOSSEE Equipment Monitoring System - Demo Slides
+# 📊 FOSSEE Equipment Monitoring System 
 
 ## 🎯 SLIDE 1: TITLE SCREEN
 **FOSSEE Equipment Monitoring System**
