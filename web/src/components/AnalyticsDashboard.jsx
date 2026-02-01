@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area, ReferenceLine } from 'recharts';
+import { LineChart, Line, CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area } from 'recharts';
+import XAxis from './chart-components/XAxis';
+import YAxis from './chart-components/YAxis';
+import ReferenceLine from './chart-components/ReferenceLine';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import analyticsService from '../services/analyticsService';
@@ -500,57 +503,10 @@ const AnalyticsDashboard = () => {
                       dataKey="time" 
                       stroke="#9ca3af"
                       tick={{ fontSize: 12 }}
-                      allowDecimals={false}
-                      axisLine={{ stroke: '#9ca3af' }}
-                      tickLine={{ stroke: '#9ca3af' }}
-                      type="category"
-                      domain={[0, 'dataMax']}
-                      tickCount={6}
-                      padding={{ left: 10, right: 10 }}
-                      mirror={false}
-                      reversed={false}
-                      scale="auto"
-                      allowDataOverflow={false}
-                      allowDuplicatedCategory={false}
-                      tickFormatter={undefined}
-                      angle={0}
-                      textAnchor="middle"
-                      verticalAnchor="middle"
-                      height={30}
-                      width={0}
-                      hide={false}
-                      label={undefined}
-                      name={undefined}
-                      unit={undefined}
-                      nameKey={undefined}
                     />
                     <YAxis 
                       stroke="#9ca3af" 
                       tick={{ fontSize: 12 }}
-                      allowDecimals={false}
-                      axisLine={{ stroke: '#9ca3af' }}
-                      tickLine={{ stroke: '#9ca3af' }}
-                      type="number"
-                      domain={[0, 'dataMax']}
-                      tickCount={5}
-                      padding={{ top: 10, bottom: 10 }}
-                      mirror={false}
-                      reversed={false}
-                      scale="auto"
-                      allowDataOverflow={false}
-                      tickFormatter={undefined}
-                      angle={0}
-                      textAnchor="end"
-                      verticalAnchor="middle"
-                      width={60}
-                      height={0}
-                      hide={false}
-                      label={undefined}
-                      orientation="left"
-                      dataKey={undefined}
-                      name={undefined}
-                      unit={undefined}
-                      nameKey={undefined}
                     />
                     <Tooltip 
                       contentStyle={{ 
@@ -567,33 +523,18 @@ const AnalyticsDashboard = () => {
                       stroke="#22c55e" 
                       strokeDasharray="5 5" 
                       label="Max Safe"
-                      strokeWidth={2}
-                      isFront={false}
-                      ifOverflow="extendDomain"
-                      labelPosition="right"
-                      segment={undefined}
                     />
                     <ReferenceLine 
                       y={40} 
                       stroke="#22c55e" 
                       strokeDasharray="5 5" 
                       label="Min Safe"
-                      strokeWidth={2}
-                      isFront={false}
-                      ifOverflow="extendDomain"
-                      labelPosition="right"
-                      segment={undefined}
                     />
                     <ReferenceLine 
                       y={60} 
                       stroke="#3b82f6" 
                       strokeDasharray="3 3" 
                       label="Optimal"
-                      strokeWidth={2}
-                      isFront={false}
-                      ifOverflow="extendDomain"
-                      labelPosition="right"
-                      segment={undefined}
                     />
                     
                     <Line
@@ -635,57 +576,10 @@ const AnalyticsDashboard = () => {
                       dataKey="time" 
                       stroke="#9ca3af"
                       tick={{ fontSize: 12 }}
-                      allowDecimals={false}
-                      axisLine={{ stroke: '#9ca3af' }}
-                      tickLine={{ stroke: '#9ca3af' }}
-                      type="category"
-                      domain={[0, 'dataMax']}
-                      tickCount={6}
-                      padding={{ left: 10, right: 10 }}
-                      mirror={false}
-                      reversed={false}
-                      scale="auto"
-                      allowDataOverflow={false}
-                      allowDuplicatedCategory={false}
-                      tickFormatter={undefined}
-                      angle={0}
-                      textAnchor="middle"
-                      verticalAnchor="middle"
-                      height={30}
-                      width={0}
-                      hide={false}
-                      label={undefined}
-                      name={undefined}
-                      unit={undefined}
-                      nameKey={undefined}
                     />
                     <YAxis 
                       stroke="#9ca3af" 
                       tick={{ fontSize: 12 }}
-                      allowDecimals={false}
-                      axisLine={{ stroke: '#9ca3af' }}
-                      tickLine={{ stroke: '#9ca3af' }}
-                      type="number"
-                      domain={[0, 'dataMax']}
-                      tickCount={5}
-                      padding={{ top: 10, bottom: 10 }}
-                      mirror={false}
-                      reversed={false}
-                      scale="auto"
-                      allowDataOverflow={false}
-                      tickFormatter={undefined}
-                      angle={0}
-                      textAnchor="end"
-                      verticalAnchor="middle"
-                      width={60}
-                      height={0}
-                      hide={false}
-                      label={undefined}
-                      orientation="left"
-                      dataKey={undefined}
-                      name={undefined}
-                      unit={undefined}
-                      nameKey={undefined}
                     />
                     <Tooltip 
                       contentStyle={{ 
@@ -738,57 +632,10 @@ const AnalyticsDashboard = () => {
                       dataKey="time" 
                       stroke="#9ca3af"
                       tick={{ fontSize: 12 }}
-                      allowDecimals={false}
-                      axisLine={{ stroke: '#9ca3af' }}
-                      tickLine={{ stroke: '#9ca3af' }}
-                      type="category"
-                      domain={[0, 'dataMax']}
-                      tickCount={6}
-                      padding={{ left: 10, right: 10 }}
-                      mirror={false}
-                      reversed={false}
-                      scale="auto"
-                      allowDataOverflow={false}
-                      allowDuplicatedCategory={false}
-                      tickFormatter={undefined}
-                      angle={0}
-                      textAnchor="middle"
-                      verticalAnchor="middle"
-                      height={30}
-                      width={0}
-                      hide={false}
-                      label={undefined}
-                      name={undefined}
-                      unit={undefined}
-                      nameKey={undefined}
                     />
                     <YAxis 
                       stroke="#9ca3af" 
                       tick={{ fontSize: 12 }}
-                      allowDecimals={false}
-                      axisLine={{ stroke: '#9ca3af' }}
-                      tickLine={{ stroke: '#9ca3af' }}
-                      type="number"
-                      domain={[0, 'dataMax']}
-                      tickCount={5}
-                      padding={{ top: 10, bottom: 10 }}
-                      mirror={false}
-                      reversed={false}
-                      scale="auto"
-                      allowDataOverflow={false}
-                      tickFormatter={undefined}
-                      angle={0}
-                      textAnchor="end"
-                      verticalAnchor="middle"
-                      width={60}
-                      height={0}
-                      hide={false}
-                      label={undefined}
-                      orientation="left"
-                      dataKey={undefined}
-                      name={undefined}
-                      unit={undefined}
-                      nameKey={undefined}
                     />
                     <Tooltip 
                       contentStyle={{ 
@@ -869,49 +716,10 @@ const AnalyticsDashboard = () => {
                           stroke="#9ca3af"
                           tick={{ fontSize: 12 }}
                           tickFormatter={(value) => safeTimeFormat(value, value)}
-                          allowDecimals={false}
-                          axisLine={{ stroke: '#9ca3af' }}
-                          tickLine={{ stroke: '#9ca3af' }}
-                          type="category"
-                          domain={[0, 'dataMax']}
-                          tickCount={6}
-                          padding={{ left: 10, right: 10 }}
-                          mirror={false}
-                          reversed={false}
-                          scale="auto"
-                          allowDataOverflow={false}
-                          allowDuplicatedCategory={false}
-                          angle={0}
-                          textAnchor="middle"
-                          verticalAnchor="middle"
-                          height={30}
-                          width={0}
-                          hide={false}
-                          label={undefined}
                         />
                         <YAxis 
                           stroke="#9ca3af" 
                           tick={{ fontSize: 12 }}
-                          allowDecimals={false}
-                          axisLine={{ stroke: '#9ca3af' }}
-                          tickLine={{ stroke: '#9ca3af' }}
-                          type="number"
-                          domain={[0, 'dataMax']}
-                          tickCount={5}
-                          padding={{ top: 10, bottom: 10 }}
-                          mirror={false}
-                          reversed={false}
-                          scale="auto"
-                          allowDataOverflow={false}
-                          tickFormatter={undefined}
-                          angle={0}
-                          textAnchor="end"
-                          verticalAnchor="middle"
-                          width={60}
-                          height={0}
-                          hide={false}
-                          label={undefined}
-                          orientation="left"
                         />
                         <Tooltip 
                           contentStyle={{ 
