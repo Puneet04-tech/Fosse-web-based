@@ -1,8 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { LineChart, Line, CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area } from 'recharts';
-import XAxis from './chart-components/XAxis';
-import YAxis from './chart-components/YAxis';
-import ReferenceLine from './chart-components/ReferenceLine';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area, ReferenceLine } from 'recharts';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import analyticsService from '../services/analyticsService';
@@ -92,7 +89,8 @@ const AnalyticsDashboard = () => {
       const datasetsList = await analyticsService.getDatasets();
       setDatasets(datasetsList);
       
-      if (datasetsList.length > 0) {
+      // Only set latest dataset if no dataset is currently selected
+      if (datasetsList.length > 0 && !selectedDataset) {
         const latestDataset = datasetsList[0];
         setSelectedDataset(latestDataset);
         
@@ -112,19 +110,11 @@ const AnalyticsDashboard = () => {
             });
           });
         }
-      } else {
-        // No datasets available
-        setRealData([]);
-        setError('No datasets available. Please upload a CSV file first.');
       }
       setLoading(false);
     } catch (err) {
       console.error('Failed to load real data:', err);
-      setError('Failed to connect to backend. Please ensure the API server is running at http://127.0.0.1:8000');
-      toast.error('❌ Failed to connect to backend. Please ensure the Django server is running.', {
-        position: 'top-right',
-        autoClose: 5000,
-      });
+      setError('Failed to load real-time data');
     } finally {
       setLoading(false);
     }
@@ -503,10 +493,57 @@ const AnalyticsDashboard = () => {
                       dataKey="time" 
                       stroke="#9ca3af"
                       tick={{ fontSize: 12 }}
+                      allowDecimals={false}
+                      axisLine={{ stroke: '#9ca3af' }}
+                      tickLine={{ stroke: '#9ca3af' }}
+                      type="category"
+                      domain={[0, 'dataMax']}
+                      tickCount={6}
+                      padding={{ left: 10, right: 10 }}
+                      mirror={false}
+                      reversed={false}
+                      scale="auto"
+                      allowDataOverflow={false}
+                      allowDuplicatedCategory={false}
+                      tickFormatter={undefined}
+                      angle={0}
+                      textAnchor="middle"
+                      verticalAnchor="middle"
+                      height={30}
+                      width={0}
+                      hide={false}
+                      label={undefined}
+                      name={undefined}
+                      unit={undefined}
+                      nameKey={undefined}
                     />
                     <YAxis 
                       stroke="#9ca3af" 
                       tick={{ fontSize: 12 }}
+                      allowDecimals={false}
+                      axisLine={{ stroke: '#9ca3af' }}
+                      tickLine={{ stroke: '#9ca3af' }}
+                      type="number"
+                      domain={[0, 'dataMax']}
+                      tickCount={5}
+                      padding={{ top: 10, bottom: 10 }}
+                      mirror={false}
+                      reversed={false}
+                      scale="auto"
+                      allowDataOverflow={false}
+                      tickFormatter={undefined}
+                      angle={0}
+                      textAnchor="end"
+                      verticalAnchor="middle"
+                      width={60}
+                      height={0}
+                      hide={false}
+                      label={undefined}
+                      orientation="left"
+                      dataKey={undefined}
+                      name={undefined}
+                      unit={undefined}
+                      nameKey={undefined}
                     />
                     <Tooltip 
                       contentStyle={{ 
@@ -523,18 +560,33 @@ const AnalyticsDashboard = () => {
                       stroke="#22c55e" 
                       strokeDasharray="5 5" 
                       label="Max Safe"
+                      strokeWidth={2}
+                      isFront={false}
+                      ifOverflow="extendDomain"
+                      labelPosition="right"
+                      segment={undefined}
                     />
                     <ReferenceLine 
                       y={40} 
                       stroke="#22c55e" 
                       strokeDasharray="5 5" 
                       label="Min Safe"
+                      strokeWidth={2}
+                      isFront={false}
+                      ifOverflow="extendDomain"
+                      labelPosition="right"
+                      segment={undefined}
                     />
                     <ReferenceLine 
                       y={60} 
                       stroke="#3b82f6" 
                       strokeDasharray="3 3" 
                       label="Optimal"
+                      strokeWidth={2}
+                      isFront={false}
+                      ifOverflow="extendDomain"
+                      labelPosition="right"
+                      segment={undefined}
                     />
                     
                     <Line
@@ -544,8 +596,6 @@ const AnalyticsDashboard = () => {
                       strokeWidth={2}
                       dot={{ fill: '#667eea', r: 4 }}
                       name="Demo Equipment A"
-                      xAxisId={0}
-                      yAxisId={0}
                     />
                     <Line
                       type="monotone"
@@ -554,8 +604,6 @@ const AnalyticsDashboard = () => {
                       strokeWidth={2}
                       dot={{ fill: '#f093fb', r: 4 }}
                       name="Demo Equipment B"
-                      xAxisId={0}
-                      yAxisId={0}
                     />
                   </LineChart>
                 </ResponsiveContainer>
@@ -580,10 +628,57 @@ const AnalyticsDashboard = () => {
                       dataKey="time" 
                       stroke="#9ca3af"
                       tick={{ fontSize: 12 }}
+                      allowDecimals={false}
+                      axisLine={{ stroke: '#9ca3af' }}
+                      tickLine={{ stroke: '#9ca3af' }}
+                      type="category"
+                      domain={[0, 'dataMax']}
+                      tickCount={6}
+                      padding={{ left: 10, right: 10 }}
+                      mirror={false}
+                      reversed={false}
+                      scale="auto"
+                      allowDataOverflow={false}
+                      allowDuplicatedCategory={false}
+                      tickFormatter={undefined}
+                      angle={0}
+                      textAnchor="middle"
+                      verticalAnchor="middle"
+                      height={30}
+                      width={0}
+                      hide={false}
+                      label={undefined}
+                      name={undefined}
+                      unit={undefined}
+                      nameKey={undefined}
                     />
                     <YAxis 
                       stroke="#9ca3af" 
                       tick={{ fontSize: 12 }}
+                      allowDecimals={false}
+                      axisLine={{ stroke: '#9ca3af' }}
+                      tickLine={{ stroke: '#9ca3af' }}
+                      type="number"
+                      domain={[0, 'dataMax']}
+                      tickCount={5}
+                      padding={{ top: 10, bottom: 10 }}
+                      mirror={false}
+                      reversed={false}
+                      scale="auto"
+                      allowDataOverflow={false}
+                      tickFormatter={undefined}
+                      angle={0}
+                      textAnchor="end"
+                      verticalAnchor="middle"
+                      width={60}
+                      height={0}
+                      hide={false}
+                      label={undefined}
+                      orientation="left"
+                      dataKey={undefined}
+                      name={undefined}
+                      unit={undefined}
+                      nameKey={undefined}
                     />
                     <Tooltip 
                       contentStyle={{ 
@@ -603,8 +698,6 @@ const AnalyticsDashboard = () => {
                       fillOpacity={0.3}
                       strokeWidth={2}
                       name="Demo Equipment A"
-                      xAxisId={0}
-                      yAxisId={0}
                     />
                     <Area
                       type="monotone"
@@ -614,8 +707,6 @@ const AnalyticsDashboard = () => {
                       fillOpacity={0.3}
                       strokeWidth={2}
                       name="Demo Equipment B"
-                      xAxisId={0}
-                      yAxisId={0}
                     />
                   </AreaChart>
                 </ResponsiveContainer>
@@ -640,10 +731,57 @@ const AnalyticsDashboard = () => {
                       dataKey="time" 
                       stroke="#9ca3af"
                       tick={{ fontSize: 12 }}
+                      allowDecimals={false}
+                      axisLine={{ stroke: '#9ca3af' }}
+                      tickLine={{ stroke: '#9ca3af' }}
+                      type="category"
+                      domain={[0, 'dataMax']}
+                      tickCount={6}
+                      padding={{ left: 10, right: 10 }}
+                      mirror={false}
+                      reversed={false}
+                      scale="auto"
+                      allowDataOverflow={false}
+                      allowDuplicatedCategory={false}
+                      tickFormatter={undefined}
+                      angle={0}
+                      textAnchor="middle"
+                      verticalAnchor="middle"
+                      height={30}
+                      width={0}
+                      hide={false}
+                      label={undefined}
+                      name={undefined}
+                      unit={undefined}
+                      nameKey={undefined}
                     />
                     <YAxis 
                       stroke="#9ca3af" 
                       tick={{ fontSize: 12 }}
+                      allowDecimals={false}
+                      axisLine={{ stroke: '#9ca3af' }}
+                      tickLine={{ stroke: '#9ca3af' }}
+                      type="number"
+                      domain={[0, 'dataMax']}
+                      tickCount={5}
+                      padding={{ top: 10, bottom: 10 }}
+                      mirror={false}
+                      reversed={false}
+                      scale="auto"
+                      allowDataOverflow={false}
+                      tickFormatter={undefined}
+                      angle={0}
+                      textAnchor="end"
+                      verticalAnchor="middle"
+                      width={60}
+                      height={0}
+                      hide={false}
+                      label={undefined}
+                      orientation="left"
+                      dataKey={undefined}
+                      name={undefined}
+                      unit={undefined}
+                      nameKey={undefined}
                     />
                     <Tooltip 
                       contentStyle={{ 
@@ -684,8 +822,6 @@ const AnalyticsDashboard = () => {
                       strokeWidth={2}
                       dot={{ fill: '#10b981', r: 4 }}
                       name="Demo Equipment A"
-                      xAxisId={0}
-                      yAxisId={0}
                     />
                     <Line
                       type="monotone"
@@ -694,8 +830,6 @@ const AnalyticsDashboard = () => {
                       strokeWidth={2}
                       dot={{ fill: '#06b6d4', r: 4 }}
                       name="Demo Equipment B"
-                      xAxisId={0}
-                      yAxisId={0}
                     />
                   </LineChart>
                 </ResponsiveContainer>
@@ -728,10 +862,49 @@ const AnalyticsDashboard = () => {
                           stroke="#9ca3af"
                           tick={{ fontSize: 12 }}
                           tickFormatter={(value) => safeTimeFormat(value, value)}
+                          allowDecimals={false}
+                          axisLine={{ stroke: '#9ca3af' }}
+                          tickLine={{ stroke: '#9ca3af' }}
+                          type="category"
+                          domain={[0, 'dataMax']}
+                          tickCount={6}
+                          padding={{ left: 10, right: 10 }}
+                          mirror={false}
+                          reversed={false}
+                          scale="auto"
+                          allowDataOverflow={false}
+                          allowDuplicatedCategory={false}
+                          angle={0}
+                          textAnchor="middle"
+                          verticalAnchor="middle"
+                          height={30}
+                          width={0}
+                          hide={false}
+                          label={undefined}
                         />
                         <YAxis 
                           stroke="#9ca3af" 
                           tick={{ fontSize: 12 }}
+                          allowDecimals={false}
+                          axisLine={{ stroke: '#9ca3af' }}
+                          tickLine={{ stroke: '#9ca3af' }}
+                          type="number"
+                          domain={[0, 'dataMax']}
+                          tickCount={5}
+                          padding={{ top: 10, bottom: 10 }}
+                          mirror={false}
+                          reversed={false}
+                          scale="auto"
+                          allowDataOverflow={false}
+                          tickFormatter={undefined}
+                          angle={0}
+                          textAnchor="end"
+                          verticalAnchor="middle"
+                          width={60}
+                          height={0}
+                          hide={false}
+                          label={undefined}
+                          orientation="left"
                         />
                         <Tooltip 
                           contentStyle={{ 
@@ -774,8 +947,6 @@ const AnalyticsDashboard = () => {
                             strokeWidth={2}
                             dot={false}
                             name={eq}
-                            xAxisId={0}
-                            yAxisId={0}
                           />
                         ))}
                       </LineChart>
@@ -851,8 +1022,6 @@ const AnalyticsDashboard = () => {
                           strokeWidth={2}
                           dot={false}
                           name={eq}
-                          xAxisId={0}
-                          yAxisId={0}
                         />
                       ))}
                     </LineChart>
