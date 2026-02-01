@@ -1,7 +1,27 @@
 from django.urls import path
 from .views import UploadDatasetView, DesktopUploadDatasetView, DatasetListView, DatasetDetailView, DatasetReportPDFView, DatasetDataView, create_users_view, CreateUsersView
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+@api_view(['GET'])
+def api_root(request):
+    """
+    API Root - FOSSEE Equipment Monitoring System
+    """
+    return Response({
+        'message': 'FOSSEE Equipment Monitoring System API',
+        'version': '1.0.0',
+        'endpoints': {
+            'upload': '/api/upload/',
+            'desktop_upload': '/api/desktop-upload/',
+            'datasets': '/api/datasets/',
+            'create_users': '/api/create-users/',
+        },
+        'status': 'operational'
+    })
 
 urlpatterns = [
+    path('', api_root, name='api-root'),
     path('upload/', UploadDatasetView.as_view(), name='upload-dataset'),  # Web - requires auth
     path('desktop-upload/', DesktopUploadDatasetView.as_view(), name='desktop-upload-dataset'),  # Desktop - no auth
     path('datasets/', DatasetListView.as_view(), name='dataset-list'),
