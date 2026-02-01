@@ -503,6 +503,9 @@ const AnalyticsDashboard = () => {
                       allowDecimals={false}
                       axisLine={{ stroke: '#9ca3af' }}
                       tickLine={{ stroke: '#9ca3af' }}
+                      type="category"
+                      domain={[0, 'dataMax']}
+                      tickCount={6}
                     />
                     <YAxis 
                       stroke="#9ca3af" 
@@ -510,6 +513,9 @@ const AnalyticsDashboard = () => {
                       allowDecimals={false}
                       axisLine={{ stroke: '#9ca3af' }}
                       tickLine={{ stroke: '#9ca3af' }}
+                      type="number"
+                      domain={[0, 'dataMax']}
+                      tickCount={5}
                     />
                     <Tooltip 
                       contentStyle={{ 
@@ -527,6 +533,7 @@ const AnalyticsDashboard = () => {
                       strokeDasharray="5 5" 
                       label="Max Safe"
                       strokeWidth={2}
+                      isFront={false}
                     />
                     <ReferenceLine 
                       y={40} 
@@ -534,6 +541,7 @@ const AnalyticsDashboard = () => {
                       strokeDasharray="5 5" 
                       label="Min Safe"
                       strokeWidth={2}
+                      isFront={false}
                     />
                     <ReferenceLine 
                       y={60} 
@@ -541,6 +549,7 @@ const AnalyticsDashboard = () => {
                       strokeDasharray="3 3" 
                       label="Optimal"
                       strokeWidth={2}
+                      isFront={false}
                     />
                     
                     <Line
@@ -585,6 +594,9 @@ const AnalyticsDashboard = () => {
                       allowDecimals={false}
                       axisLine={{ stroke: '#9ca3af' }}
                       tickLine={{ stroke: '#9ca3af' }}
+                      type="category"
+                      domain={[0, 'dataMax']}
+                      tickCount={6}
                     />
                     <YAxis 
                       stroke="#9ca3af" 
@@ -592,6 +604,9 @@ const AnalyticsDashboard = () => {
                       allowDecimals={false}
                       axisLine={{ stroke: '#9ca3af' }}
                       tickLine={{ stroke: '#9ca3af' }}
+                      type="number"
+                      domain={[0, 'dataMax']}
+                      tickCount={5}
                     />
                     <Tooltip 
                       contentStyle={{ 
@@ -647,6 +662,9 @@ const AnalyticsDashboard = () => {
                       allowDecimals={false}
                       axisLine={{ stroke: '#9ca3af' }}
                       tickLine={{ stroke: '#9ca3af' }}
+                      type="category"
+                      domain={[0, 'dataMax']}
+                      tickCount={6}
                     />
                     <YAxis 
                       stroke="#9ca3af" 
@@ -654,6 +672,9 @@ const AnalyticsDashboard = () => {
                       allowDecimals={false}
                       axisLine={{ stroke: '#9ca3af' }}
                       tickLine={{ stroke: '#9ca3af' }}
+                      type="number"
+                      domain={[0, 'dataMax']}
+                      tickCount={5}
                     />
                     <Tooltip 
                       contentStyle={{ 
@@ -737,6 +758,9 @@ const AnalyticsDashboard = () => {
                           allowDecimals={false}
                           axisLine={{ stroke: '#9ca3af' }}
                           tickLine={{ stroke: '#9ca3af' }}
+                          type="category"
+                          domain={[0, 'dataMax']}
+                          tickCount={6}
                         />
                         <YAxis 
                           stroke="#9ca3af" 
@@ -744,6 +768,9 @@ const AnalyticsDashboard = () => {
                           allowDecimals={false}
                           axisLine={{ stroke: '#9ca3af' }}
                           tickLine={{ stroke: '#9ca3af' }}
+                          type="number"
+                          domain={[0, 'dataMax']}
+                          tickCount={5}
                         />
                         <Tooltip 
                           contentStyle={{ 
