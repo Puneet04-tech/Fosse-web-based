@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import analyticsService from '../services/analyticsService';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './SummaryCards.css';
 
 const SummaryCards = React.memo(({ summary, datasetId, onMessage }) => {
@@ -79,24 +82,212 @@ const SummaryCards = React.memo(({ summary, datasetId, onMessage }) => {
 
   const download = async () => {
     try {
-      const username = prompt('Basic Auth username (admin)');
-      const password = prompt('Basic Auth password (adminpass)');
-      if (!username) return;
-      const { downloadReport } = await import('../api');
-      const blob = await downloadReport(datasetId, username, password);
-      const url = window.URL.createObjectURL(new Blob([blob]));
+      toast.info('📄 Generating real-time report...', {
+        position: 'top-right',
+        autoClose: 2000,
+      });
+
+      // Get real-time analysis data
+      const analysis = await analyticsService.performRealTimeAnalysis(datasetId);
+      
+      // Create real-time report content
+      const reportContent = generateRealTimeReport(analysis, datasetId);
+      
+      // Create and download PDF-like text file
+      const blob = new Blob([reportContent], { type: 'text/plain' });
+      const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `dataset_${datasetId}_report.pdf`;
+      a.download = `realtime_report_${datasetId}_${new Date().toISOString().split('T')[0]}.txt`;
       document.body.appendChild(a);
       a.click();
       a.remove();
       window.URL.revokeObjectURL(url);
-      onMessage && onMessage('Report downloaded');
+      
+      toast.success('✅ Real-time report downloaded successfully!', {
+        position: 'top-right',
+        autoClose: 3000,
+      });
+      
+      onMessage && onMessage('Real-time report downloaded');
     } catch (err) {
-      console.error(err);
+      console.error('Error downloading report:', err);
+      toast.error('❌ Failed to download report', {
+        position: 'top-right',
+        autoClose: 3000,
+      });
       onMessage && onMessage('Failed to download report');
     }
+  };
+
+  const viewReport = async () => {
+    try {
+      toast.info('👁️ Loading real-time report...', {
+        position: 'top-right',
+        autoClose: 2000,
+      });
+
+      // Get real-time analysis data
+      const analysis = await analyticsService.performRealTimeAnalysis(datasetId);
+      
+      // Create real-time report content
+      const reportContent = generateRealTimeReport(analysis, datasetId);
+      
+      // Open report in new window
+      const newWindow = window.open('', '_blank');
+      newWindow.document.write(`
+        <html>
+          <head>
+            <title>Real-Time Equipment Analysis Report</title>
+            <style>
+              body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+              .header { border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
+              .section { margin: 20px 0; }
+              .metric { background: #f5f5f5; padding: 10px; margin: 5px 0; border-radius: 5px; }
+              .anomaly { background: #ffe6e6; padding: 10px; margin: 5px 0; border-radius: 5px; border-left: 4px solid #ff4444; }
+              pre { background: #f8f8f8; padding: 15px; border-radius: 5px; overflow-x: auto; }
+            </style>
+          </head>
+          <body>
+            <pre>${reportContent}</pre>
+          </body>
+        </html>
+      `);
+      newWindow.document.close();
+      
+      toast.success('✅ Real-time report opened in new window!', {
+        position: 'top-right',
+        autoClose: 3000,
+      });
+      
+      onMessage && onMessage('Real-time report viewed');
+    } catch (err) {
+      console.error('Error viewing report:', err);
+      toast.error('❌ Failed to view report', {
+        position: 'top-right',
+        autoClose: 3000,
+      });
+      onMessage && onMessage('Failed to view report');
+    }
+  };
+
+  const exportData = async () => {
+    try {
+      toast.info('📤 Exporting real-time data...', {
+        position: 'top-right',
+        autoClose: 2000,
+      });
+
+      // Get real-time analysis data
+      const analysis = await analyticsService.performRealTimeAnalysis(datasetId);
+      
+      // Create CSV export
+      const csvContent = generateCSVExport(analysis);
+      
+      // Create and download CSV file
+      const blob = new Blob([csvContent], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `realtime_data_${datasetId}_${new Date().toISOString().split('T')[0]}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+      
+      toast.success('✅ Real-time data exported successfully!', {
+        position: 'top-right',
+        autoClose: 3000,
+      });
+      
+      onMessage && onMessage('Real-time data exported');
+    } catch (err) {
+      console.error('Error exporting data:', err);
+      toast.error('❌ Failed to export data', {
+        position: 'top-right',
+        autoClose: 3000,
+      });
+      onMessage && onMessage('Failed to export data');
+    }
+  };
+
+  const generateRealTimeReport = (analysis, datasetId) => {
+    const timestamp = new Date().toLocaleString();
+    const report = `
+REAL-TIME EQUIPMENT ANALYSIS REPORT
+=====================================
+
+Generated: ${timestamp}
+Dataset ID: ${datasetId}
+
+EXECUTIVE SUMMARY
+-----------------
+Total Equipment: ${analysis.equipment?.length || 0}
+Parameters Monitored: ${analysis.parameters?.length || 0}
+Data Points Analyzed: ${analysis.data?.length || 0}
+Anomalies Detected: ${analysis.anomalies?.length || 0}
+
+EQUIPMENT TYPES
+---------------
+${analysis.equipment?.map(eq => `• ${eq}`).join('\n') || 'No equipment data'}
+
+PARAMETER STATISTICS
+--------------------
+${Object.entries(analysis.statistics || {}).map(([param, stats]) => `
+${param.toUpperCase()}:
+  Mean: ${stats.mean}
+  Std Dev: ${stats.std}
+  Min: ${stats.min}
+  Max: ${stats.max}
+  Count: ${stats.count}`).join('\n')}
+
+RECENT ANOMALIES
+---------------
+${analysis.anomalies?.slice(0, 10).map(anomaly => `
+⚠️ ${anomaly.equipment} - ${anomaly.parameter.toUpperCase()}
+   Value: ${anomaly.value} (Z-score: ${anomaly.zScore})
+   Time: ${new Date(anomaly.timestamp).toLocaleString()}
+   Severity: ${anomaly.severity}`).join('\n') || 'No anomalies detected'}
+
+TREND ANALYSIS
+--------------
+${Object.entries(analysis.trends || {}).map(([param, trend]) => `
+${param.toUpperCase()}:
+  Direction: ${trend.direction}
+  Change: ${trend.change}%
+  Volatility: ${trend.volatility}
+  Status: ${trend.isStable ? 'STABLE' : 'UNSTABLE'}`).join('\n')}
+
+SYSTEM HEALTH
+------------
+Overall Status: ${analysis.anomalies?.length > 0 ? 'ATTENTION REQUIRED' : 'HEALTHY'}
+Alert Level: ${analysis.anomalies?.length > 5 ? 'HIGH' : analysis.anomalies?.length > 0 ? 'MEDIUM' : 'LOW'}
+
+---
+Report generated by Fosse Equipment Monitoring System
+Real-time AI-powered anomaly detection and analysis
+    `.trim();
+    
+    return report;
+  };
+
+  const generateCSVExport = (analysis) => {
+    const headers = ['Timestamp', 'Equipment', 'Flowrate', 'Pressure', 'Temperature', 'Status'];
+    const rows = analysis.data?.map(row => [
+      new Date(row.timestamp).toLocaleString(),
+      row.equipment || 'Unknown',
+      row.flowrate || '',
+      row.pressure || '',
+      row.temperature || '',
+      analysis.anomalies?.some(a => a.timestamp === row.timestamp) ? 'ANOMALY' : 'NORMAL'
+    ]) || [];
+    
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
+    ].join('\n');
+    
+    return csvContent;
   };
 
   const copyToClipboard = async () => {
@@ -110,7 +301,8 @@ const SummaryCards = React.memo(({ summary, datasetId, onMessage }) => {
   };
 
   return (
-    <div className="summary-cards-container">
+    <>
+      <div className="summary-cards-container">
       <div className="row">
         {/* Total Equipment Card */}
         <div className="col-lg-4 col-md-6">
@@ -169,13 +361,21 @@ const SummaryCards = React.memo(({ summary, datasetId, onMessage }) => {
             </div>
             <div className="summary-card-body">
               <div className="summary-actions">
-                <button className="summary-btn summary-btn-primary" onClick={download}>
-                  <span>📄</span>
-                  Download PDF Report
+                <button className="summary-btn summary-btn-primary" onClick={viewReport}>
+                  <span>👁️</span>
+                  View Report
                 </button>
-                <button className="summary-btn summary-btn-secondary" onClick={copyToClipboard}>
+                <button className="summary-btn summary-btn-secondary" onClick={download}>
+                  <span>📄</span>
+                  Download PDF
+                </button>
+                <button className="summary-btn summary-btn-success" onClick={exportData}>
+                  <span>📤</span>
+                  Export CSV
+                </button>
+                <button className="summary-btn summary-btn-info" onClick={copyToClipboard}>
                   <span>📋</span>
-                  Copy JSON Data
+                  Copy JSON
                 </button>
               </div>
             </div>
@@ -239,7 +439,9 @@ const SummaryCards = React.memo(({ summary, datasetId, onMessage }) => {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+      <ToastContainer />
+    </>
   );
 });
 
