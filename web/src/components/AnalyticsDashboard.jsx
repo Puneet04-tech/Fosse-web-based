@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area, ReferenceLine } from 'recharts';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -63,15 +63,20 @@ const AnalyticsDashboard = () => {
   const [selectedDataset, setSelectedDataset] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const userHasSelectedDataset = useRef(false);
 
   // Load real data from backend
   useEffect(() => {
-    loadRealData();
+    const initialLoad = async () => {
+      setLoading(true);
+      await loadRealData();
+      setLoading(false);
+    };
     
-    // Set up real-time polling - but only update datasets list, don't override selection
+    initialLoad();
+    
+    // Set up real-time polling (without loading states)
     const interval = setInterval(() => {
-      updateDatasetsList();
+      loadRealData();
     }, 10000); // Update every 10 seconds
 
     return () => clearInterval(interval);
@@ -84,88 +89,45 @@ const AnalyticsDashboard = () => {
     }
   }, [selectedDataset]);
 
-  // Update datasets list without overriding user selection
-  const updateDatasetsList = async () => {
-    try {
-      const datasetsList = await analyticsService.getDatasets();
-      setDatasets(datasetsList);
-      
-      // Only set latest dataset if no dataset is currently selected AND user hasn't manually selected one
-      if (datasetsList.length > 0 && !selectedDataset && !userHasSelectedDataset.current) {
-        const latestDataset = datasetsList[0];
-        setSelectedDataset(latestDataset);
-        
-        // Get real analysis data from backend
-        const analysis = await analyticsService.performRealTimeAnalysis(latestDataset.id);
-        
-        // Use real data from backend
-        setRealData(analysis.data || []);
-        
-        // Show real anomaly alerts
-        if (analysis.anomalies && analysis.anomalies.length > 0) {
-          const recentAnomalies = analysis.anomalies.slice(0, 3);
-          recentAnomalies.forEach(anomaly => {
-            toast.error(`🚨 Real Anomaly Detected: ${anomaly.equipment} - ${anomaly.parameter.toUpperCase()} is ${anomaly.value} (Z-score: ${anomaly.zScore})`, {
-              position: 'top-right',
-              autoClose: 8000,
-            });
-          });
-        }
-      } else if (selectedDataset) {
-        // If a dataset is selected, update its data in real-time
-        const analysis = await analyticsService.performRealTimeAnalysis(selectedDataset.id);
-        setRealData(analysis.data || []);
-        
-        // Show anomaly alerts for updated data
-        if (analysis.anomalies && analysis.anomalies.length > 0) {
-          const recentAnomalies = analysis.anomalies.slice(0, 1);
-          recentAnomalies.forEach(anomaly => {
-            toast.warning(`📊 Updated: ${anomaly.equipment} - ${anomaly.parameter.toUpperCase()} is ${anomaly.value} (Z-score: ${anomaly.zScore})`, {
-              position: 'top-right',
-              autoClose: 3000,
-            });
-          });
-        }
-      }
-    } catch (err) {
-      console.error('Failed to update datasets list:', err);
-    }
-  };
-
   const loadRealData = async () => {
     try {
-      setLoading(true);
       const datasetsList = await analyticsService.getDatasets();
       setDatasets(datasetsList);
       
-      // Only set latest dataset if no dataset is currently selected AND user hasn't manually selected one
-      if (datasetsList.length > 0 && !selectedDataset && !userHasSelectedDataset.current) {
-        const latestDataset = datasetsList[0];
-        setSelectedDataset(latestDataset);
-        
-        // Get real analysis data from backend
-        const analysis = await analyticsService.performRealTimeAnalysis(latestDataset.id);
-        
-        // Use real data from backend
-        setRealData(analysis.data || []);
-        
-        // Show real anomaly alerts
-        if (analysis.anomalies && analysis.anomalies.length > 0) {
-          const recentAnomalies = analysis.anomalies.slice(0, 3);
-          recentAnomalies.forEach(anomaly => {
-            toast.error(`🚨 Real Anomaly Detected: ${anomaly.equipment} - ${anomaly.parameter.toUpperCase()} is ${anomaly.value} (Z-score: ${anomaly.zScore})`, {
-              position: 'top-right',
-              autoClose: 8000,
+      if (datasetsList.length > 0) {
+        // Only auto-select latest dataset if no dataset is currently selected
+        if (!selectedDataset) {
+          const latestDataset = datasetsList[0];
+          setSelectedDataset(latestDataset);
+          
+          // Get real analysis data from backend
+          const analysis = await analyticsService.performRealTimeAnalysis(latestDataset.id);
+          
+          // Use real data from backend
+          setRealData(analysis.data || []);
+          
+          // Show real anomaly alerts
+          if (analysis.anomalies && analysis.anomalies.length > 0) {
+            const recentAnomalies = analysis.anomalies.slice(0, 3);
+            recentAnomalies.forEach(anomaly => {
+              toast.error(`🚨 Real Anomaly Detected: ${anomaly.equipment} - ${anomaly.parameter.toUpperCase()} is ${anomaly.value} (Z-score: ${anomaly.zScore})`, {
+                position: 'top-right',
+                autoClose: 8000,
+              });
             });
-          });
+          }
         }
+      } else {
+        // No datasets available
+        setRealData([]);
       }
-      setLoading(false);
     } catch (err) {
       console.error('Failed to load real data:', err);
-      setError('Failed to load real-time data');
-    } finally {
-      setLoading(false);
+      setError('Failed to load real data');
+      toast.error('❌ Failed to load real data', {
+        position: 'top-right',
+        autoClose: 3000,
+      });
     }
   };
 
@@ -174,17 +136,11 @@ const AnalyticsDashboard = () => {
     try {
       setLoading(true);
       
-      console.log('Loading dataset data for ID:', datasetId);
-      
       // Get analysis data for selected dataset
       const analysis = await analyticsService.performRealTimeAnalysis(datasetId);
       
-      console.log('Analysis result:', analysis);
-      
       // Use real data from backend
       setRealData(analysis.data || []);
-      
-      console.log('Real data set:', analysis.data || []);
       
       // Show anomaly alerts for this dataset
       if (analysis.anomalies && analysis.anomalies.length > 0) {
@@ -235,81 +191,11 @@ const AnalyticsDashboard = () => {
     return equipment.sort();
   }, [realData]);
 
-  // Calculate dynamic reference lines based on actual data
-  const getDynamicReferenceLines = (type) => {
-    if (realData.length === 0) {
-      // Fallback to static values
-      return {
-        maxSafe: type === 'flowrate' ? 80 : type === 'pressure' ? 120 : 60,
-        minSafe: type === 'flowrate' ? 40 : type === 'pressure' ? 80 : 30,
-        optimal: type === 'flowrate' ? 60 : type === 'pressure' ? 100 : 45
-      };
-    }
-    
-    // Calculate based on real data
-    const values = realData.map(d => d[type]).filter(v => v !== undefined);
-    if (values.length === 0) {
-      return {
-        maxSafe: type === 'flowrate' ? 80 : type === 'pressure' ? 120 : 60,
-        minSafe: type === 'flowrate' ? 40 : type === 'pressure' ? 80 : 30,
-        optimal: type === 'flowrate' ? 60 : type === 'pressure' ? 100 : 45
-      };
-    }
-    
-    const mean = values.reduce((sum, val) => sum + val, 0) / values.length;
-    const std = Math.sqrt(values.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) / values.length);
-    
-    return {
-      maxSafe: mean + std * 2,  // 2 sigma above mean
-      minSafe: mean - std * 2,  // 2 sigma below mean
-      optimal: mean             // Mean value
-    };
-  };
-
   const parameterList = ['flowrate', 'pressure', 'temperature'];
 
-  // Generate demo data that reflects actual dataset patterns
+  // Generate demo data for sample charts
   const generateDemoData = (type) => {
     const data = [];
-    
-    // If we have real data, use it to generate realistic demo patterns
-    if (realData.length > 0) {
-      // Get actual equipment names and values from real data
-      const equipmentNames = [...new Set(realData.map(d => d.equipment))].slice(0, 2);
-      const values = realData.map(d => d[type]).filter(v => v !== undefined);
-      
-      if (values.length > 0) {
-        const mean = values.reduce((sum, val) => sum + val, 0) / values.length;
-        const variance = values.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) / values.length;
-        const std = Math.sqrt(variance);
-        
-        // Generate data that reflects actual patterns including anomalies
-        for (let i = 0; i < 20; i++) {
-          const dataPoint = {
-            time: `${i}:00`,
-          };
-          
-          equipmentNames.forEach((eq, eqIndex) => {
-            // Base value around the real mean
-            let value = mean + (Math.random() - 0.5) * std;
-            
-            // Add some anomaly patterns (spikes that exceed normal range)
-            if (i === 5 || i === 12 || i === 18) {
-              // Create anomaly spikes
-              value = mean + (Math.random() > 0.5 ? 1 : -1) * (std * 3 + Math.random() * std);
-            }
-            
-            dataPoint[`equipment${eqIndex + 1}`] = Math.max(0, value);
-          });
-          
-          data.push(dataPoint);
-        }
-        
-        return data;
-      }
-    }
-    
-    // Fallback to static demo data if no real data available
     const baseValues = {
       flowrate: { equipment1: 60, equipment2: 55 },
       pressure: { equipment1: 100, equipment2: 95 },
@@ -320,21 +206,11 @@ const AnalyticsDashboard = () => {
       const base1 = baseValues[type].equipment1;
       const base2 = baseValues[type].equipment2;
       
-      const dataPoint = {
+      data.push({
         time: `${i}:00`,
-      };
-      
-      // Add anomaly patterns to static demo data
-      if (i === 5 || i === 12 || i === 18) {
-        // Create visible anomaly spikes
-        dataPoint.equipment1 = base1 + (Math.random() > 0.5 ? 1 : -1) * (30 + Math.random() * 20);
-        dataPoint.equipment2 = base2 + (Math.random() > 0.5 ? 1 : -1) * (25 + Math.random() * 15);
-      } else {
-        dataPoint.equipment1 = base1 + (Math.random() - 0.5) * 20;
-        dataPoint.equipment2 = base2 + (Math.random() - 0.5) * 20;
-      }
-      
-      data.push(dataPoint);
+        equipment1: base1 + (Math.random() - 0.5) * 20,
+        equipment2: base2 + (Math.random() - 0.5) * 20
+      });
     }
     
     return data;
@@ -384,45 +260,14 @@ const AnalyticsDashboard = () => {
   }, [realData, anomalyThreshold]);
 
   const chartData = useMemo(() => {
-    console.log('Generating chart data from realData:', realData);
-    console.log('Equipment list:', equipmentList);
-    console.log('Selected parameter:', selectedParameter);
-    
-    // Get the last 50 data points for better visualization
-    const recentData = filteredData.slice(-50);
-    console.log('Filtered recent data:', recentData);
-    
-    // Group data by timestamp to create proper chart structure
-    const timestampGroups = {};
-    recentData.forEach(d => {
-      if (!timestampGroups[d.timestamp]) {
-        timestampGroups[d.timestamp] = {};
-      }
-      timestampGroups[d.timestamp][d.equipment] = d;
-    });
-    
-    console.log('Timestamp groups:', timestampGroups);
-    
-    // Convert to chart format
-    const chartDataResult = Object.keys(timestampGroups).sort().map(timestamp => {
-      const dataPoint = { timestamp };
-      
-      equipmentList.forEach(eq => {
-        const equipmentData = timestampGroups[timestamp][eq];
-        if (equipmentData) {
-          // Use the selected parameter, or default to flowrate for 'all'
-          const param = selectedParameter === 'all' ? 'flowrate' : selectedParameter;
-          dataPoint[eq] = equipmentData[param];
-        } else {
-          dataPoint[eq] = null;
-        }
-      });
-      
-      return dataPoint;
-    });
-    
-    console.log('Final chart data:', chartDataResult);
-    return chartDataResult;
+    return filteredData.slice(-50).map(d => ({
+      timestamp: d.timestamp,
+      ...equipmentList.reduce((acc, eq) => {
+        const equipmentData = filteredData.find(item => item.equipment === eq && item.timestamp === d.timestamp);
+        acc[eq] = equipmentData ? equipmentData[selectedParameter === 'all' ? 'flowrate' : selectedParameter] : null;
+        return acc;
+      }, {})
+    }));
   }, [filteredData, equipmentList, selectedParameter]);
 
   const statsCards = [
@@ -519,7 +364,6 @@ const AnalyticsDashboard = () => {
                 const datasetId = e.target.value;
                 const dataset = datasets.find(d => d.id.toString() === datasetId);
                 if (dataset) {
-                  userHasSelectedDataset.current = true; // Mark that user has manually selected
                   setSelectedDataset(dataset);
                   toast.info(`📊 Loading dataset: ${dataset.file?.split('/').pop().split('\\').pop() || `Dataset ${dataset.id}`}`, {
                     position: 'top-right',
@@ -666,23 +510,6 @@ const AnalyticsDashboard = () => {
                       type="category"
                       domain={[0, 'dataMax']}
                       tickCount={6}
-                      padding={{ left: 10, right: 10 }}
-                      mirror={false}
-                      reversed={false}
-                      scale="auto"
-                      allowDataOverflow={false}
-                      allowDuplicatedCategory={false}
-                      tickFormatter={undefined}
-                      angle={0}
-                      textAnchor="middle"
-                      verticalAnchor="middle"
-                      height={30}
-                      width={0}
-                      hide={false}
-                      label={undefined}
-                      name={undefined}
-                      unit={undefined}
-                      nameKey={undefined}
                     />
                     <YAxis 
                       stroke="#9ca3af" 
@@ -693,24 +520,6 @@ const AnalyticsDashboard = () => {
                       type="number"
                       domain={[0, 'dataMax']}
                       tickCount={5}
-                      padding={{ top: 10, bottom: 10 }}
-                      mirror={false}
-                      reversed={false}
-                      scale="auto"
-                      allowDataOverflow={false}
-                      tickFormatter={undefined}
-                      angle={0}
-                      textAnchor="end"
-                      verticalAnchor="middle"
-                      width={60}
-                      height={0}
-                      hide={false}
-                      label={undefined}
-                      orientation="left"
-                      dataKey={undefined}
-                      name={undefined}
-                      unit={undefined}
-                      nameKey={undefined}
                     />
                     <Tooltip 
                       contentStyle={{ 
@@ -723,37 +532,28 @@ const AnalyticsDashboard = () => {
                     <Legend />
                     
                     <ReferenceLine 
-                      y={getDynamicReferenceLines('flowrate').maxSafe} 
+                      y={80} 
                       stroke="#22c55e" 
                       strokeDasharray="5 5" 
                       label="Max Safe"
                       strokeWidth={2}
                       isFront={false}
-                      ifOverflow="extendDomain"
-                      labelPosition="right"
-                      segment={undefined}
                     />
                     <ReferenceLine 
-                      y={getDynamicReferenceLines('flowrate').minSafe} 
+                      y={40} 
                       stroke="#22c55e" 
                       strokeDasharray="5 5" 
                       label="Min Safe"
                       strokeWidth={2}
                       isFront={false}
-                      ifOverflow="extendDomain"
-                      labelPosition="right"
-                      segment={undefined}
                     />
                     <ReferenceLine 
-                      y={getDynamicReferenceLines('flowrate').optimal} 
+                      y={60} 
                       stroke="#3b82f6" 
                       strokeDasharray="3 3" 
                       label="Optimal"
                       strokeWidth={2}
                       isFront={false}
-                      ifOverflow="extendDomain"
-                      labelPosition="right"
-                      segment={undefined}
                     />
                     
                     <Line
@@ -801,23 +601,6 @@ const AnalyticsDashboard = () => {
                       type="category"
                       domain={[0, 'dataMax']}
                       tickCount={6}
-                      padding={{ left: 10, right: 10 }}
-                      mirror={false}
-                      reversed={false}
-                      scale="auto"
-                      allowDataOverflow={false}
-                      allowDuplicatedCategory={false}
-                      tickFormatter={undefined}
-                      angle={0}
-                      textAnchor="middle"
-                      verticalAnchor="middle"
-                      height={30}
-                      width={0}
-                      hide={false}
-                      label={undefined}
-                      name={undefined}
-                      unit={undefined}
-                      nameKey={undefined}
                     />
                     <YAxis 
                       stroke="#9ca3af" 
@@ -828,24 +611,6 @@ const AnalyticsDashboard = () => {
                       type="number"
                       domain={[0, 'dataMax']}
                       tickCount={5}
-                      padding={{ top: 10, bottom: 10 }}
-                      mirror={false}
-                      reversed={false}
-                      scale="auto"
-                      allowDataOverflow={false}
-                      tickFormatter={undefined}
-                      angle={0}
-                      textAnchor="end"
-                      verticalAnchor="middle"
-                      width={60}
-                      height={0}
-                      hide={false}
-                      label={undefined}
-                      orientation="left"
-                      dataKey={undefined}
-                      name={undefined}
-                      unit={undefined}
-                      nameKey={undefined}
                     />
                     <Tooltip 
                       contentStyle={{ 
@@ -904,23 +669,6 @@ const AnalyticsDashboard = () => {
                       type="category"
                       domain={[0, 'dataMax']}
                       tickCount={6}
-                      padding={{ left: 10, right: 10 }}
-                      mirror={false}
-                      reversed={false}
-                      scale="auto"
-                      allowDataOverflow={false}
-                      allowDuplicatedCategory={false}
-                      tickFormatter={undefined}
-                      angle={0}
-                      textAnchor="middle"
-                      verticalAnchor="middle"
-                      height={30}
-                      width={0}
-                      hide={false}
-                      label={undefined}
-                      name={undefined}
-                      unit={undefined}
-                      nameKey={undefined}
                     />
                     <YAxis 
                       stroke="#9ca3af" 
@@ -931,24 +679,6 @@ const AnalyticsDashboard = () => {
                       type="number"
                       domain={[0, 'dataMax']}
                       tickCount={5}
-                      padding={{ top: 10, bottom: 10 }}
-                      mirror={false}
-                      reversed={false}
-                      scale="auto"
-                      allowDataOverflow={false}
-                      tickFormatter={undefined}
-                      angle={0}
-                      textAnchor="end"
-                      verticalAnchor="middle"
-                      width={60}
-                      height={0}
-                      hide={false}
-                      label={undefined}
-                      orientation="left"
-                      dataKey={undefined}
-                      name={undefined}
-                      unit={undefined}
-                      nameKey={undefined}
                     />
                     <Tooltip 
                       contentStyle={{ 
@@ -961,21 +691,21 @@ const AnalyticsDashboard = () => {
                     <Legend />
                     
                     <ReferenceLine 
-                      y={getDynamicReferenceLines('pressure').maxSafe} 
+                      y={75} 
                       stroke="#22c55e" 
                       strokeDasharray="5 5" 
                       label="Max Safe"
                       strokeWidth={2}
                     />
                     <ReferenceLine 
-                      y={getDynamicReferenceLines('pressure').minSafe} 
+                      y={25} 
                       stroke="#22c55e" 
                       strokeDasharray="5 5" 
                       label="Min Safe"
                       strokeWidth={2}
                     />
                     <ReferenceLine 
-                      y={getDynamicReferenceLines('pressure').optimal} 
+                      y={50} 
                       stroke="#3b82f6" 
                       strokeDasharray="3 3" 
                       label="Optimal"
@@ -1035,19 +765,6 @@ const AnalyticsDashboard = () => {
                           type="category"
                           domain={[0, 'dataMax']}
                           tickCount={6}
-                          padding={{ left: 10, right: 10 }}
-                          mirror={false}
-                          reversed={false}
-                          scale="auto"
-                          allowDataOverflow={false}
-                          allowDuplicatedCategory={false}
-                          angle={0}
-                          textAnchor="middle"
-                          verticalAnchor="middle"
-                          height={30}
-                          width={0}
-                          hide={false}
-                          label={undefined}
                         />
                         <YAxis 
                           stroke="#9ca3af" 
@@ -1058,20 +775,6 @@ const AnalyticsDashboard = () => {
                           type="number"
                           domain={[0, 'dataMax']}
                           tickCount={5}
-                          padding={{ top: 10, bottom: 10 }}
-                          mirror={false}
-                          reversed={false}
-                          scale="auto"
-                          allowDataOverflow={false}
-                          tickFormatter={undefined}
-                          angle={0}
-                          textAnchor="end"
-                          verticalAnchor="middle"
-                          width={60}
-                          height={0}
-                          hide={false}
-                          label={undefined}
-                          orientation="left"
                         />
                         <Tooltip 
                           contentStyle={{ 
@@ -1084,21 +787,21 @@ const AnalyticsDashboard = () => {
                         <Legend />
                         
                         <ReferenceLine 
-                          y={getDynamicReferenceLines(param).maxSafe} 
+                          y={80} 
                           stroke="#22c55e" 
                           strokeDasharray="5 5" 
                           label="Max Safe"
                           strokeWidth={2}
                         />
                         <ReferenceLine 
-                          y={getDynamicReferenceLines(param).minSafe} 
+                          y={40} 
                           stroke="#22c55e" 
                           strokeDasharray="5 5" 
                           label="Min Safe"
                           strokeWidth={2}
                         />
                         <ReferenceLine 
-                          y={getDynamicReferenceLines(param).optimal} 
+                          y={60} 
                           stroke="#3b82f6" 
                           strokeDasharray="3 3" 
                           label="Optimal"
@@ -1159,21 +862,21 @@ const AnalyticsDashboard = () => {
                       <Legend />
                       
                       <ReferenceLine 
-                        y={getDynamicReferenceLines('temperature').maxSafe} 
+                        y={80} 
                         stroke="#22c55e" 
                         strokeDasharray="5 5" 
                         label="Max Safe"
                         strokeWidth={2}
                       />
                       <ReferenceLine 
-                        y={getDynamicReferenceLines('temperature').minSafe} 
+                        y={40} 
                         stroke="#22c55e" 
                         strokeDasharray="5 5" 
                         label="Min Safe"
                         strokeWidth={2}
                       />
                       <ReferenceLine 
-                        y={getDynamicReferenceLines('temperature').optimal} 
+                        y={60} 
                         stroke="#3b82f6" 
                         strokeDasharray="3 3" 
                         label="Optimal"
