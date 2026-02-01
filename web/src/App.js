@@ -505,6 +505,7 @@ function CompoundsPage() {
 }
 
 function ReportsPage() {
+  console.log('ReportsPage component rendered!');
   const [selectedReport, setSelectedReport] = React.useState(null);
   const [searchTerm, setSearchTerm] = React.useState('');
   const [filterType, setFilterType] = React.useState('all');
@@ -729,6 +730,24 @@ Timestamp,Equipment,Parameter,Value,Status
 
   return (
     <main className="main-content reports-page" style={{ paddingTop: '220px' }}>
+      {/* DEBUG TEST BUTTON */}
+      <div style={{ 
+        position: 'fixed', 
+        top: '250px', 
+        right: '20px', 
+        zIndex: 9999, 
+        background: 'red', 
+        padding: '10px',
+        border: '2px solid yellow'
+      }}>
+        <button 
+          onClick={() => alert('Reports page button click works!')}
+          style={{ padding: '10px', background: 'yellow', border: '2px solid black' }}
+        >
+          TEST BUTTON
+        </button>
+      </div>
+      
       <div className="container-fluid">
         {/* Header Section */}
         <div className="reports-header">
@@ -840,6 +859,20 @@ Timestamp,Equipment,Parameter,Value,Status
               </div>
               
               <div className="report-actions">
+                {/* Inline test button */}
+                <button 
+                  onClick={() => alert('Inline test works!')}
+                  style={{ 
+                    padding: '8px', 
+                    background: 'orange', 
+                    border: '2px solid black',
+                    marginRight: '10px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  INLINE TEST
+                </button>
+                
                 <button className="action-btn primary" onClick={() => handleViewReport(report)}>
                   <span className="btn-icon">👁️</span>
                   View Report
