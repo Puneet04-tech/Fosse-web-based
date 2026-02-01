@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 from django.http import JsonResponse, HttpResponse, FileResponse
 from rest_framework.views import APIView
-from rest_framework import generics, status
+from rest_framework import generics, status, Response
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.contrib.auth.models import User
@@ -266,3 +266,39 @@ def create_users_view(request):
             'success': False,
             'error': str(e)
         }, status=400)
+
+
+class CreateUsersView(APIView):
+    permission_classes = [AllowAny]
+    
+    def post(self, request):
+        """Create default users for the system"""
+        try:
+            users_created = []
+            
+            # Create admin user
+            if not User.objects.filter(username='admin').exists():
+                User.objects.create_superuser('admin', 'admin@example.com', 'adminpass')
+                users_created.append('admin/adminpass')
+            
+            # Create demo user
+            if not User.objects.filter(username='demo').exists():
+                User.objects.create_user('demo', 'demo@example.com', 'demo123')
+                users_created.append('demo/demo123')
+            
+            # Create test user
+            if not User.objects.filter(username='test').exists():
+                User.objects.create_user('test', 'test@example.com', 'test123')
+                users_created.append('test/test123')
+            
+            return Response({
+                'success': True,
+                'message': f'Users created: {", ".join(users_created)}',
+                'users': users_created
+            })
+            
+        except Exception as e:
+            return Response({
+                'success': False,
+                'error': str(e)
+            }, status=400)

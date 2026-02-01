@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import UploadDatasetView, DesktopUploadDatasetView, DatasetListView, DatasetDetailView, DatasetReportPDFView, DatasetDataView, create_users_view
+from .views import UploadDatasetView, DesktopUploadDatasetView, DatasetListView, DatasetDetailView, DatasetReportPDFView, DatasetDataView, create_users_view, CreateUsersView
 
 urlpatterns = [
     path('upload/', UploadDatasetView.as_view(), name='upload-dataset'),  # Web - requires auth
@@ -8,5 +8,5 @@ urlpatterns = [
     path('datasets/<int:pk>/', DatasetDetailView.as_view(), name='dataset-detail'),
     path('datasets/<int:pk>/data/', DatasetDataView.as_view(), name='dataset-data'),
     path('datasets/<int:pk>/report.pdf', DatasetReportPDFView.as_view(), name='dataset-report'),
-    path('create-users/', create_users_view, name='create-users'),
+    path('create-users/', CreateUsersView.as_view(), name='create-users'),
 ]
