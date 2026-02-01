@@ -76,6 +76,13 @@ const AnalyticsDashboard = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Load data when selected dataset changes
+  useEffect(() => {
+    if (selectedDataset) {
+      loadDatasetData(selectedDataset.id);
+    }
+  }, [selectedDataset]);
+
   const loadRealData = async () => {
     try {
       setLoading(true);
@@ -116,6 +123,39 @@ const AnalyticsDashboard = () => {
         autoClose: 5000,
       });
     } finally {
+      setLoading(false);
+    }
+  };
+
+  // Load specific dataset data
+  const loadDatasetData = async (datasetId) => {
+    try {
+      setLoading(true);
+      
+      // Get analysis data for selected dataset
+      const analysis = await analyticsService.performRealTimeAnalysis(datasetId);
+      
+      // Use real data from backend
+      setRealData(analysis.data || []);
+      
+      // Show anomaly alerts for this dataset
+      if (analysis.anomalies && analysis.anomalies.length > 0) {
+        const recentAnomalies = analysis.anomalies.slice(0, 2);
+        recentAnomalies.forEach(anomaly => {
+          toast.warning(`📊 Dataset Analysis: ${anomaly.equipment} - ${anomaly.parameter.toUpperCase()} is ${anomaly.value} (Z-score: ${anomaly.zScore})`, {
+            position: 'top-right',
+            autoClose: 4000,
+          });
+        });
+      }
+      
+      setLoading(false);
+    } catch (err) {
+      console.error('Failed to load dataset data:', err);
+      toast.error('❌ Failed to load dataset data', {
+        position: 'top-right',
+        autoClose: 3000,
+      });
       setLoading(false);
     }
   };
@@ -317,17 +357,29 @@ const AnalyticsDashboard = () => {
             <select 
               value={selectedDataset?.id || ''} 
               onChange={(e) => {
-                const dataset = datasets.find(d => d.id === e.target.value);
-                setSelectedDataset(dataset);
+                const datasetId = e.target.value;
+                const dataset = datasets.find(d => d.id.toString() === datasetId);
+                if (dataset) {
+                  setSelectedDataset(dataset);
+                  toast.info(`📊 Loading dataset: ${dataset.file?.split('/').pop().split('\\').pop() || `Dataset ${dataset.id}`}`, {
+                    position: 'top-right',
+                    autoClose: 2000,
+                  });
+                }
               }}
               className="dataset-select"
+              disabled={loading || datasets.length === 0}
             >
+              <option value="" disabled>
+                {loading ? 'Loading datasets...' : datasets.length === 0 ? 'No datasets available' : 'Select a dataset...'}
+              </option>
               {datasets.map(dataset => (
                 <option key={dataset.id} value={dataset.id}>
                   {dataset.file?.split('/').pop().split('\\').pop() || `Dataset ${dataset.id}`} ({safeDateFormat(dataset.uploaded_at)})
                 </option>
               ))}
             </select>
+            {loading && <div className="dataset-loading">⟳</div>}
           </div>
         </div>
       </section>
