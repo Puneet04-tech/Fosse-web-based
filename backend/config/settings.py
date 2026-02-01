@@ -1,11 +1,14 @@
 import os
 from pathlib import Path
 from datetime import timedelta
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('DJANGO_SECRET', 'change-me-for-production')
-DEBUG = True
+SECRET_KEY = os.environ.get('SECRET_KEY', 'change-me-for-production-very-secret')
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+
+# Heroku will set this automatically
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
@@ -51,12 +54,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+# Database configuration
+# Use Heroku PostgreSQL if available, otherwise SQLite
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 AUTH_PASSWORD_VALIDATORS = []
 
