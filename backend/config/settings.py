@@ -4,11 +4,8 @@ from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-change-me-in-production-very-long-secret-key-for-safety')
-
-# Force DEBUG to True for Render deployment
+SECRET_KEY = os.environ.get('DJANGO_SECRET', 'change-me-for-production')
 DEBUG = True
-
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
@@ -54,7 +51,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# Database configuration - Simple SQLite
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -84,12 +80,5 @@ REST_FRAMEWORK = {
     ]
 }
 
-# CORS Settings - Allow localhost and Netlify
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "https://chemical-equipement.netlify.app",
-    "https://*.netlify.app",
-]
-CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_ALL_ORIGINS = True  # Fallback for debugging
+# Allow all origins for now (development)
+CORS_ALLOW_ALL_ORIGINS = True

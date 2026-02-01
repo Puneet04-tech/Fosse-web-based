@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let API_BASE = process.env.REACT_APP_API_URL || 'https://fosse-equipment-monitor.onrender.com/api';
+let API_BASE = process.env.REACT_APP_API_URL || 'http://127.0.0.1:8000/api';
 // Ensure API_BASE ends with '/api' for consistent endpoints
 if (!API_BASE.endsWith('/api')) {
   API_BASE = API_BASE.replace(/\/$/, '') + '/api';
