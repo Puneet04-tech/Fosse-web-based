@@ -76,19 +76,11 @@ class AnalyticsService {
   // Perform real-time analysis on dataset
   async performRealTimeAnalysis(datasetId) {
     try {
-      console.log('Performing analysis for dataset ID:', datasetId);
-      
       const data = await this.getDatasetData(datasetId);
-      console.log('Raw dataset data:', data);
-      
       const dataset = await this.getDataset(datasetId);
-      console.log('Dataset info:', dataset);
       
       // Process real data from backend
-      const result = this.processRealData(data.rows, dataset.summary);
-      console.log('Processed analysis result:', result);
-      
-      return result;
+      return this.processRealData(data.rows, dataset.summary);
     } catch (error) {
       console.error('Error performing real-time analysis:', error);
       throw error;
@@ -97,11 +89,7 @@ class AnalyticsService {
 
   // Process real data for analytics
   processRealData(rows, summary) {
-    console.log('Processing real data - rows:', rows);
-    console.log('Processing real data - summary:', summary);
-    
     if (!rows || rows.length === 0) {
-      console.log('No rows data available');
       return {
         equipment: [],
         parameters: [],
@@ -117,9 +105,6 @@ class AnalyticsService {
     const parameters = ['Flowrate', 'Pressure', 'Temperature'].filter(param => 
       rows.some(row => row[param] !== undefined && row[param] !== null)
     );
-    
-    console.log('Equipment types found:', equipmentTypes);
-    console.log('Parameters found:', parameters);
 
     // Process data for real-time monitoring
     const processedData = rows.map((row, index) => {
@@ -137,12 +122,9 @@ class AnalyticsService {
           processedRow[param.toLowerCase()] = value;
         }
       });
-      
-      console.log(`Processed row ${index}:`, processedRow);
+
       return processedRow;
     });
-
-    console.log('All processed data:', processedData);
 
     // Calculate real statistics
     const statistics = this.calculateRealStatistics(processedData, parameters);
