@@ -214,11 +214,81 @@ const AnalyticsDashboard = () => {
     return equipment.sort();
   }, [realData]);
 
+  // Calculate dynamic reference lines based on actual data
+  const getDynamicReferenceLines = (type) => {
+    if (realData.length === 0) {
+      // Fallback to static values
+      return {
+        maxSafe: type === 'flowrate' ? 80 : type === 'pressure' ? 120 : 60,
+        minSafe: type === 'flowrate' ? 40 : type === 'pressure' ? 80 : 30,
+        optimal: type === 'flowrate' ? 60 : type === 'pressure' ? 100 : 45
+      };
+    }
+    
+    // Calculate based on real data
+    const values = realData.map(d => d[type]).filter(v => v !== undefined);
+    if (values.length === 0) {
+      return {
+        maxSafe: type === 'flowrate' ? 80 : type === 'pressure' ? 120 : 60,
+        minSafe: type === 'flowrate' ? 40 : type === 'pressure' ? 80 : 30,
+        optimal: type === 'flowrate' ? 60 : type === 'pressure' ? 100 : 45
+      };
+    }
+    
+    const mean = values.reduce((sum, val) => sum + val, 0) / values.length;
+    const std = Math.sqrt(values.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) / values.length);
+    
+    return {
+      maxSafe: mean + std * 2,  // 2 sigma above mean
+      minSafe: mean - std * 2,  // 2 sigma below mean
+      optimal: mean             // Mean value
+    };
+  };
+
   const parameterList = ['flowrate', 'pressure', 'temperature'];
 
-  // Generate demo data for sample charts
+  // Generate demo data that reflects actual dataset patterns
   const generateDemoData = (type) => {
     const data = [];
+    
+    // If we have real data, use it to generate realistic demo patterns
+    if (realData.length > 0) {
+      // Get actual equipment names and values from real data
+      const equipmentNames = [...new Set(realData.map(d => d.equipment))].slice(0, 2);
+      const values = realData.map(d => d[type]).filter(v => v !== undefined);
+      
+      if (values.length > 0) {
+        const mean = values.reduce((sum, val) => sum + val, 0) / values.length;
+        const variance = values.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) / values.length;
+        const std = Math.sqrt(variance);
+        
+        // Generate data that reflects actual patterns including anomalies
+        for (let i = 0; i < 20; i++) {
+          const dataPoint = {
+            time: `${i}:00`,
+          };
+          
+          equipmentNames.forEach((eq, eqIndex) => {
+            // Base value around the real mean
+            let value = mean + (Math.random() - 0.5) * std;
+            
+            // Add some anomaly patterns (spikes that exceed normal range)
+            if (i === 5 || i === 12 || i === 18) {
+              // Create anomaly spikes
+              value = mean + (Math.random() > 0.5 ? 1 : -1) * (std * 3 + Math.random() * std);
+            }
+            
+            dataPoint[`equipment${eqIndex + 1}`] = Math.max(0, value);
+          });
+          
+          data.push(dataPoint);
+        }
+        
+        return data;
+      }
+    }
+    
+    // Fallback to static demo data if no real data available
     const baseValues = {
       flowrate: { equipment1: 60, equipment2: 55 },
       pressure: { equipment1: 100, equipment2: 95 },
@@ -229,11 +299,21 @@ const AnalyticsDashboard = () => {
       const base1 = baseValues[type].equipment1;
       const base2 = baseValues[type].equipment2;
       
-      data.push({
+      const dataPoint = {
         time: `${i}:00`,
-        equipment1: base1 + (Math.random() - 0.5) * 20,
-        equipment2: base2 + (Math.random() - 0.5) * 20
-      });
+      };
+      
+      // Add anomaly patterns to static demo data
+      if (i === 5 || i === 12 || i === 18) {
+        // Create visible anomaly spikes
+        dataPoint.equipment1 = base1 + (Math.random() > 0.5 ? 1 : -1) * (30 + Math.random() * 20);
+        dataPoint.equipment2 = base2 + (Math.random() > 0.5 ? 1 : -1) * (25 + Math.random() * 15);
+      } else {
+        dataPoint.equipment1 = base1 + (Math.random() - 0.5) * 20;
+        dataPoint.equipment2 = base2 + (Math.random() - 0.5) * 20;
+      }
+      
+      data.push(dataPoint);
     }
     
     return data;
@@ -283,14 +363,35 @@ const AnalyticsDashboard = () => {
   }, [realData, anomalyThreshold]);
 
   const chartData = useMemo(() => {
-    return filteredData.slice(-50).map(d => ({
-      timestamp: d.timestamp,
-      ...equipmentList.reduce((acc, eq) => {
-        const equipmentData = filteredData.find(item => item.equipment === eq && item.timestamp === d.timestamp);
-        acc[eq] = equipmentData ? equipmentData[selectedParameter === 'all' ? 'flowrate' : selectedParameter] : null;
-        return acc;
-      }, {})
-    }));
+    // Get the last 50 data points for better visualization
+    const recentData = filteredData.slice(-50);
+    
+    // Group data by timestamp to create proper chart structure
+    const timestampGroups = {};
+    recentData.forEach(d => {
+      if (!timestampGroups[d.timestamp]) {
+        timestampGroups[d.timestamp] = {};
+      }
+      timestampGroups[d.timestamp][d.equipment] = d;
+    });
+    
+    // Convert to chart format
+    return Object.keys(timestampGroups).sort().map(timestamp => {
+      const dataPoint = { timestamp };
+      
+      equipmentList.forEach(eq => {
+        const equipmentData = timestampGroups[timestamp][eq];
+        if (equipmentData) {
+          // Use the selected parameter, or default to flowrate for 'all'
+          const param = selectedParameter === 'all' ? 'flowrate' : selectedParameter;
+          dataPoint[eq] = equipmentData[param];
+        } else {
+          dataPoint[eq] = null;
+        }
+      });
+      
+      return dataPoint;
+    });
   }, [filteredData, equipmentList, selectedParameter]);
 
   const statsCards = [
@@ -591,7 +692,7 @@ const AnalyticsDashboard = () => {
                     <Legend />
                     
                     <ReferenceLine 
-                      y={80} 
+                      y={getDynamicReferenceLines('flowrate').maxSafe} 
                       stroke="#22c55e" 
                       strokeDasharray="5 5" 
                       label="Max Safe"
@@ -602,7 +703,7 @@ const AnalyticsDashboard = () => {
                       segment={undefined}
                     />
                     <ReferenceLine 
-                      y={40} 
+                      y={getDynamicReferenceLines('flowrate').minSafe} 
                       stroke="#22c55e" 
                       strokeDasharray="5 5" 
                       label="Min Safe"
@@ -613,7 +714,7 @@ const AnalyticsDashboard = () => {
                       segment={undefined}
                     />
                     <ReferenceLine 
-                      y={60} 
+                      y={getDynamicReferenceLines('flowrate').optimal} 
                       stroke="#3b82f6" 
                       strokeDasharray="3 3" 
                       label="Optimal"
@@ -829,21 +930,21 @@ const AnalyticsDashboard = () => {
                     <Legend />
                     
                     <ReferenceLine 
-                      y={75} 
+                      y={getDynamicReferenceLines('pressure').maxSafe} 
                       stroke="#22c55e" 
                       strokeDasharray="5 5" 
                       label="Max Safe"
                       strokeWidth={2}
                     />
                     <ReferenceLine 
-                      y={25} 
+                      y={getDynamicReferenceLines('pressure').minSafe} 
                       stroke="#22c55e" 
                       strokeDasharray="5 5" 
                       label="Min Safe"
                       strokeWidth={2}
                     />
                     <ReferenceLine 
-                      y={50} 
+                      y={getDynamicReferenceLines('pressure').optimal} 
                       stroke="#3b82f6" 
                       strokeDasharray="3 3" 
                       label="Optimal"
@@ -952,21 +1053,21 @@ const AnalyticsDashboard = () => {
                         <Legend />
                         
                         <ReferenceLine 
-                          y={80} 
+                          y={getDynamicReferenceLines(param).maxSafe} 
                           stroke="#22c55e" 
                           strokeDasharray="5 5" 
                           label="Max Safe"
                           strokeWidth={2}
                         />
                         <ReferenceLine 
-                          y={40} 
+                          y={getDynamicReferenceLines(param).minSafe} 
                           stroke="#22c55e" 
                           strokeDasharray="5 5" 
                           label="Min Safe"
                           strokeWidth={2}
                         />
                         <ReferenceLine 
-                          y={60} 
+                          y={getDynamicReferenceLines(param).optimal} 
                           stroke="#3b82f6" 
                           strokeDasharray="3 3" 
                           label="Optimal"
@@ -1027,21 +1128,21 @@ const AnalyticsDashboard = () => {
                       <Legend />
                       
                       <ReferenceLine 
-                        y={80} 
+                        y={getDynamicReferenceLines('temperature').maxSafe} 
                         stroke="#22c55e" 
                         strokeDasharray="5 5" 
                         label="Max Safe"
                         strokeWidth={2}
                       />
                       <ReferenceLine 
-                        y={40} 
+                        y={getDynamicReferenceLines('temperature').minSafe} 
                         stroke="#22c55e" 
                         strokeDasharray="5 5" 
                         label="Min Safe"
                         strokeWidth={2}
                       />
                       <ReferenceLine 
-                        y={60} 
+                        y={getDynamicReferenceLines('temperature').optimal} 
                         stroke="#3b82f6" 
                         strokeDasharray="3 3" 
                         label="Optimal"
