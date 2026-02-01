@@ -55,7 +55,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database configuration
-# Use Heroku PostgreSQL if available, otherwise SQLite
+# Use Render PostgreSQL if available, otherwise SQLite
 if 'DATABASE_URL' in os.environ:
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
@@ -67,6 +67,14 @@ else:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+
+# Render-specific settings
+if 'RENDER' in os.environ:
+    ALLOWED_HOSTS = ['*']  # Render handles this
+    SECURE_SSL_REDIRECT = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
 
 AUTH_PASSWORD_VALIDATORS = []
 

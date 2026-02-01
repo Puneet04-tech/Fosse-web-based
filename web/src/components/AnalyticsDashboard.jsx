@@ -117,7 +117,7 @@ const AnalyticsDashboard = () => {
       setLoading(false);
     } catch (err) {
       console.error('Failed to load real data:', err);
-      setError('Failed to connect to backend. Please ensure the API server is running at http://127.0.0.1:8000');
+      setError('Failed to connect to backend. Please ensure the API server is running at https://fosse-equipment-monitor.onrender.com');
       toast.error('❌ Failed to connect to backend. Please ensure the Django server is running.', {
         position: 'top-right',
         autoClose: 5000,
