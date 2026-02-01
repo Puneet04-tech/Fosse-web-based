@@ -506,6 +506,20 @@ const AnalyticsDashboard = () => {
                       type="category"
                       domain={[0, 'dataMax']}
                       tickCount={6}
+                      padding={{ left: 10, right: 10 }}
+                      mirror={false}
+                      reversed={false}
+                      scale="auto"
+                      allowDataOverflow={false}
+                      allowDuplicatedCategory={false}
+                      tickFormatter={undefined}
+                      angle={0}
+                      textAnchor="middle"
+                      verticalAnchor="middle"
+                      height={30}
+                      width={0}
+                      hide={false}
+                      label={undefined}
                     />
                     <YAxis 
                       stroke="#9ca3af" 
@@ -516,6 +530,20 @@ const AnalyticsDashboard = () => {
                       type="number"
                       domain={[0, 'dataMax']}
                       tickCount={5}
+                      padding={{ top: 10, bottom: 10 }}
+                      mirror={false}
+                      reversed={false}
+                      scale="auto"
+                      allowDataOverflow={false}
+                      tickFormatter={undefined}
+                      angle={0}
+                      textAnchor="end"
+                      verticalAnchor="middle"
+                      width={60}
+                      height={0}
+                      hide={false}
+                      label={undefined}
+                      orientation="left"
                     />
                     <Tooltip 
                       contentStyle={{ 
@@ -534,6 +562,8 @@ const AnalyticsDashboard = () => {
                       label="Max Safe"
                       strokeWidth={2}
                       isFront={false}
+                      alwaysShow={true}
+                      labelPosition="right"
                     />
                     <ReferenceLine 
                       y={40} 
@@ -542,6 +572,8 @@ const AnalyticsDashboard = () => {
                       label="Min Safe"
                       strokeWidth={2}
                       isFront={false}
+                      alwaysShow={true}
+                      labelPosition="right"
                     />
                     <ReferenceLine 
                       y={60} 
@@ -550,6 +582,8 @@ const AnalyticsDashboard = () => {
                       label="Optimal"
                       strokeWidth={2}
                       isFront={false}
+                      alwaysShow={true}
+                      labelPosition="right"
                     />
                     
                     <Line
@@ -597,6 +631,20 @@ const AnalyticsDashboard = () => {
                       type="category"
                       domain={[0, 'dataMax']}
                       tickCount={6}
+                      padding={{ left: 10, right: 10 }}
+                      mirror={false}
+                      reversed={false}
+                      scale="auto"
+                      allowDataOverflow={false}
+                      allowDuplicatedCategory={false}
+                      tickFormatter={undefined}
+                      angle={0}
+                      textAnchor="middle"
+                      verticalAnchor="middle"
+                      height={30}
+                      width={0}
+                      hide={false}
+                      label={undefined}
                     />
                     <YAxis 
                       stroke="#9ca3af" 
@@ -607,6 +655,20 @@ const AnalyticsDashboard = () => {
                       type="number"
                       domain={[0, 'dataMax']}
                       tickCount={5}
+                      padding={{ top: 10, bottom: 10 }}
+                      mirror={false}
+                      reversed={false}
+                      scale="auto"
+                      allowDataOverflow={false}
+                      tickFormatter={undefined}
+                      angle={0}
+                      textAnchor="end"
+                      verticalAnchor="middle"
+                      width={60}
+                      height={0}
+                      hide={false}
+                      label={undefined}
+                      orientation="left"
                     />
                     <Tooltip 
                       contentStyle={{ 
@@ -665,6 +727,20 @@ const AnalyticsDashboard = () => {
                       type="category"
                       domain={[0, 'dataMax']}
                       tickCount={6}
+                      padding={{ left: 10, right: 10 }}
+                      mirror={false}
+                      reversed={false}
+                      scale="auto"
+                      allowDataOverflow={false}
+                      allowDuplicatedCategory={false}
+                      tickFormatter={undefined}
+                      angle={0}
+                      textAnchor="middle"
+                      verticalAnchor="middle"
+                      height={30}
+                      width={0}
+                      hide={false}
+                      label={undefined}
                     />
                     <YAxis 
                       stroke="#9ca3af" 
@@ -675,6 +751,20 @@ const AnalyticsDashboard = () => {
                       type="number"
                       domain={[0, 'dataMax']}
                       tickCount={5}
+                      padding={{ top: 10, bottom: 10 }}
+                      mirror={false}
+                      reversed={false}
+                      scale="auto"
+                      allowDataOverflow={false}
+                      tickFormatter={undefined}
+                      angle={0}
+                      textAnchor="end"
+                      verticalAnchor="middle"
+                      width={60}
+                      height={0}
+                      hide={false}
+                      label={undefined}
+                      orientation="left"
                     />
                     <Tooltip 
                       contentStyle={{ 
@@ -761,6 +851,19 @@ const AnalyticsDashboard = () => {
                           type="category"
                           domain={[0, 'dataMax']}
                           tickCount={6}
+                          padding={{ left: 10, right: 10 }}
+                          mirror={false}
+                          reversed={false}
+                          scale="auto"
+                          allowDataOverflow={false}
+                          allowDuplicatedCategory={false}
+                          angle={0}
+                          textAnchor="middle"
+                          verticalAnchor="middle"
+                          height={30}
+                          width={0}
+                          hide={false}
+                          label={undefined}
                         />
                         <YAxis 
                           stroke="#9ca3af" 
@@ -771,6 +874,20 @@ const AnalyticsDashboard = () => {
                           type="number"
                           domain={[0, 'dataMax']}
                           tickCount={5}
+                          padding={{ top: 10, bottom: 10 }}
+                          mirror={false}
+                          reversed={false}
+                          scale="auto"
+                          allowDataOverflow={false}
+                          tickFormatter={undefined}
+                          angle={0}
+                          textAnchor="end"
+                          verticalAnchor="middle"
+                          width={60}
+                          height={0}
+                          hide={false}
+                          label={undefined}
+                          orientation="left"
                         />
                         <Tooltip 
                           contentStyle={{ 
