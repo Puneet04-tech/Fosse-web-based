@@ -520,6 +520,9 @@ const AnalyticsDashboard = () => {
                       width={0}
                       hide={false}
                       label={undefined}
+                      name={undefined}
+                      unit={undefined}
+                      nameKey={undefined}
                     />
                     <YAxis 
                       stroke="#9ca3af" 
@@ -544,6 +547,10 @@ const AnalyticsDashboard = () => {
                       hide={false}
                       label={undefined}
                       orientation="left"
+                      dataKey={undefined}
+                      name={undefined}
+                      unit={undefined}
+                      nameKey={undefined}
                     />
                     <Tooltip 
                       contentStyle={{ 
@@ -562,8 +569,9 @@ const AnalyticsDashboard = () => {
                       label="Max Safe"
                       strokeWidth={2}
                       isFront={false}
-                      alwaysShow={true}
+                      ifOverflow="extendDomain"
                       labelPosition="right"
+                      segment={undefined}
                     />
                     <ReferenceLine 
                       y={40} 
@@ -572,8 +580,9 @@ const AnalyticsDashboard = () => {
                       label="Min Safe"
                       strokeWidth={2}
                       isFront={false}
-                      alwaysShow={true}
+                      ifOverflow="extendDomain"
                       labelPosition="right"
+                      segment={undefined}
                     />
                     <ReferenceLine 
                       y={60} 
@@ -582,8 +591,9 @@ const AnalyticsDashboard = () => {
                       label="Optimal"
                       strokeWidth={2}
                       isFront={false}
-                      alwaysShow={true}
+                      ifOverflow="extendDomain"
                       labelPosition="right"
+                      segment={undefined}
                     />
                     
                     <Line
@@ -645,6 +655,9 @@ const AnalyticsDashboard = () => {
                       width={0}
                       hide={false}
                       label={undefined}
+                      name={undefined}
+                      unit={undefined}
+                      nameKey={undefined}
                     />
                     <YAxis 
                       stroke="#9ca3af" 
@@ -669,6 +682,10 @@ const AnalyticsDashboard = () => {
                       hide={false}
                       label={undefined}
                       orientation="left"
+                      dataKey={undefined}
+                      name={undefined}
+                      unit={undefined}
+                      nameKey={undefined}
                     />
                     <Tooltip 
                       contentStyle={{ 
@@ -741,6 +758,9 @@ const AnalyticsDashboard = () => {
                       width={0}
                       hide={false}
                       label={undefined}
+                      name={undefined}
+                      unit={undefined}
+                      nameKey={undefined}
                     />
                     <YAxis 
                       stroke="#9ca3af" 
@@ -765,6 +785,10 @@ const AnalyticsDashboard = () => {
                       hide={false}
                       label={undefined}
                       orientation="left"
+                      dataKey={undefined}
+                      name={undefined}
+                      unit={undefined}
+                      nameKey={undefined}
                     />
                     <Tooltip 
                       contentStyle={{ 
