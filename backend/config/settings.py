@@ -84,6 +84,12 @@ REST_FRAMEWORK = {
     ]
 }
 
-# CORS Settings - Simple
-CORS_ALLOW_ALL_ORIGINS = True
+# CORS Settings - Allow localhost and Netlify
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "https://chemical-equipement.netlify.app",
+    "https://*.netlify.app",
+]
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = True  # Fallback for debugging
