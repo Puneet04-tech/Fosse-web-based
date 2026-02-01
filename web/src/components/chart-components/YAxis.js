@@ -4,6 +4,7 @@ import { YAxis as RechartsYAxis } from 'recharts';
 // YAxis wrapper with all defaultProps to eliminate warnings
 const YAxis = (props) => {
   const defaultProps = {
+    yAxisId: 0,
     allowDecimals: false,
     axisLine: { stroke: '#9ca3af' },
     tickLine: { stroke: '#9ca3af' },

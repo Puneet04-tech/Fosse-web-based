@@ -544,6 +544,8 @@ const AnalyticsDashboard = () => {
                       strokeWidth={2}
                       dot={{ fill: '#667eea', r: 4 }}
                       name="Demo Equipment A"
+                      xAxisId={0}
+                      yAxisId={0}
                     />
                     <Line
                       type="monotone"
@@ -552,6 +554,8 @@ const AnalyticsDashboard = () => {
                       strokeWidth={2}
                       dot={{ fill: '#f093fb', r: 4 }}
                       name="Demo Equipment B"
+                      xAxisId={0}
+                      yAxisId={0}
                     />
                   </LineChart>
                 </ResponsiveContainer>
@@ -599,6 +603,8 @@ const AnalyticsDashboard = () => {
                       fillOpacity={0.3}
                       strokeWidth={2}
                       name="Demo Equipment A"
+                      xAxisId={0}
+                      yAxisId={0}
                     />
                     <Area
                       type="monotone"
@@ -608,6 +614,8 @@ const AnalyticsDashboard = () => {
                       fillOpacity={0.3}
                       strokeWidth={2}
                       name="Demo Equipment B"
+                      xAxisId={0}
+                      yAxisId={0}
                     />
                   </AreaChart>
                 </ResponsiveContainer>
@@ -676,6 +684,8 @@ const AnalyticsDashboard = () => {
                       strokeWidth={2}
                       dot={{ fill: '#10b981', r: 4 }}
                       name="Demo Equipment A"
+                      xAxisId={0}
+                      yAxisId={0}
                     />
                     <Line
                       type="monotone"
@@ -684,6 +694,8 @@ const AnalyticsDashboard = () => {
                       strokeWidth={2}
                       dot={{ fill: '#06b6d4', r: 4 }}
                       name="Demo Equipment B"
+                      xAxisId={0}
+                      yAxisId={0}
                     />
                   </LineChart>
                 </ResponsiveContainer>
@@ -762,6 +774,8 @@ const AnalyticsDashboard = () => {
                             strokeWidth={2}
                             dot={false}
                             name={eq}
+                            xAxisId={0}
+                            yAxisId={0}
                           />
                         ))}
                       </LineChart>
@@ -837,6 +851,8 @@ const AnalyticsDashboard = () => {
                           strokeWidth={2}
                           dot={false}
                           name={eq}
+                          xAxisId={0}
+                          yAxisId={0}
                         />
                       ))}
                     </LineChart>

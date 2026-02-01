@@ -4,6 +4,7 @@ import { XAxis as RechartsXAxis } from 'recharts';
 // XAxis wrapper with all defaultProps to eliminate warnings
 const XAxis = (props) => {
   const defaultProps = {
+    xAxisId: 0,
     allowDecimals: false,
     axisLine: { stroke: '#9ca3af' },
     tickLine: { stroke: '#9ca3af' },
