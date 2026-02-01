@@ -101,5 +101,16 @@ REST_FRAMEWORK = {
     ]
 }
 
-# Allow all origins for now (development)
-CORS_ALLOW_ALL_ORIGINS = True
+# CORS Settings
+if 'RENDER' in os.environ:
+    # Production CORS settings
+    CORS_ALLOWED_ORIGINS = [
+        "https://*.netlify.app",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ]
+    CORS_ALLOW_CREDENTIALS = True
+    CORS_ALLOW_ALL_ORIGINS = False
+else:
+    # Development CORS settings
+    CORS_ALLOW_ALL_ORIGINS = True
