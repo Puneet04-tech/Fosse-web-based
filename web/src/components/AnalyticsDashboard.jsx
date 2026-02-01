@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area, ReferenceLine } from 'recharts';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -63,6 +63,9 @@ const AnalyticsDashboard = () => {
   const [selectedDataset, setSelectedDataset] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
+  // Track if user has manually selected a dataset
+  const userHasSelected = useRef(false);
 
   // Load real data from backend
   useEffect(() => {
@@ -95,8 +98,8 @@ const AnalyticsDashboard = () => {
       setDatasets(datasetsList);
       
       if (datasetsList.length > 0) {
-        // Only auto-select latest dataset if no dataset is currently selected
-        if (!selectedDataset) {
+        // Only auto-select latest dataset if user hasn't manually selected one
+        if (!userHasSelected.current && !selectedDataset) {
           const latestDataset = datasetsList[0];
           setSelectedDataset(latestDataset);
           
@@ -364,6 +367,8 @@ const AnalyticsDashboard = () => {
                 const datasetId = e.target.value;
                 const dataset = datasets.find(d => d.id.toString() === datasetId);
                 if (dataset) {
+                  // Mark that user has manually selected a dataset
+                  userHasSelected.current = true;
                   setSelectedDataset(dataset);
                   toast.info(`📊 Loading dataset: ${dataset.file?.split('/').pop().split('\\').pop() || `Dataset ${dataset.id}`}`, {
                     position: 'top-right',
