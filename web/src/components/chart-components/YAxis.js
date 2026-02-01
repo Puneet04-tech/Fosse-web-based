@@ -33,7 +33,14 @@ const YAxis = (props) => {
     tick: { fontSize: 12 }
   };
 
-  return <RechartsYAxis {...defaultProps} {...props} />;
+  // Ensure yAxisId is always set, either from props or defaultProps
+  const finalProps = {
+    ...defaultProps,
+    ...props,
+    yAxisId: props.yAxisId !== undefined ? props.yAxisId : defaultProps.yAxisId
+  };
+
+  return <RechartsYAxis {...finalProps} />;
 };
 
 export default YAxis;

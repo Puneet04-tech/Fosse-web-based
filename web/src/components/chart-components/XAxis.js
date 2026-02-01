@@ -32,7 +32,14 @@ const XAxis = (props) => {
     tick: { fontSize: 12 }
   };
 
-  return <RechartsXAxis {...defaultProps} {...props} />;
+  // Ensure xAxisId is always set, either from props or defaultProps
+  const finalProps = {
+    ...defaultProps,
+    ...props,
+    xAxisId: props.xAxisId !== undefined ? props.xAxisId : defaultProps.xAxisId
+  };
+
+  return <RechartsXAxis {...finalProps} />;
 };
 
 export default XAxis;
