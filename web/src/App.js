@@ -819,7 +819,7 @@ Timestamp,Equipment,Parameter,Value,Status
         {/* Reports Grid */}
         <div className="reports-grid">
           {filteredReports.map((report, index) => (
-            <div key={report.id} className="report-card" style={{ animationDelay: `${index * 0.1}s` }}>
+            <div key={report.id} className="report-card" style={{ position: 'relative' }}>
               <div className="report-header">
                 <div className="report-icon">{report.icon}</div>
                 <div className="report-basic">
@@ -829,11 +829,12 @@ Timestamp,Equipment,Parameter,Value,Status
                     <span className="report-type">{report.type}</span>
                   </div>
                 </div>
-                <div className="report-status">
-                  <div className="status-indicator" style={{ color: getStatusColor(report.status) }}>
-                    <span className="status-icon">{getStatusIcon(report.status)}</span>
-                    <span className="status-text">{report.status}</span>
-                  </div>
+              </div>
+              
+              <div className="report-status">
+                <div className="status-indicator" style={{ color: getStatusColor(report.status) }}>
+                  <span className="status-icon">{getStatusIcon(report.status)}</span>
+                  <span className="status-text">{report.status}</span>
                 </div>
               </div>
               
@@ -858,7 +859,7 @@ Timestamp,Equipment,Parameter,Value,Status
                 </div>
               </div>
               
-              <div className="report-actions">
+              <div className="report-actions" style={{ position: 'relative', zIndex: 1000 }}>
                 {/* Inline test button */}
                 <button 
                   onClick={() => alert('Inline test works!')}
@@ -867,27 +868,58 @@ Timestamp,Equipment,Parameter,Value,Status
                     background: 'orange', 
                     border: '2px solid black',
                     marginRight: '10px',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    position: 'relative',
+                    zIndex: 1001,
+                    pointerEvents: 'auto'
                   }}
                 >
                   INLINE TEST
                 </button>
                 
-                <button className="action-btn primary" onClick={() => handleViewReport(report)}>
+                <button 
+                  className="action-btn primary" 
+                  onClick={() => handleViewReport(report)}
+                  style={{ 
+                    position: 'relative', 
+                    zIndex: 1001,
+                    pointerEvents: 'auto',
+                    cursor: 'pointer'
+                  }}
+                >
                   <span className="btn-icon">👁️</span>
                   View Report
                 </button>
-                <button className="action-btn secondary" onClick={() => handleDownloadReport(report)}>
+                <button 
+                  className="action-btn secondary" 
+                  onClick={() => handleDownloadReport(report)}
+                  style={{ 
+                    position: 'relative', 
+                    zIndex: 1001,
+                    pointerEvents: 'auto',
+                    cursor: 'pointer'
+                  }}
+                >
                   <span className="btn-icon">⬇️</span>
                   Download PDF
                 </button>
-                <button className="action-btn tertiary" onClick={() => handleExportData(report)}>
+                <button 
+                  className="action-btn tertiary" 
+                  onClick={() => handleExportData(report)}
+                  style={{ 
+                    position: 'relative', 
+                    zIndex: 1001,
+                    pointerEvents: 'auto',
+                    cursor: 'pointer'
+                  }}
+                >
                   <span className="btn-icon">📤</span>
                   Export Data
                 </button>
               </div>
               
-              <div className="report-glow"></div>
+              {/* Temporarily remove glow to test if it's blocking clicks */}
+              {/* <div className="report-glow"></div> */}
             </div>
           ))}
         </div>
