@@ -501,11 +501,15 @@ const AnalyticsDashboard = () => {
                       stroke="#9ca3af"
                       tick={{ fontSize: 12 }}
                       allowDecimals={false}
+                      axisLine={{ stroke: '#9ca3af' }}
+                      tickLine={{ stroke: '#9ca3af' }}
                     />
                     <YAxis 
                       stroke="#9ca3af" 
                       tick={{ fontSize: 12 }}
                       allowDecimals={false}
+                      axisLine={{ stroke: '#9ca3af' }}
+                      tickLine={{ stroke: '#9ca3af' }}
                     />
                     <Tooltip 
                       contentStyle={{ 
@@ -579,11 +583,15 @@ const AnalyticsDashboard = () => {
                       stroke="#9ca3af"
                       tick={{ fontSize: 12 }}
                       allowDecimals={false}
+                      axisLine={{ stroke: '#9ca3af' }}
+                      tickLine={{ stroke: '#9ca3af' }}
                     />
                     <YAxis 
                       stroke="#9ca3af" 
                       tick={{ fontSize: 12 }}
                       allowDecimals={false}
+                      axisLine={{ stroke: '#9ca3af' }}
+                      tickLine={{ stroke: '#9ca3af' }}
                     />
                     <Tooltip 
                       contentStyle={{ 
@@ -637,11 +645,15 @@ const AnalyticsDashboard = () => {
                       stroke="#9ca3af"
                       tick={{ fontSize: 12 }}
                       allowDecimals={false}
+                      axisLine={{ stroke: '#9ca3af' }}
+                      tickLine={{ stroke: '#9ca3af' }}
                     />
                     <YAxis 
                       stroke="#9ca3af" 
                       tick={{ fontSize: 12 }}
                       allowDecimals={false}
+                      axisLine={{ stroke: '#9ca3af' }}
+                      tickLine={{ stroke: '#9ca3af' }}
                     />
                     <Tooltip 
                       contentStyle={{ 
@@ -723,11 +735,15 @@ const AnalyticsDashboard = () => {
                           tick={{ fontSize: 12 }}
                           tickFormatter={(value) => safeTimeFormat(value, value)}
                           allowDecimals={false}
+                          axisLine={{ stroke: '#9ca3af' }}
+                          tickLine={{ stroke: '#9ca3af' }}
                         />
                         <YAxis 
                           stroke="#9ca3af" 
                           tick={{ fontSize: 12 }}
                           allowDecimals={false}
+                          axisLine={{ stroke: '#9ca3af' }}
+                          tickLine={{ stroke: '#9ca3af' }}
                         />
                         <Tooltip 
                           contentStyle={{ 
