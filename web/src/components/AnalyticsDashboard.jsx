@@ -262,6 +262,17 @@ const AnalyticsDashboard = () => {
     }
   }, [realData, anomalyThreshold]);
 
+  const chartData = useMemo(() => {
+    return filteredData.slice(-50).map(d => ({
+      timestamp: d.timestamp,
+      ...equipmentList.reduce((acc, eq) => {
+        const equipmentData = filteredData.find(item => item.equipment === eq && item.timestamp === d.timestamp);
+        acc[eq] = equipmentData ? equipmentData[selectedParameter === 'all' ? 'flowrate' : selectedParameter] : null;
+        return acc;
+      }, {})
+    }));
+  }, [filteredData, equipmentList, selectedParameter]);
+
   // Global function to get complete analysis data for reports
   React.useEffect(() => {
     window.getCompleteAnalysis = () => {
@@ -299,17 +310,6 @@ const AnalyticsDashboard = () => {
     
     console.log('✅ getCompleteAnalysis function registered globally');
   }, [selectedDataset, realData, filteredData, statistics, chartData, equipmentList, selectedEquipment, selectedParameter, anomalyThreshold]);
-
-  const chartData = useMemo(() => {
-    return filteredData.slice(-50).map(d => ({
-      timestamp: d.timestamp,
-      ...equipmentList.reduce((acc, eq) => {
-        const equipmentData = filteredData.find(item => item.equipment === eq && item.timestamp === d.timestamp);
-        acc[eq] = equipmentData ? equipmentData[selectedParameter === 'all' ? 'flowrate' : selectedParameter] : null;
-        return acc;
-      }, {})
-    }));
-  }, [filteredData, equipmentList, selectedParameter]);
 
   const statsCards = [
     {
