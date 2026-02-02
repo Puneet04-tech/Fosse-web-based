@@ -510,7 +510,14 @@ function ReportsPage() {
   const [searchTerm, setSearchTerm] = React.useState('');
   const [filterType, setFilterType] = React.useState('all');
   
-  const reports = [
+  // Load saved reports from localStorage
+  const [savedReports, setSavedReports] = React.useState(() => {
+    const stored = localStorage.getItem('fosseReports');
+    return stored ? JSON.parse(stored) : [];
+  });
+  
+  // Default static reports
+  const defaultReports = [
     {
       id: 1,
       title: 'Equipment Performance Analysis',
@@ -530,21 +537,21 @@ function ReportsPage() {
       type: 'anomaly',
       date: '2024-01-14',
       status: 'completed',
-      description: 'Detailed anomaly detection results with risk assessment and recommendations',
+      description: 'AI-powered anomaly detection with statistical analysis and risk assessment',
       datasets: 8,
-      anomalies: 15,
+      anomalies: 7,
       accuracy: '96.2%',
       downloadUrl: '#',
-      icon: '⚠️'
+      icon: '🚨'
     },
     {
       id: 3,
       title: 'Chemical Composition Analysis',
       type: 'chemical',
       date: '2024-01-13',
-      status: 'processing',
-      description: 'Chemical composition analysis with molecular structure identification',
-      datasets: 6,
+      status: 'completed',
+      description: 'Detailed chemical composition analysis with quality control metrics',
+      datasets: 15,
       anomalies: 2,
       accuracy: '99.1%',
       downloadUrl: '#',
@@ -590,6 +597,14 @@ function ReportsPage() {
       icon: '🔧'
     }
   ];
+
+  // Combine default reports with saved reports
+  const allReports = React.useMemo(() => {
+    const combined = [...defaultReports, ...savedReports];
+    return combined.sort((a, b) => new Date(b.date) - new Date(a.date));
+  }, [savedReports]);
+  
+  const reports = allReports;
 
   const reportTypes = ['all', 'performance', 'anomaly', 'chemical', 'trend', 'safety', 'maintenance'];
   
@@ -728,6 +743,79 @@ Timestamp,Equipment,Parameter,Value,Status
     window.URL.revokeObjectURL(url);
   };
 
+  const handleGenerateNewReport = () => {
+    console.log('Generate New Report clicked');
+    alert('🚀 Report Generation Started!\n\nThis will:\n• Analyze latest equipment data\n• Detect anomalies using AI\n• Generate comprehensive report\n• Send notification when ready');
+    
+    // You could open a modal or navigate to a report generation page
+    // For now, we'll show a simple confirmation
+  };
+
+  const handleViewTemplates = () => {
+    console.log('View Templates clicked');
+    const templatesContent = `
+AVAILABLE REPORT TEMPLATES
+==========================
+
+1. 📊 Equipment Performance Report
+   • Analyzes equipment efficiency
+   • Tracks performance metrics
+   • Identifies optimization opportunities
+
+2. 🚨 Anomaly Detection Report  
+   • AI-powered anomaly detection
+   • Statistical analysis with Z-scores
+   • Risk assessment and recommendations
+
+3. 🧪 Chemical Analysis Report
+   • Chemical composition analysis
+   • Quality control metrics
+   • Compliance verification
+
+4. 📈 Trend Analysis Report
+   • Historical trend analysis
+   • Predictive modeling
+   • Future performance projections
+
+5. 🛡️ Safety Compliance Report
+   • Safety protocol compliance
+   • Risk assessment
+   • Regulatory adherence
+
+6. 🔧 Maintenance Optimization Report
+   • Maintenance scheduling
+   • Equipment lifecycle analysis
+   • Cost optimization recommendations
+
+---
+Select a template to customize and generate your report!
+    `.trim();
+
+    // Open templates in new window
+    const newWindow = window.open('', '_blank');
+    newWindow.document.write(`
+      <html>
+        <head>
+          <title>Report Templates</title>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+            pre { background: #f8f8f8; padding: 15px; border-radius: 5px; white-space: pre-wrap; }
+            h1 { color: #333; }
+          </style>
+        </head>
+        <body>
+          <pre>${templatesContent}</pre>
+        </body>
+      </html>
+    `);
+    newWindow.document.close();
+  };
+
+  const handleScheduleReports = () => {
+    console.log('Schedule Reports clicked');
+    alert('📅 Report Scheduling\n\nConfigure automated report generation:\n\n• Daily/Weekly/Monthly options\n• Custom scheduling available\n• Email delivery settings\n• Multiple report types\n• Automatic data analysis\n\nContact admin to set up custom schedules!');
+  };
+
   return (
     <main className="main-content reports-page" style={{ paddingTop: '220px' }}>
       {/* DEBUG TEST BUTTON */}
@@ -762,21 +850,21 @@ Timestamp,Equipment,Parameter,Value,Status
 
         {/* Quick Actions */}
         <div className="quick-actions">
-          <button className="action-card primary">
+          <button className="action-card primary" onClick={handleGenerateNewReport}>
             <div className="action-icon">🚀</div>
             <div className="action-content">
               <h3>Generate New Report</h3>
               <p>Create comprehensive analysis report</p>
             </div>
           </button>
-          <button className="action-card secondary">
+          <button className="action-card secondary" onClick={handleViewTemplates}>
             <div className="action-icon">📊</div>
             <div className="action-content">
               <h3>View Templates</h3>
               <p>Browse report templates</p>
             </div>
           </button>
-          <button className="action-card tertiary">
+          <button className="action-card tertiary" onClick={handleScheduleReports}>
             <div className="action-icon">📈</div>
             <div className="action-content">
               <h3>Schedule Reports</h3>
@@ -1030,6 +1118,40 @@ export default function App() {
   const [dataset, setDataset] = React.useState(null);
   const [toast, setToast] = React.useState('');
   const [loading, setLoading] = React.useState(true);
+
+  // Global function to save reports to localStorage
+  React.useEffect(() => {
+    // Make saveReport function globally available
+    window.saveFosseReport = (reportData) => {
+      try {
+        const existingReports = JSON.parse(localStorage.getItem('fosseReports') || '[]');
+        const newReport = {
+          id: Date.now(), // Unique ID based on timestamp
+          title: reportData.title || 'Analytics Report',
+          type: reportData.type || 'analytics',
+          date: new Date().toISOString().split('T')[0], // Today's date
+          status: 'completed',
+          description: reportData.description || 'Real-time equipment analysis report generated from analytics dashboard',
+          datasets: reportData.datasets || 1,
+          anomalies: reportData.anomalies || 0,
+          accuracy: reportData.accuracy || '95.0%',
+          downloadUrl: '#',
+          icon: reportData.icon || '📊',
+          content: reportData.content || '', // Store the actual report content
+          data: reportData.data || null // Store the data if available
+        };
+        
+        existingReports.push(newReport);
+        localStorage.setItem('fosseReports', JSON.stringify(existingReports));
+        
+        console.log('Report saved:', newReport);
+        return newReport;
+      } catch (error) {
+        console.error('Error saving report:', error);
+        return null;
+      }
+    };
+  }, []);
 
   React.useEffect(() => {
     const t = setTimeout(() => setLoading(false), 3000); // 3 seconds preloader

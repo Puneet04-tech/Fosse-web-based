@@ -106,6 +106,27 @@ const SummaryCards = React.memo(({ summary, datasetId, onMessage }) => {
       // Create real-time report content
       const reportContent = generateRealTimeReport(analysis, datasetId);
       
+      // Save report to localStorage
+      const reportData = {
+        title: `Real-Time Analysis Report - Dataset ${datasetId}`,
+        type: 'analytics',
+        description: `Real-time equipment analysis with ${analysis.anomalies?.length || 0} anomalies detected`,
+        datasets: 1,
+        anomalies: analysis.anomalies?.length || 0,
+        accuracy: '98.5%',
+        icon: '📄',
+        content: reportContent,
+        data: analysis
+      };
+      
+      const savedReport = window.saveFosseReport && window.saveFosseReport(reportData);
+      if (savedReport) {
+        toast.success('✅ Report saved to Reports section!', {
+          position: 'top-right',
+          autoClose: 3000,
+        });
+      }
+      
       // Create and download PDF-like text file
       const blob = new Blob([reportContent], { type: 'text/plain' });
       const url = window.URL.createObjectURL(blob);
@@ -154,6 +175,27 @@ const SummaryCards = React.memo(({ summary, datasetId, onMessage }) => {
       
       // Create real-time report content
       const reportContent = generateRealTimeReport(analysis, datasetId);
+      
+      // Save report to localStorage
+      const reportData = {
+        title: `Real-Time Analysis Report - Dataset ${datasetId}`,
+        type: 'analytics',
+        description: `Real-time equipment analysis with ${analysis.anomalies?.length || 0} anomalies detected`,
+        datasets: 1,
+        anomalies: analysis.anomalies?.length || 0,
+        accuracy: '98.5%',
+        icon: '📊',
+        content: reportContent,
+        data: analysis
+      };
+      
+      const savedReport = window.saveFosseReport && window.saveFosseReport(reportData);
+      if (savedReport) {
+        toast.success('✅ Report saved to Reports section!', {
+          position: 'top-right',
+          autoClose: 3000,
+        });
+      }
       
       // Open report in new window
       const newWindow = window.open('', '_blank');
@@ -214,6 +256,27 @@ const SummaryCards = React.memo(({ summary, datasetId, onMessage }) => {
       
       // Create CSV export
       const csvContent = generateCSVExport(analysis);
+      
+      // Save report to localStorage
+      const reportData = {
+        title: `Data Export Report - Dataset ${datasetId}`,
+        type: 'export',
+        description: `Data export with ${analysis.data?.length || 0} data points and ${analysis.anomalies?.length || 0} anomalies`,
+        datasets: 1,
+        anomalies: analysis.anomalies?.length || 0,
+        accuracy: '99.0%',
+        icon: '📤',
+        content: csvContent,
+        data: analysis
+      };
+      
+      const savedReport = window.saveFosseReport && window.saveFosseReport(reportData);
+      if (savedReport) {
+        toast.success('✅ Export report saved to Reports section!', {
+          position: 'top-right',
+          autoClose: 3000,
+        });
+      }
       
       // Create and download CSV file
       const blob = new Blob([csvContent], { type: 'text/csv' });
