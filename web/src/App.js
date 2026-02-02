@@ -1587,24 +1587,6 @@ Select a template to customize and generate your report!
 
   return (
     <main className="main-content reports-page" style={{ paddingTop: '220px' }}>
-      {/* DEBUG TEST BUTTON */}
-      <div style={{ 
-        position: 'fixed', 
-        top: '250px', 
-        right: '20px', 
-        zIndex: 9999, 
-        background: 'red', 
-        padding: '10px',
-        border: '2px solid yellow'
-      }}>
-        <button 
-          onClick={() => alert('Reports page button click works!')}
-          style={{ padding: '10px', background: 'yellow', border: '2px solid black' }}
-        >
-          TEST BUTTON
-        </button>
-      </div>
-      
       <div className="container-fluid">
         {/* Header Section */}
         <div className="reports-header">
@@ -1620,58 +1602,46 @@ Select a template to customize and generate your report!
               className="refresh-btn" 
               onClick={refreshReports}
               style={{
-                padding: '10px 20px',
+                padding: '12px 24px',
                 background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                 color: 'white',
                 border: 'none',
-                borderRadius: '8px',
+                borderRadius: '12px',
                 cursor: 'pointer',
                 fontWeight: '600',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
-                marginRight: '10px'
+                marginRight: '12px',
+                boxShadow: '0 4px 15px rgba(102, 126, 234, 0.3)',
+                transition: 'all 0.3s ease'
               }}
+              onMouseOver={(e) => e.target.style.transform = 'translateY(-2px)'}
+              onMouseOut={(e) => e.target.style.transform = 'translateY(0px)'}
             >
               <span>🔄</span>
               Refresh Reports
             </button>
             <button 
-              className="test-btn" 
-              onClick={handleTestSaveReport}
-              style={{
-                padding: '10px 20px',
-                background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                color: 'white',
-                border: 'none',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                fontWeight: '600',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                marginRight: '10px'
-              }}
-            >
-              <span>🧪</span>
-              Test Save
-            </button>
-            <button 
               className="clear-btn" 
               onClick={handleClearSavedReports}
               style={{
-                padding: '10px 20px',
+                padding: '12px 24px',
                 background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
                 color: 'white',
                 border: 'none',
-                borderRadius: '8px',
+                borderRadius: '12px',
                 cursor: 'pointer',
                 fontWeight: '600',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
-                marginRight: '15px'
+                marginRight: '12px',
+                boxShadow: '0 4px 15px rgba(240, 147, 251, 0.3)',
+                transition: 'all 0.3s ease'
               }}
+              onMouseOver={(e) => e.target.style.transform = 'translateY(-2px)'}
+              onMouseOut={(e) => e.target.style.transform = 'translateY(0px)'}
             >
               <span>🗑️</span>
               Clear Saved
@@ -1679,29 +1649,39 @@ Select a template to customize and generate your report!
             <button 
               onClick={createSampleReports}
               style={{
-                padding: '10px 20px',
+                padding: '12px 24px',
                 background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
                 color: 'white',
                 border: 'none',
-                borderRadius: '8px',
+                borderRadius: '12px',
                 cursor: 'pointer',
                 fontWeight: '600',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
-                marginRight: '15px'
+                marginRight: '12px',
+                boxShadow: '0 4px 15px rgba(79, 172, 254, 0.3)',
+                transition: 'all 0.3s ease'
               }}
+              onMouseOver={(e) => e.target.style.transform = 'translateY(-2px)'}
+              onMouseOut={(e) => e.target.style.transform = 'translateY(0px)'}
             >
               <span>🧪</span>
               Create Sample Reports
             </button>
             <div style={{ 
-              padding: '5px 10px', 
-              background: 'rgba(102, 126, 234, 0.1)', 
-              borderRadius: '5px',
+              padding: '8px 16px', 
+              background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)', 
+              borderRadius: '12px',
               fontSize: '0.9rem',
-              color: '#667eea'
+              color: '#667eea',
+              fontWeight: '600',
+              border: '1px solid rgba(102, 126, 234, 0.2)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px'
             }}>
+              <span>📊</span>
               {savedReports.length} saved reports
             </div>
           </div>
@@ -1771,15 +1751,19 @@ Select a template to customize and generate your report!
               {report.id > 1000 && (
                 <div style={{
                   position: 'absolute',
-                  top: '10px',
-                  right: '10px',
+                  top: '12px',
+                  right: '12px',
                   background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
                   color: 'white',
-                  padding: '4px 8px',
-                  borderRadius: '4px',
-                  fontSize: '0.7rem',
-                  fontWeight: '600',
-                  zIndex: 10
+                  padding: '6px 12px',
+                  borderRadius: '20px',
+                  fontSize: '0.75rem',
+                  fontWeight: '700',
+                  zIndex: 10,
+                  boxShadow: '0 4px 12px rgba(16, 185, 129, 0.4)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px',
+                  animation: 'pulse 2s infinite'
                 }}>
                   NEW
                 </div>
@@ -1825,23 +1809,6 @@ Select a template to customize and generate your report!
               </div>
               
               <div className="report-actions" style={{ position: 'relative', zIndex: 1000 }}>
-                {/* Inline test button */}
-                <button 
-                  onClick={() => alert('Inline test works!')}
-                  style={{ 
-                    padding: '8px', 
-                    background: 'orange', 
-                    border: '2px solid black',
-                    marginRight: '10px',
-                    cursor: 'pointer',
-                    position: 'relative',
-                    zIndex: 1001,
-                    pointerEvents: 'auto'
-                  }}
-                >
-                  INLINE TEST
-                </button>
-                
                 <button 
                   className="action-btn primary" 
                   onClick={() => handleViewReport(report)}
@@ -1849,10 +1816,23 @@ Select a template to customize and generate your report!
                     position: 'relative', 
                     zIndex: 1001,
                     pointerEvents: 'auto',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    padding: '10px 16px',
+                    borderRadius: '8px',
+                    border: 'none',
+                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    color: 'white',
+                    fontWeight: '600',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    transition: 'all 0.3s ease',
+                    boxShadow: '0 2px 8px rgba(102, 126, 234, 0.3)'
                   }}
+                  onMouseOver={(e) => e.target.style.transform = 'translateY(-1px)'}
+                  onMouseOut={(e) => e.target.style.transform = 'translateY(0px)'}
                 >
-                  <span className="btn-icon">👁️</span>
+                  <span>👁️</span>
                   View Report
                 </button>
                 <button 
@@ -1862,10 +1842,23 @@ Select a template to customize and generate your report!
                     position: 'relative', 
                     zIndex: 1001,
                     pointerEvents: 'auto',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    padding: '10px 16px',
+                    borderRadius: '8px',
+                    border: 'none',
+                    background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                    color: 'white',
+                    fontWeight: '600',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    transition: 'all 0.3s ease',
+                    boxShadow: '0 2px 8px rgba(16, 185, 129, 0.3)'
                   }}
+                  onMouseOver={(e) => e.target.style.transform = 'translateY(-1px)'}
+                  onMouseOut={(e) => e.target.style.transform = 'translateY(0px)'}
                 >
-                  <span className="btn-icon">⬇️</span>
+                  <span>⬇️</span>
                   Download PDF
                 </button>
                 <button 
@@ -1875,16 +1868,28 @@ Select a template to customize and generate your report!
                     position: 'relative', 
                     zIndex: 1001,
                     pointerEvents: 'auto',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    padding: '10px 16px',
+                    borderRadius: '8px',
+                    border: 'none',
+                    background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+                    color: 'white',
+                    fontWeight: '600',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    transition: 'all 0.3s ease',
+                    boxShadow: '0 2px 8px rgba(245, 158, 11, 0.3)'
                   }}
+                  onMouseOver={(e) => e.target.style.transform = 'translateY(-1px)'}
+                  onMouseOut={(e) => e.target.style.transform = 'translateY(0px)'}
                 >
-                  <span className="btn-icon">📤</span>
+                  <span>📤</span>
                   Export Data
                 </button>
               </div>
               
-              {/* Temporarily remove glow to test if it's blocking clicks */}
-              {/* <div className="report-glow"></div> */}
+              <div className="report-glow"></div>
             </div>
           ))}
         </div>
