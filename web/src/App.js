@@ -368,10 +368,478 @@ function CompoundsPage() {
       description: 'Compound of nitrogen and hydrogen, essential for fertilizers',
       properties: { boiling: '-33.3°C', melting: '-77.7°C', density: '0.682 g/cm³' },
       structure: '🧪'
+    },
+    {
+      id: 7,
+      name: 'Toluene',
+      formula: 'C₇H₈',
+      category: 'aromatic',
+      description: 'Aromatic hydrocarbon used as solvent and fuel additive',
+      properties: { boiling: '110.6°C', melting: '-95°C', density: '0.867 g/cm³' },
+      structure: '🔬'
+    },
+    {
+      id: 8,
+      name: 'Methanol',
+      formula: 'CH₃OH',
+      category: 'alcohol',
+      description: 'Simplest alcohol used as solvent and fuel',
+      properties: { boiling: '64.7°C', melting: '-97.6°C', density: '0.792 g/cm³' },
+      structure: '⚗️'
+    },
+    {
+      id: 9,
+      name: 'Ethane',
+      formula: 'C₂H₆',
+      category: 'hydrocarbon',
+      description: 'Second simplest alkane, component of natural gas',
+      properties: { boiling: '-88.6°C', melting: '-182.8°C', density: '1.26 g/cm³' },
+      structure: '🧪'
+    },
+    {
+      id: 10,
+      name: 'Propane',
+      formula: 'C₃H₈',
+      category: 'hydrocarbon',
+      description: 'Three-carbon alkane used as fuel',
+      properties: { boiling: '-42°C', melting: '-187.7°C', density: '2.01 g/cm³' },
+      structure: '🧪'
+    },
+    {
+      id: 11,
+      name: 'Butane',
+      formula: 'C₄H₁₀',
+      category: 'hydrocarbon',
+      description: 'Four-carbon alkane used in lighters and fuel',
+      properties: { boiling: '-0.5°C', melting: '-138.4°C', density: '2.48 g/cm³' },
+      structure: '🧪'
+    },
+    {
+      id: 12,
+      name: 'Hexane',
+      formula: 'C₆H₁₄',
+      category: 'hydrocarbon',
+      description: 'Six-carbon alkane used as solvent',
+      properties: { boiling: '68.7°C', melting: '-95.3°C', density: '0.654 g/cm³' },
+      structure: '🧪'
+    },
+    {
+      id: 13,
+      name: 'Cyclohexane',
+      formula: 'C₆H₁₂',
+      category: 'hydrocarbon',
+      description: 'Cycloalkane used as non-polar solvent',
+      properties: { boiling: '80.7°C', melting: '6.5°C', density: '0.779 g/cm³' },
+      structure: '🧪'
+    },
+    {
+      id: 14,
+      name: 'Isopropanol',
+      formula: 'C₃H₈O',
+      category: 'alcohol',
+      description: 'Isopropyl alcohol used as disinfectant and solvent',
+      properties: { boiling: '82.5°C', melting: '-88.5°C', density: '0.786 g/cm³' },
+      structure: '⚗️'
+    },
+    {
+      id: 15,
+      name: 'Butanol',
+      formula: 'C₄H₉OH',
+      category: 'alcohol',
+      description: 'Four-carbon alcohol used in solvents and fuels',
+      properties: { boiling: '117.7°C', melting: '-89.8°C', density: '0.81 g/cm³' },
+      structure: '⚗️'
+    },
+    {
+      id: 16,
+      name: 'Phenol',
+      formula: 'C₆H₅OH',
+      category: 'aromatic',
+      description: 'Aromatic compound used in resins and disinfectants',
+      properties: { boiling: '181.7°C', melting: '40.5°C', density: '1.07 g/cm³' },
+      structure: '🔬'
+    },
+    {
+      id: 17,
+      name: 'Naphthalene',
+      formula: 'C₁₀H₈',
+      category: 'aromatic',
+      description: 'Polycyclic aromatic hydrocarbon used in mothballs',
+      properties: { boiling: '218°C', melting: '80.2°C', density: '1.14 g/cm³' },
+      structure: '🔬'
+    },
+    {
+      id: 18,
+      name: 'Anthracene',
+      formula: 'C₁₄H₁₀',
+      category: 'aromatic',
+      description: 'Three-ring aromatic compound used in dyes',
+      properties: { boiling: '340°C', melting: '216.2°C', density: '1.25 g/cm³' },
+      structure: '🔬'
+    },
+    {
+      id: 19,
+      name: 'Formaldehyde',
+      formula: 'CH₂O',
+      category: 'aldehyde',
+      description: 'Simplest aldehyde used in resins and preservatives',
+      properties: { boiling: '-19°C', melting: '-80°C', density: '0.815 g/cm³' },
+      structure: '🔬'
+    },
+    {
+      id: 20,
+      name: 'Acetaldehyde',
+      formula: 'C₂H₄O',
+      category: 'aldehyde',
+      description: 'Aldehyde used in chemical synthesis',
+      properties: { boiling: '20.2°C', melting: '-123°C', density: '0.784 g/cm³' },
+      structure: '🔬'
+    },
+    {
+      id: 21,
+      name: 'Acetic Acid',
+      formula: 'CH₃COOH',
+      category: 'acid',
+      description: 'Weak acid found in vinegar, used in food industry',
+      properties: { boiling: '118.1°C', melting: '16.6°C', density: '1.05 g/cm³' },
+      structure: '⚗️'
+    },
+    {
+      id: 22,
+      name: 'Formic Acid',
+      formula: 'HCOOH',
+      category: 'acid',
+      description: 'Simplest carboxylic acid used in textiles',
+      properties: { boiling: '100.8°C', melting: '8.4°C', density: '1.22 g/cm³' },
+      structure: '⚗️'
+    },
+    {
+      id: 23,
+      name: 'Hydrochloric Acid',
+      formula: 'HCl',
+      category: 'acid',
+      description: 'Strong acid used in industrial processes',
+      properties: { boiling: '-85°C', melting: '-114°C', density: '1.18 g/cm³' },
+      structure: '⚗️'
+    },
+    {
+      id: 24,
+      name: 'Nitric Acid',
+      formula: 'HNO₃',
+      category: 'acid',
+      description: 'Strong acid used in fertilizer production',
+      properties: { boiling: '83°C', melting: '-42°C', density: '1.51 g/cm³' },
+      structure: '⚗️'
+    },
+    {
+      id: 25,
+      name: 'Sodium Hydroxide',
+      formula: 'NaOH',
+      category: 'base',
+      description: 'Strong base used in soap making and paper industry',
+      properties: { boiling: '1388°C', melting: '318°C', density: '2.13 g/cm³' },
+      structure: '🧪'
+    },
+    {
+      id: 26,
+      name: 'Potassium Hydroxide',
+      formula: 'KOH',
+      category: 'base',
+      description: 'Strong base used in fertilizers and batteries',
+      properties: { boiling: '1320°C', melting: '360°C', density: '2.04 g/cm³' },
+      structure: '🧪'
+    },
+    {
+      id: 27,
+      name: 'Calcium Hydroxide',
+      formula: 'Ca(OH)₂',
+      category: 'base',
+      description: 'Strong base used in construction and water treatment',
+      properties: { boiling: '580°C', melting: '580°C', density: '2.24 g/cm³' },
+      structure: '🧪'
+    },
+    {
+      id: 28,
+      name: 'Carbon Dioxide',
+      formula: 'CO₂',
+      category: 'oxide',
+      description: 'Greenhouse gas used in carbonation of beverages',
+      properties: { boiling: '-78.5°C', melting: '-56.6°C', density: '1.98 g/cm³' },
+      structure: '🧪'
+    },
+    {
+      id: 29,
+      name: 'Water',
+      formula: 'H₂O',
+      category: 'oxide',
+      description: 'Universal solvent essential for life',
+      properties: { boiling: '100°C', melting: '0°C', density: '1.0 g/cm³' },
+      structure: '💧'
+    },
+    {
+      id: 30,
+      name: 'Hydrogen Peroxide',
+      formula: 'H₂O₂',
+      category: 'oxide',
+      description: 'Strong oxidizer used as disinfectant and bleach',
+      properties: { boiling: '150.2°C', melting: '-0.4°C', density: '1.45 g/cm³' },
+      structure: '🧪'
+    },
+    {
+      id: 31,
+      name: 'Ozone',
+      formula: 'O₃',
+      category: 'oxide',
+      description: 'Triatomic oxygen used in water treatment',
+      properties: { boiling: '-112°C', melting: '-192°C', density: '2.14 g/cm³' },
+      structure: '🧪'
+    },
+    {
+      id: 32,
+      name: 'Sulfur Dioxide',
+      formula: 'SO₂',
+      category: 'oxide',
+      description: 'Toxic gas used in food preservation',
+      properties: { boiling: '-10°C', melting: '-72°C', density: '2.62 g/cm³' },
+      structure: '🧪'
+    },
+    {
+      id: 33,
+      name: 'Nitrogen Dioxide',
+      formula: 'NO₂',
+      category: 'oxide',
+      description: 'Brown gas involved in air pollution',
+      properties: { boiling: '21°C', melting: '-11°C', density: '1.45 g/cm³' },
+      structure: '🧪'
+    },
+    {
+      id: 34,
+      name: 'Methyl Ethyl Ketone',
+      formula: 'C₄H₈O',
+      category: 'ketone',
+      description: 'Industrial solvent used in paints and coatings',
+      properties: { boiling: '79.6°C', melting: '-86°C', density: '0.805 g/cm³' },
+      structure: '🔬'
+    },
+    {
+      id: 35,
+      name: 'Cyclohexanone',
+      formula: 'C₆H₁₀O',
+      category: 'ketone',
+      description: 'Ketone used in nylon production',
+      properties: { boiling: '155°C', melting: '-47°C', density: '0.947 g/cm³' },
+      structure: '🔬'
+    },
+    {
+      id: 36,
+      name: 'Diethyl Ether',
+      formula: 'C₄H₁₀O',
+      category: 'ether',
+      description: 'Solvent historically used as anesthetic',
+      properties: { boiling: '34.6°C', melting: '-116°C', density: '0.713 g/cm³' },
+      structure: '🔬'
+    },
+    {
+      id: 37,
+      name: 'Dimethyl Ether',
+      formula: 'C₂H₆O',
+      category: 'ether',
+      description: 'Simple ether used as aerosol propellant',
+      properties: { boiling: '-24°C', melting: '-141°C', density: '1.98 g/cm³' },
+      structure: '🔬'
+    },
+    {
+      id: 38,
+      name: 'Tetrahydrofuran',
+      formula: 'C₄H₈O',
+      category: 'ether',
+      description: 'Cyclic ether used as solvent in polymer chemistry',
+      properties: { boiling: '66°C', melting: '-108°C', density: '0.889 g/cm³' },
+      structure: '🔬'
+    },
+    {
+      id: 39,
+      name: 'Dioxane',
+      formula: 'C₄H₈O₂',
+      category: 'ether',
+      description: 'Cyclic ether used as solvent in industrial applications',
+      properties: { boiling: '101°C', melting: '11°C', density: '1.03 g/cm³' },
+      structure: '🔬'
+    },
+    {
+      id: 40,
+      name: 'Ethyl Acetate',
+      formula: 'C₄H₈O₂',
+      category: 'ester',
+      description: 'Ester used as solvent in paints and coatings',
+      properties: { boiling: '77.1°C', melting: '-83°C', density: '0.902 g/cm³' },
+      structure: '🔬'
+    },
+    {
+      id: 41,
+      name: 'Methyl Acetate',
+      formula: 'C₃H₆O₂',
+      category: 'ester',
+      description: 'Ester used as solvent in adhesives',
+      properties: { boiling: '57°C', melting: '-98°C', density: '0.932 g/cm³' },
+      structure: '🔬'
+    },
+    {
+      id: 42,
+      name: 'Butyl Acetate',
+      formula: 'C₆H₁₂O₂',
+      category: 'ester',
+      description: 'Ester used in fruit flavorings and perfumes',
+      properties: { boiling: '126°C', melting: '-77°C', density: '0.882 g/cm³' },
+      structure: '🔬'
+    },
+    {
+      id: 43,
+      name: 'Acetylene',
+      formula: 'C₂H₂',
+      category: 'alkyne',
+      description: 'Simplest alkyne used in welding torches',
+      properties: { boiling: '-84°C', melting: '-80.8°C', density: '1.17 g/cm³' },
+      structure: '🧪'
+    },
+    {
+      id: 44,
+      name: 'Propylene',
+      formula: 'C₃H₆',
+      category: 'alkene',
+      description: 'Alkene used in plastic manufacturing',
+      properties: { boiling: '-47.6°C', melting: '-185°C', density: '1.81 g/cm³' },
+      structure: '🧪'
+    },
+    {
+      id: 45,
+      name: 'Ethylene',
+      formula: 'C₂H₄',
+      category: 'alkene',
+      description: 'Simplest alkene used in plastic production',
+      properties: { boiling: '-103.7°C', melting: '-169°C', density: '1.18 g/cm³' },
+      structure: '🧪'
+    },
+    {
+      id: 46,
+      name: 'Styrene',
+      formula: 'C₈H₈',
+      category: 'aromatic',
+      description: 'Aromatic compound used in polystyrene production',
+      properties: { boiling: '145°C', melting: '-30.6°C', density: '0.909 g/cm³' },
+      structure: '🔬'
+    },
+    {
+      id: 47,
+      name: 'Xylene',
+      formula: 'C₈H₁₀',
+      category: 'aromatic',
+      description: 'Aromatic compound used as solvent and fuel additive',
+      properties: { boiling: '138°C', melting: '-47.9°C', density: '0.86 g/cm³' },
+      structure: '🔬'
+    },
+    {
+      id: 48,
+      name: 'Chloroform',
+      formula: 'CHCl₃',
+      category: 'halogenated',
+      description: 'Halogenated compound historically used as anesthetic',
+      properties: { boiling: '61.2°C', melting: '-63.5°C', density: '1.49 g/cm³' },
+      structure: '🧪'
+    },
+    {
+      id: 49,
+      name: 'Carbon Tetrachloride',
+      formula: 'CCl₄',
+      category: 'halogenated',
+      description: 'Halogenated compound used in fire extinguishers',
+      properties: { boiling: '76.7°C', melting: '-23°C', density: '1.59 g/cm³' },
+      structure: '🧪'
+    },
+    {
+      id: 50,
+      name: 'Methylene Chloride',
+      formula: 'CH₂Cl₂',
+      category: 'halogenated',
+      description: 'Halogenated solvent used in paint removers',
+      properties: { boiling: '39.6°C', melting: '-95°C', density: '1.33 g/cm³' },
+      structure: '🧪'
+    },
+    {
+      id: 51,
+      name: 'Freon-12',
+      formula: 'CCl₂F₂',
+      category: 'halogenated',
+      description: 'Chlorofluorocarbon used as refrigerant',
+      properties: { boiling: '-29.8°C', melting: '-158°C', density: '1.31 g/cm³' },
+      structure: '🧪'
+    },
+    {
+      id: 52,
+      name: 'Urea',
+      formula: 'CH₄N₂O',
+      category: 'amide',
+      description: 'Organic compound used in fertilizers and cosmetics',
+      properties: { boiling: '133°C', melting: '133°C', density: '1.32 g/cm³' },
+      structure: '🔬'
+    },
+    {
+      id: 53,
+      name: 'Acetamide',
+      formula: 'C₂H₅NO',
+      category: 'amide',
+      description: 'Simple amide used in chemical synthesis',
+      properties: { boiling: '221°C', melting: '82°C', density: '1.16 g/cm³' },
+      structure: '🔬'
+    },
+    {
+      id: 54,
+      name: 'Aniline',
+      formula: 'C₆H₅NH₂',
+      category: 'aromatic',
+      description: 'Aromatic amine used in dye production',
+      properties: { boiling: '184°C', melting: '-6°C', density: '1.02 g/cm³' },
+      structure: '🔬'
+    },
+    {
+      id: 55,
+      name: 'Pyridine',
+      formula: 'C₅H₅N',
+      category: 'aromatic',
+      description: 'Aromatic heterocycle used as solvent',
+      properties: { boiling: '115°C', melting: '-41.6°C', density: '0.982 g/cm³' },
+      structure: '🔬'
+    },
+    {
+      id: 56,
+      name: 'Furan',
+      formula: 'C₄H₄O',
+      category: 'heterocycle',
+      description: 'Five-membered heterocycle used in chemical synthesis',
+      properties: { boiling: '31°C', melting: '-85.6°C', density: '0.937 g/cm³' },
+      structure: '🔬'
+    },
+    {
+      id: 57,
+      name: 'Thiophene',
+      formula: 'C₄H₄S',
+      category: 'heterocycle',
+      description: 'Sulfur-containing heterocycle used in pharmaceuticals',
+      properties: { boiling: '84°C', melting: '-38°C', density: '1.06 g/cm³' },
+      structure: '🔬'
+    },
+    {
+      id: 58,
+      name: 'Pyrrole',
+      formula: 'C₄H₅N',
+      category: 'heterocycle',
+      description: 'Five-membered heterocycle found in porphyrins',
+      properties: { boiling: '36°C', melting: '-24°C', density: '0.967 g/cm³' },
+      structure: '🔬'
     }
   ];
 
-  const categories = ['all', 'aromatic', 'alcohol', 'hydrocarbon', 'ketone', 'acid', 'base'];
+  const categories = ['all', 'aromatic', 'alcohol', 'hydrocarbon', 'ketone', 'acid', 'base', 'aldehyde', 'oxide', 'ether', 'ester', 'alkyne', 'alkene', 'halogenated', 'amide', 'heterocycle'];
   
   const filteredCompounds = compounds.filter(compound => {
     const matchesSearch = compound.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
