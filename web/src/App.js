@@ -1085,23 +1085,59 @@ Total Compounds: 1
               </div>
               
               <div className="compound-actions">
+                {/* Debug test button */}
+                <button 
+                  onClick={() => alert(`Debug: ${compound.name} button clicked!`)}
+                  style={{
+                    padding: '8px',
+                    background: 'red',
+                    color: 'white',
+                    border: '2px solid yellow',
+                    marginRight: '10px',
+                    cursor: 'pointer',
+                    position: 'relative',
+                    zIndex: 1001,
+                    pointerEvents: 'auto'
+                  }}
+                >
+                  DEBUG
+                </button>
                 <button 
                   className="action-btn primary"
-                  onClick={() => handleViewStructure(compound)}
+                  onClick={() => {
+                    console.log('View Structure clicked for:', compound.name);
+                    handleViewStructure(compound);
+                  }}
+                  style={{
+                    position: 'relative',
+                    zIndex: 1001,
+                    pointerEvents: 'auto',
+                    cursor: 'pointer'
+                  }}
                 >
                   <span className="btn-icon">📊</span>
                   View Structure
                 </button>
                 <button 
                   className="action-btn secondary"
-                  onClick={() => handleExportData(compound)}
+                  onClick={() => {
+                    console.log('Export Data clicked for:', compound.name);
+                    handleExportData(compound);
+                  }}
+                  style={{
+                    position: 'relative',
+                    zIndex: 1001,
+                    pointerEvents: 'auto',
+                    cursor: 'pointer'
+                  }}
                 >
                   <span className="btn-icon">📄</span>
                   Export Data
                 </button>
               </div>
               
-              <div className="compound-glow"></div>
+              {/* Temporarily remove glow to test if it's blocking clicks */}
+              {/* <div className="compound-glow"></div> */}
             </div>
           ))}
         </div>
