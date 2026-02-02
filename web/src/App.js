@@ -1507,6 +1507,60 @@ Select a template to customize and generate your report!
     }
   };
 
+  // Function to create and save sample reports for testing
+  const createSampleReports = () => {
+    console.log('🧪 Creating sample reports...');
+    
+    const sampleReports = [
+      {
+        title: 'Sample Equipment Analysis Report',
+        type: 'equipment',
+        description: 'Sample equipment performance analysis with anomaly detection',
+        datasets: 5,
+        anomalies: 2,
+        accuracy: '97.5%',
+        icon: '⚗️',
+        content: 'This is a sample equipment analysis report generated for testing purposes.',
+        data: { sample: true, timestamp: new Date().toISOString() }
+      },
+      {
+        title: 'Sample Chemical Process Report',
+        type: 'chemical',
+        description: 'Sample chemical process analysis with quality metrics',
+        datasets: 3,
+        anomalies: 1,
+        accuracy: '98.2%',
+        icon: '🧪',
+        content: 'This is a sample chemical process report generated for testing purposes.',
+        data: { sample: true, timestamp: new Date().toISOString() }
+      },
+      {
+        title: 'Sample Performance Metrics Report',
+        type: 'performance',
+        description: 'Sample performance metrics analysis with trend analysis',
+        datasets: 8,
+        anomalies: 3,
+        accuracy: '96.8%',
+        icon: '📊',
+        content: 'This is a sample performance metrics report generated for testing purposes.',
+        data: { sample: true, timestamp: new Date().toISOString() }
+      }
+    ];
+    
+    sampleReports.forEach((report, index) => {
+      setTimeout(() => {
+        const result = window.saveFosseReport && window.saveFosseReport(report);
+        console.log(`🧪 Sample report ${index + 1} save result:`, result);
+      }, index * 1000); // Save each report 1 second apart
+    });
+    
+    // Refresh reports after all samples are saved
+    setTimeout(() => {
+      refreshReports();
+      alert('✅ Sample reports created! Check the Reports section.');
+    }, sampleReports.length * 1000 + 500);
+  };
+
   const handleTestSaveReport = () => {
     console.log('🧪 Testing manual report save...');
     const testData = {
@@ -1607,7 +1661,7 @@ Select a template to customize and generate your report!
               onClick={handleClearSavedReports}
               style={{
                 padding: '10px 20px',
-                background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+                background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
                 color: 'white',
                 border: 'none',
                 borderRadius: '8px',
@@ -1621,6 +1675,25 @@ Select a template to customize and generate your report!
             >
               <span>🗑️</span>
               Clear Saved
+            </button>
+            <button 
+              onClick={createSampleReports}
+              style={{
+                padding: '10px 20px',
+                background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontWeight: '600',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                marginRight: '15px'
+              }}
+            >
+              <span>🧪</span>
+              Create Sample Reports
             </button>
             <div style={{ 
               padding: '5px 10px', 
