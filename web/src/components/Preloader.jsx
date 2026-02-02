@@ -5,7 +5,7 @@ export default function Preloader() {
   return (
     <div className="preloader-overlay">
       <div className="preloader-container">
-        {/* Professional Logo/Brand */}
+        {/* Enhanced Professional Logo/Brand */}
         <div className="brand-section">
           <div className="brand-logo">
             <div className="logo-icon">
@@ -13,8 +13,16 @@ export default function Preloader() {
                 <defs>
                   <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#667eea" />
-                    <stop offset="100%" stopColor="#764ba2" />
+                    <stop offset="50%" stopColor="#764ba2" />
+                    <stop offset="100%" stopColor="#f093fb" />
                   </linearGradient>
+                  <filter id="logoGlow">
+                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                    <feMerge>
+                      <feMergeNode in="coloredBlur"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
                 </defs>
                 <circle cx="30" cy="30" r="28" fill="none" stroke="url(#logoGrad)" strokeWidth="2"/>
                 <path d="M30 10 L40 20 L40 40 L30 50 L20 40 L20 20 Z" fill="url(#logoGrad)" opacity="0.8"/>
@@ -28,7 +36,7 @@ export default function Preloader() {
           </div>
         </div>
 
-        {/* Professional Loading Animation */}
+        {/* Enhanced Loading Animation */}
         <div className="loading-section">
           <div className="loading-spinner">
             <div className="spinner-ring"></div>
@@ -46,7 +54,7 @@ export default function Preloader() {
           </div>
         </div>
 
-        {/* System Status */}
+        {/* Enhanced System Status */}
         <div className="status-section">
           <div className="status-grid">
             <div className="status-item">
@@ -64,10 +72,12 @@ export default function Preloader() {
           </div>
         </div>
 
-        {/* Professional Footer */}
+        {/* Enhanced Footer */}
         <div className="preloader-footer">
-          <p className="version-info">Version 2.0.1</p>
-          <p className="copyright">© 2024 Analytics Platform. All rights reserved.</p>
+          <div className="footer-content">
+            <p className="version-info">Version 2.0.1</p>
+            <p className="copyright">© 2026 Elite Analytics Suite. All rights reserved.</p>
+          </div>
         </div>
       </div>
     </div>
