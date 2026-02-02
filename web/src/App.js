@@ -531,11 +531,11 @@ function ReportsPage() {
     console.log('🔍 ReportsPage: Reports refreshed:', newReports.length, 'total reports');
   };
   
-  // Auto-refresh reports every 5 seconds
+  // Auto-refresh reports every 5 minutes
   React.useEffect(() => {
     const interval = setInterval(() => {
       refreshReports();
-    }, 5000);
+    }, 300000); // Update every 5 minutes (300,000 ms) instead of 5 seconds
     
     return () => clearInterval(interval);
   }, []);

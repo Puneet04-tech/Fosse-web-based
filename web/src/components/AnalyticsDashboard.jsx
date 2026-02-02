@@ -80,7 +80,7 @@ const AnalyticsDashboard = () => {
     // Set up real-time polling (without loading states)
     const interval = setInterval(() => {
       loadRealData();
-    }, 10000); // Update every 10 seconds
+    }, 300000); // Update every 5 minutes (300,000 ms) instead of 10 seconds
 
     return () => clearInterval(interval);
   }, []);
