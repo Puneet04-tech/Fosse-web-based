@@ -17,3 +17,8 @@ db.sqlite3
 
 # Node
 node_modules/
+
+# React Build
+web/build/
+build/
+dist/
