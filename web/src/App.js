@@ -304,7 +304,84 @@ function HomePage() {
 
 function AnalysisPage() {
   return (
-    <main className="main-content" style={{ paddingTop: '220px' }}>
+    <main className="main-content" style={{ paddingTop: '80px' }}>
+      {/* Amazing Hero Banner */}
+      <div style={{
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)',
+        padding: '3rem 0',
+        marginBottom: '2rem',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'url("data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Ccircle cx="7" cy="7" r="7"/%3E%3Ccircle cx="53" cy="7" r="7"/%3E%3Ccircle cx="30" cy="30" r="7"/%3E%3Ccircle cx="7" cy="53" r="7"/%3E%3Ccircle cx="53" cy="53" r="7"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
+          opacity: 0.3
+        }}></div>
+        <div className="container-fluid" style={{ position: 'relative', zIndex: 1 }}>
+          <div style={{ textAlign: 'center', color: 'white' }}>
+            <h1 style={{ 
+              fontSize: '3rem', 
+              fontWeight: '800', 
+              marginBottom: '1rem',
+              textShadow: '0 4px 20px rgba(0,0,0,0.3)',
+              animation: 'fadeInDown 1s ease'
+            }}>
+              🧪 Advanced Analytics Dashboard
+            </h1>
+            <p style={{ 
+              fontSize: '1.25rem', 
+              marginBottom: '2rem',
+              opacity: 0.95,
+              maxWidth: '600px',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              animation: 'fadeInUp 1s ease 0.3s both'
+            }}>
+              Real-time equipment monitoring, anomaly detection, and comprehensive data analysis powered by cutting-edge AI algorithms
+            </p>
+            <div style={{ 
+              display: 'flex', 
+              gap: '1rem', 
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+              animation: 'fadeInUp 1s ease 0.6s both'
+            }}>
+              <div style={{
+                background: 'rgba(255,255,255,0.2)',
+                padding: '0.5rem 1rem',
+                borderRadius: '20px',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255,255,255,0.3)'
+              }}>
+                ⚡ Real-time Processing
+              </div>
+              <div style={{
+                background: 'rgba(255,255,255,0.2)',
+                padding: '0.5rem 1rem',
+                borderRadius: '20px',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255,255,255,0.3)'
+              }}>
+                🤖 AI-Powered Analysis
+              </div>
+              <div style={{
+                background: 'rgba(255,255,255,0.2)',
+                padding: '0.5rem 1rem',
+                borderRadius: '20px',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255,255,255,0.3)'
+              }}>
+                📊 Interactive Visualizations
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <AnalyticsDashboard />
     </main>
   );
@@ -1003,7 +1080,84 @@ Total Compounds: 1
   };
 
   return (
-    <main className="main-content compounds-page" style={{ paddingTop: '220px' }}>
+    <main className="main-content compounds-page" style={{ paddingTop: '80px' }}>
+      {/* Amazing Chemical Hero Banner */}
+      <div style={{
+        background: 'linear-gradient(135deg, #10b981 0%, #059669 50%, #064e3b 100%)',
+        padding: '3rem 0',
+        marginBottom: '2rem',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'url("data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23ffffff" fill-opacity="0.08"%3E%3Cpath d="M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10zm10 0c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10z"/%3E%3C/g%3E%3C/svg%3E")',
+          opacity: 0.4
+        }}></div>
+        <div className="container-fluid" style={{ position: 'relative', zIndex: 1 }}>
+          <div style={{ textAlign: 'center', color: 'white' }}>
+            <h1 style={{ 
+              fontSize: '3rem', 
+              fontWeight: '800', 
+              marginBottom: '1rem',
+              textShadow: '0 4px 20px rgba(0,0,0,0.3)',
+              animation: 'fadeInDown 1s ease'
+            }}>
+              🧪 Chemical Compounds Database
+            </h1>
+            <p style={{ 
+              fontSize: '1.25rem', 
+              marginBottom: '2rem',
+              opacity: 0.95,
+              maxWidth: '600px',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              animation: 'fadeInUp 1s ease 0.3s both'
+            }}>
+              Explore 58 comprehensive chemical compounds with detailed properties, structures, and industrial applications across 16 categories
+            </p>
+            <div style={{ 
+              display: 'flex', 
+              gap: '1rem', 
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+              animation: 'fadeInUp 1s ease 0.6s both'
+            }}>
+              <div style={{
+                background: 'rgba(255,255,255,0.2)',
+                padding: '0.5rem 1rem',
+                borderRadius: '20px',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255,255,255,0.3)'
+              }}>
+                ⚗️ 58 Compounds
+              </div>
+              <div style={{
+                background: 'rgba(255,255,255,0.2)',
+                padding: '0.5rem 1rem',
+                borderRadius: '20px',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255,255,255,0.3)'
+              }}>
+                🔬 16 Categories
+              </div>
+              <div style={{
+                background: 'rgba(255,255,255,0.2)',
+                padding: '0.5rem 1rem',
+                borderRadius: '20px',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255,255,255,0.3)'
+              }}>
+                📊 Detailed Properties
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="container-fluid">
         {/* Header Section */}
         <div className="compounds-header">
@@ -1586,7 +1740,84 @@ Select a template to customize and generate your report!
   };
 
   return (
-    <main className="main-content reports-page" style={{ paddingTop: '220px' }}>
+    <main className="main-content reports-page" style={{ paddingTop: '80px' }}>
+      {/* Amazing Reports Hero Banner */}
+      <div style={{
+        background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #92400e 100%)',
+        padding: '3rem 0',
+        marginBottom: '2rem',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'url("data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Crect x="5" y="5" width="50" height="50" rx="5"/%3E%3Crect x="15" y="15" width="30" height="30" rx="3"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
+          opacity: 0.3
+        }}></div>
+        <div className="container-fluid" style={{ position: 'relative', zIndex: 1 }}>
+          <div style={{ textAlign: 'center', color: 'white' }}>
+            <h1 style={{ 
+              fontSize: '3rem', 
+              fontWeight: '800', 
+              marginBottom: '1rem',
+              textShadow: '0 4px 20px rgba(0,0,0,0.3)',
+              animation: 'fadeInDown 1s ease'
+            }}>
+              📄 Reports & Documentation Center
+            </h1>
+            <p style={{ 
+              fontSize: '1.25rem', 
+              marginBottom: '2rem',
+              opacity: 0.95,
+              maxWidth: '600px',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              animation: 'fadeInUp 1s ease 0.3s both'
+            }}>
+              Generate comprehensive analysis reports, export data in multiple formats, and manage your documentation with advanced filtering and search capabilities
+            </p>
+            <div style={{ 
+              display: 'flex', 
+              gap: '1rem', 
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+              animation: 'fadeInUp 1s ease 0.6s both'
+            }}>
+              <div style={{
+                background: 'rgba(255,255,255,0.2)',
+                padding: '0.5rem 1rem',
+                borderRadius: '20px',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255,255,255,0.3)'
+              }}>
+                📊 Dynamic Reports
+              </div>
+              <div style={{
+                background: 'rgba(255,255,255,0.2)',
+                padding: '0.5rem 1rem',
+                borderRadius: '20px',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255,255,255,0.3)'
+              }}>
+                📥 Multi-Format Export
+              </div>
+              <div style={{
+                background: 'rgba(255,255,255,0.2)',
+                padding: '0.5rem 1rem',
+                borderRadius: '20px',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255,255,255,0.3)'
+              }}>
+                🔍 Advanced Analytics
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="container-fluid">
         {/* Header Section */}
         <div className="reports-header">
