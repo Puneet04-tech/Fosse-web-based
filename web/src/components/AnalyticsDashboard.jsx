@@ -262,6 +262,44 @@ const AnalyticsDashboard = () => {
     }
   }, [realData, anomalyThreshold]);
 
+  // Global function to get complete analysis data for reports
+  React.useEffect(() => {
+    window.getCompleteAnalysis = () => {
+      console.log('🔍 getCompleteAnalysis called');
+      const analysis = {
+        dataset: selectedDataset,
+        realData: realData,
+        filteredData: filteredData,
+        statistics: statistics,
+        chartData: chartData,
+        equipmentList: equipmentList,
+        parameterList: parameterList,
+        selectedEquipment: selectedEquipment,
+        selectedParameter: selectedParameter,
+        anomalyThreshold: anomalyThreshold,
+        timestamp: new Date().toISOString(),
+        summary: {
+          total_count: realData.length,
+          averages: {
+            flowrate: statistics.flowrate?.mean || 0,
+            pressure: statistics.pressure?.mean || 0,
+            temperature: statistics.temperature?.mean || 0
+          },
+          anomalies: statistics.totalAnomalies,
+          type_distribution: {
+            normal: statistics.normalCount,
+            anomaly: statistics.totalAnomalies
+          }
+        }
+      };
+      
+      console.log('🔍 Complete analysis data:', analysis);
+      return analysis;
+    };
+    
+    console.log('✅ getCompleteAnalysis function registered globally');
+  }, [selectedDataset, realData, filteredData, statistics, chartData, equipmentList, selectedEquipment, selectedParameter, anomalyThreshold]);
+
   const chartData = useMemo(() => {
     return filteredData.slice(-50).map(d => ({
       timestamp: d.timestamp,
