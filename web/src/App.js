@@ -2663,6 +2663,33 @@ export default function App() {
           <div className="footer-background">
             <div className="footer-particles"></div>
             <div className="footer-gradient"></div>
+            {/* Enhanced floating elements */}
+            <div className="footer-floating-elements">
+              <div className="footer-floating-element" style={{ 
+                position: 'absolute', 
+                top: '10%', 
+                left: '5%', 
+                fontSize: '2rem', 
+                opacity: 0.2,
+                animation: 'float 8s ease-in-out infinite'
+              }}>⚗️</div>
+              <div className="footer-floating-element" style={{ 
+                position: 'absolute', 
+                top: '70%', 
+                right: '8%', 
+                fontSize: '1.8rem', 
+                opacity: 0.15,
+                animation: 'float 10s ease-in-out infinite 2s'
+              }}>🧪</div>
+              <div className="footer-floating-element" style={{ 
+                position: 'absolute', 
+                top: '40%', 
+                left: '85%', 
+                fontSize: '1.5rem', 
+                opacity: 0.1,
+                animation: 'float 9s ease-in-out infinite 1s'
+              }}>🔬</div>
+            </div>
           </div>
           
           <div className="footer-container">
@@ -2700,8 +2727,9 @@ export default function App() {
                   <h3 className="footer-title">Chemical Equipment Data Analysis</h3>
                   <p className="footer-subtitle">Advanced Anomaly Detection Platform</p>
                   <div className="footer-description">
-                    <p>Harness the power of AI-driven analysis for comprehensive equipment parameter visualization, 
-                    statistical modeling, and automated anomaly detection in chemical engineering systems.</p>
+                    <p>Harness the power of AI-driven analysis for comprehensive equipment 
+                    parameter visualization, statistical modeling, and automated anomaly 
+                    detection in chemical engineering systems with precision and reliability.</p>
                   </div>
                 </div>
               </div>
@@ -2757,6 +2785,8 @@ export default function App() {
                   <a href="#" className="footer-link">Terms of Service</a>
                   <a href="#" className="footer-link">Documentation</a>
                   <a href="#" className="footer-link">Support</a>
+                  <a href="#" className="footer-link">API</a>
+                  <a href="#" className="footer-link">Contact</a>
                 </div>
               </div>
               <div className="footer-tech">
