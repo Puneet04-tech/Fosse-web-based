@@ -107,6 +107,9 @@ const SummaryCards = React.memo(({ summary, datasetId, onMessage }) => {
       const reportContent = generateRealTimeReport(analysis, datasetId);
       
       // Save report to localStorage
+      console.log('🔍 Attempting to save report...');
+      console.log('🔍 window.saveFosseReport available:', !!window.saveFosseReport);
+      
       const reportData = {
         title: `Real-Time Analysis Report - Dataset ${datasetId}`,
         type: 'analytics',
@@ -119,9 +122,20 @@ const SummaryCards = React.memo(({ summary, datasetId, onMessage }) => {
         data: analysis
       };
       
+      console.log('🔍 Report data prepared:', reportData);
+      
       const savedReport = window.saveFosseReport && window.saveFosseReport(reportData);
+      console.log('🔍 Save result:', savedReport);
+      
       if (savedReport) {
         toast.success('✅ Report saved to Reports section!', {
+          position: 'top-right',
+          autoClose: 3000,
+        });
+        console.log('✅ Toast notification shown for saved report');
+      } else {
+        console.error('❌ Failed to save report - function returned null');
+        toast.error('❌ Failed to save report to Reports section', {
           position: 'top-right',
           autoClose: 3000,
         });

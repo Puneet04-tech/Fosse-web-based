@@ -512,16 +512,23 @@ function ReportsPage() {
   
   // Load saved reports from localStorage
   const [savedReports, setSavedReports] = React.useState(() => {
+    console.log('🔍 ReportsPage: Initializing savedReports state');
     const stored = localStorage.getItem('fosseReports');
-    return stored ? JSON.parse(stored) : [];
+    console.log('🔍 ReportsPage: Raw localStorage data:', stored);
+    const parsed = stored ? JSON.parse(stored) : [];
+    console.log('🔍 ReportsPage: Parsed saved reports:', parsed.length, 'items');
+    return parsed;
   });
   
   // Function to refresh reports from localStorage
   const refreshReports = () => {
+    console.log('🔍 ReportsPage: refreshReports called');
     const stored = localStorage.getItem('fosseReports');
+    console.log('🔍 ReportsPage: Raw localStorage data on refresh:', stored);
     const newReports = stored ? JSON.parse(stored) : [];
+    console.log('🔍 ReportsPage: Setting new reports:', newReports.length, 'items');
     setSavedReports(newReports);
-    console.log('Reports refreshed:', newReports.length, 'total reports');
+    console.log('🔍 ReportsPage: Reports refreshed:', newReports.length, 'total reports');
   };
   
   // Auto-refresh reports every 5 seconds
@@ -854,6 +861,30 @@ Select a template to customize and generate your report!
     }
   };
 
+  const handleTestSaveReport = () => {
+    console.log('🧪 Testing manual report save...');
+    const testData = {
+      title: 'Test Report - Manual Save',
+      type: 'test',
+      description: 'This is a test report to verify saving functionality',
+      datasets: 1,
+      anomalies: 0,
+      accuracy: '100%',
+      icon: '🧪',
+      content: 'This is test content for manual save verification'
+    };
+    
+    const result = window.saveFosseReport && window.saveFosseReport(testData);
+    console.log('🧪 Test save result:', result);
+    
+    if (result) {
+      alert('✅ Test report saved successfully! Check the Reports section.');
+      refreshReports(); // Refresh to show the new report
+    } else {
+      alert('❌ Test report save failed!');
+    }
+  };
+
   return (
     <main className="main-content reports-page" style={{ paddingTop: '220px' }}>
       {/* DEBUG TEST BUTTON */}
@@ -904,6 +935,26 @@ Select a template to customize and generate your report!
             >
               <span>🔄</span>
               Refresh Reports
+            </button>
+            <button 
+              className="test-btn" 
+              onClick={handleTestSaveReport}
+              style={{
+                padding: '10px 20px',
+                background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontWeight: '600',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                marginRight: '10px'
+              }}
+            >
+              <span>🧪</span>
+              Test Save
             </button>
             <button 
               className="clear-btn" 
@@ -1230,8 +1281,11 @@ export default function App() {
   React.useEffect(() => {
     // Make saveReport function globally available
     window.saveFosseReport = (reportData) => {
+      console.log('🔍 saveFosseReport called with:', reportData);
       try {
         const existingReports = JSON.parse(localStorage.getItem('fosseReports') || '[]');
+        console.log('🔍 Existing reports:', existingReports.length);
+        
         const newReport = {
           id: Date.now(), // Unique ID based on timestamp
           title: reportData.title || 'Analytics Report',
@@ -1251,13 +1305,21 @@ export default function App() {
         existingReports.push(newReport);
         localStorage.setItem('fosseReports', JSON.stringify(existingReports));
         
-        console.log('Report saved:', newReport);
+        console.log('✅ Report saved successfully:', newReport);
+        console.log('✅ Total reports in storage:', existingReports.length);
+        
+        // Verify it was saved
+        const verify = JSON.parse(localStorage.getItem('fosseReports') || '[]');
+        console.log('✅ Verification - reports in storage:', verify.length);
+        
         return newReport;
       } catch (error) {
-        console.error('Error saving report:', error);
+        console.error('❌ Error saving report:', error);
         return null;
       }
     };
+    
+    console.log('✅ saveFosseReport function registered globally');
   }, []);
 
   React.useEffect(() => {
