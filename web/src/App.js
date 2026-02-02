@@ -1085,23 +1085,6 @@ Total Compounds: 1
               </div>
               
               <div className="compound-actions">
-                {/* Debug test button */}
-                <button 
-                  onClick={() => alert(`Debug: ${compound.name} button clicked!`)}
-                  style={{
-                    padding: '8px',
-                    background: 'red',
-                    color: 'white',
-                    border: '2px solid yellow',
-                    marginRight: '10px',
-                    cursor: 'pointer',
-                    position: 'relative',
-                    zIndex: 1001,
-                    pointerEvents: 'auto'
-                  }}
-                >
-                  DEBUG
-                </button>
                 <button 
                   className="action-btn primary"
                   onClick={() => {
@@ -1136,8 +1119,7 @@ Total Compounds: 1
                 </button>
               </div>
               
-              {/* Temporarily remove glow to test if it's blocking clicks */}
-              {/* <div className="compound-glow"></div> */}
+              <div className="compound-glow"></div>
             </div>
           ))}
         </div>
