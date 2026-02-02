@@ -516,6 +516,35 @@ function ReportsPage() {
     return stored ? JSON.parse(stored) : [];
   });
   
+  // Function to refresh reports from localStorage
+  const refreshReports = () => {
+    const stored = localStorage.getItem('fosseReports');
+    const newReports = stored ? JSON.parse(stored) : [];
+    setSavedReports(newReports);
+    console.log('Reports refreshed:', newReports.length, 'total reports');
+  };
+  
+  // Auto-refresh reports every 5 seconds
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      refreshReports();
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, []);
+  
+  // Listen for storage changes from other tabs
+  React.useEffect(() => {
+    const handleStorageChange = (e) => {
+      if (e.key === 'fosseReports') {
+        refreshReports();
+      }
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
+  
   // Default static reports
   const defaultReports = [
     {
@@ -816,6 +845,15 @@ Select a template to customize and generate your report!
     alert('📅 Report Scheduling\n\nConfigure automated report generation:\n\n• Daily/Weekly/Monthly options\n• Custom scheduling available\n• Email delivery settings\n• Multiple report types\n• Automatic data analysis\n\nContact admin to set up custom schedules!');
   };
 
+  const handleClearSavedReports = () => {
+    if (confirm('Are you sure you want to clear all saved reports? This action cannot be undone.')) {
+      localStorage.removeItem('fosseReports');
+      setSavedReports([]);
+      console.log('All saved reports cleared');
+      alert('✅ All saved reports have been cleared.');
+    }
+  };
+
   return (
     <main className="main-content reports-page" style={{ paddingTop: '220px' }}>
       {/* DEBUG TEST BUTTON */}
@@ -845,6 +883,57 @@ Select a template to customize and generate your report!
               Reports & Documentation
             </h1>
             <p className="page-subtitle">Generate, manage, and export comprehensive analysis reports</p>
+          </div>
+          <div className="header-actions">
+            <button 
+              className="refresh-btn" 
+              onClick={refreshReports}
+              style={{
+                padding: '10px 20px',
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontWeight: '600',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                marginRight: '10px'
+              }}
+            >
+              <span>🔄</span>
+              Refresh Reports
+            </button>
+            <button 
+              className="clear-btn" 
+              onClick={handleClearSavedReports}
+              style={{
+                padding: '10px 20px',
+                background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontWeight: '600',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                marginRight: '15px'
+              }}
+            >
+              <span>🗑️</span>
+              Clear Saved
+            </button>
+            <div style={{ 
+              padding: '5px 10px', 
+              background: 'rgba(102, 126, 234, 0.1)', 
+              borderRadius: '5px',
+              fontSize: '0.9rem',
+              color: '#667eea'
+            }}>
+              {savedReports.length} saved reports
+            </div>
           </div>
         </div>
 
@@ -908,6 +997,24 @@ Select a template to customize and generate your report!
         <div className="reports-grid">
           {filteredReports.map((report, index) => (
             <div key={report.id} className="report-card" style={{ position: 'relative' }}>
+              {/* New Report Badge for saved reports */}
+              {report.id > 1000 && (
+                <div style={{
+                  position: 'absolute',
+                  top: '10px',
+                  right: '10px',
+                  background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                  color: 'white',
+                  padding: '4px 8px',
+                  borderRadius: '4px',
+                  fontSize: '0.7rem',
+                  fontWeight: '600',
+                  zIndex: 10
+                }}>
+                  NEW
+                </div>
+              )}
+              
               <div className="report-header">
                 <div className="report-icon">{report.icon}</div>
                 <div className="report-basic">
