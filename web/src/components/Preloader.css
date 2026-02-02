@@ -88,6 +88,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  padding: 20px;
   margin: 0;
   line-height: 1.1;
   letter-spacing: -0.02em;
