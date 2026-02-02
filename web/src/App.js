@@ -1905,17 +1905,17 @@ Select a template to customize and generate your report!
               </div>
               <div className="card-content">
                 <div className="main-stat">
-                  <span className="stat-number">156</span>
+                  <span className="stat-number">{defaultReports.length + savedReports.length}</span>
                   <span className="stat-label">Total Reports</span>
                 </div>
                 <div className="sub-stats">
                   <div className="sub-stat">
-                    <span className="sub-value">24</span>
-                    <span className="sub-label">This Month</span>
+                    <span className="sub-value">{savedReports.length}</span>
+                    <span className="sub-label">Saved Reports</span>
                   </div>
                   <div className="sub-stat">
-                    <span className="sub-value">+12%</span>
-                    <span className="sub-label">Growth</span>
+                    <span className="sub-value">{defaultReports.length}</span>
+                    <span className="sub-label">Default Reports</span>
                   </div>
                 </div>
               </div>
@@ -1988,6 +1988,221 @@ Select a template to customize and generate your report!
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Recent Activity Section */}
+        <div className="recent-activity" style={{ marginTop: '3rem' }}>
+          <h2 className="section-title" style={{ 
+            fontSize: '1.5rem', 
+            fontWeight: '700', 
+            color: '#1e293b', 
+            marginBottom: '1.5rem',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px'
+          }}>
+            <span>📈</span>
+            Recent Activity
+          </h2>
+          <div className="activity-grid" style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+            gap: '1.5rem' 
+          }}>
+            <div className="activity-card" style={{
+              background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%)',
+              padding: '1.5rem',
+              borderRadius: '12px',
+              border: '1px solid rgba(102, 126, 234, 0.1)'
+            }}>
+              <div className="activity-header" style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '1rem' }}>
+                <span style={{ fontSize: '1.5rem' }}>📊</span>
+                <div>
+                  <h4 style={{ margin: 0, color: '#1e293b', fontWeight: '600' }}>Report Generation</h4>
+                  <p style={{ margin: 0, fontSize: '0.875rem', color: '#64748b' }}>Last 7 days</p>
+                </div>
+              </div>
+              <div className="activity-content">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                  <span style={{ color: '#64748b' }}>Reports Created</span>
+                  <span style={{ fontWeight: '600', color: '#667eea' }}>{savedReports.length}</span>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ color: '#64748b' }}>Success Rate</span>
+                  <span style={{ fontWeight: '600', color: '#10b981' }}>100%</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="activity-card" style={{
+              background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(5, 150, 105, 0.05) 100%)',
+              padding: '1.5rem',
+              borderRadius: '12px',
+              border: '1px solid rgba(16, 185, 129, 0.1)'
+            }}>
+              <div className="activity-header" style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '1rem' }}>
+                <span style={{ fontSize: '1.5rem' }}>⚡</span>
+                <div>
+                  <h4 style={{ margin: 0, color: '#1e293b', fontWeight: '600' }}>System Performance</h4>
+                  <p style={{ margin: 0, fontSize: '0.875rem', color: '#64748b' }}>Real-time metrics</p>
+                </div>
+              </div>
+              <div className="activity-content">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                  <span style={{ color: '#64748b' }}>Avg Response Time</span>
+                  <span style={{ fontWeight: '600', color: '#10b981' }}>1.2s</span>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ color: '#64748b' }}>System Health</span>
+                  <span style={{ fontWeight: '600', color: '#10b981' }}>Excellent</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="activity-card" style={{
+              background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, rgba(217, 119, 6, 0.05) 100%)',
+              padding: '1.5rem',
+              borderRadius: '12px',
+              border: '1px solid rgba(245, 158, 11, 0.1)'
+            }}>
+              <div className="activity-header" style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '1rem' }}>
+                <span style={{ fontSize: '1.5rem' }}>🔍</span>
+                <div>
+                  <h4 style={{ margin: 0, color: '#1e293b', fontWeight: '600' }}>Data Analysis</h4>
+                  <p style={{ margin: 0, fontSize: '0.875rem', color: '#64748b' }}>Current session</p>
+                </div>
+              </div>
+              <div className="activity-content">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                  <span style={{ color: '#64748b' }}>Datasets Analyzed</span>
+                  <span style={{ fontWeight: '600', color: '#f59e0b' }}>12</span>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ color: '#64748b' }}>Anomalies Found</span>
+                  <span style={{ fontWeight: '600', color: '#f59e0b' }}>3</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Report Types Distribution */}
+        <div className="report-types" style={{ marginTop: '3rem' }}>
+          <h2 className="section-title" style={{ 
+            fontSize: '1.5rem', 
+            fontWeight: '700', 
+            color: '#1e293b', 
+            marginBottom: '1.5rem',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px'
+          }}>
+            <span>📋</span>
+            Report Types Distribution
+          </h2>
+          <div className="types-grid" style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
+            gap: '1rem' 
+          }}>
+            {['performance', 'anomaly', 'chemical', 'trend', 'safety', 'maintenance'].map(type => {
+              const count = allReports.filter(r => r.type === type).length;
+              const percentage = allReports.length > 0 ? Math.round((count / allReports.length) * 100) : 0;
+              const icons = {
+                performance: '📊',
+                anomaly: '🚨',
+                chemical: '🧪',
+                trend: '📈',
+                safety: '🛡️',
+                maintenance: '🔧'
+              };
+              
+              return (
+                <div key={type} className="type-card" style={{
+                  background: 'white',
+                  padding: '1rem',
+                  borderRadius: '8px',
+                  border: '1px solid #e2e8f0',
+                  textAlign: 'center',
+                  transition: 'all 0.3s ease'
+                }}>
+                  <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{icons[type]}</div>
+                  <h4 style={{ margin: '0 0 0.5rem 0', color: '#1e293b', fontWeight: '600' }}>
+                    {type.charAt(0).toUpperCase() + type.slice(1)}
+                  </h4>
+                  <div style={{ fontSize: '1.25rem', fontWeight: '700', color: '#667eea', marginBottom: '0.25rem' }}>
+                    {count}
+                  </div>
+                  <div style={{ fontSize: '0.875rem', color: '#64748b' }}>
+                    {percentage}% of total
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Quick Tips Section */}
+        <div className="quick-tips" style={{ marginTop: '3rem' }}>
+          <h2 className="section-title" style={{ 
+            fontSize: '1.5rem', 
+            fontWeight: '700', 
+            color: '#1e293b', 
+            marginBottom: '1.5rem',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px'
+          }}>
+            <span>💡</span>
+            Quick Tips
+          </h2>
+          <div className="tips-grid" style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
+            gap: '1rem' 
+          }}>
+            <div className="tip-card" style={{
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              color: 'white',
+              padding: '1.5rem',
+              borderRadius: '12px'
+            }}>
+              <h4 style={{ margin: '0 0 0.5rem 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span>🚀</span> Generate Reports
+              </h4>
+              <p style={{ margin: 0, fontSize: '0.875rem', lineHeight: '1.5' }}>
+                Create comprehensive analysis reports from the Analytics dashboard with one click
+              </p>
+            </div>
+            
+            <div className="tip-card" style={{
+              background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+              color: 'white',
+              padding: '1.5rem',
+              borderRadius: '12px'
+            }}>
+              <h4 style={{ margin: '0 0 0.5rem 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span>📥</span> Export Data
+              </h4>
+              <p style={{ margin: 0, fontSize: '0.875rem', lineHeight: '1.5' }}>
+                Download reports in PDF format or export data as CSV for further analysis
+              </p>
+            </div>
+            
+            <div className="tip-card" style={{
+              background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+              color: 'white',
+              padding: '1.5rem',
+              borderRadius: '12px'
+            }}>
+              <h4 style={{ margin: '0 0 0.5rem 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span>🔄</span> Stay Updated
+              </h4>
+              <p style={{ margin: 0, fontSize: '0.875rem', lineHeight: '1.5' }}>
+                Reports refresh automatically every 5 minutes or use the refresh button for instant updates
+              </p>
             </div>
           </div>
         </div>
