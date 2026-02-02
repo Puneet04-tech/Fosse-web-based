@@ -28,6 +28,33 @@ function HomePage() {
         <div className="hero-background">
           <div className="hero-particles"></div>
           <div className="hero-gradient"></div>
+          {/* Enhanced floating elements */}
+          <div className="floating-elements">
+            <div className="floating-element" style={{ 
+              position: 'absolute', 
+              top: '20%', 
+              left: '10%', 
+              fontSize: '3rem', 
+              opacity: 0.3,
+              animation: 'float 6s ease-in-out infinite'
+            }}>⚗️</div>
+            <div className="floating-element" style={{ 
+              position: 'absolute', 
+              top: '60%', 
+              right: '15%', 
+              fontSize: '2.5rem', 
+              opacity: 0.25,
+              animation: 'float 8s ease-in-out infinite 1s'
+            }}>🧪</div>
+            <div className="floating-element" style={{ 
+              position: 'absolute', 
+              top: '40%', 
+              left: '80%', 
+              fontSize: '2rem', 
+              opacity: 0.2,
+              animation: 'float 7s ease-in-out infinite 0.5s'
+            }}>🔬</div>
+          </div>
         </div>
         
         <div className="container-fluid">
@@ -56,6 +83,45 @@ function HomePage() {
                 >
                   🚀 View Dashboard
                 </button>
+                
+                {/* Enhanced feature highlights */}
+                <div className="feature-highlights" style={{
+                  marginTop: '3rem',
+                  display: 'flex',
+                  gap: '2rem',
+                  flexWrap: 'wrap'
+                }}>
+                  <div className="feature-item" style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.75rem',
+                    color: 'rgba(255, 255, 255, 0.8)',
+                    fontSize: '0.95rem'
+                  }}>
+                    <span style={{ fontSize: '1.5rem' }}>⚡</span>
+                    <span>Lightning Fast Processing</span>
+                  </div>
+                  <div className="feature-item" style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.75rem',
+                    color: 'rgba(255, 255, 255, 0.8)',
+                    fontSize: '0.95rem'
+                  }}>
+                    <span style={{ fontSize: '1.5rem' }}>🎯</span>
+                    <span>99.9% Accuracy</span>
+                  </div>
+                  <div className="feature-item" style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.75rem',
+                    color: 'rgba(255, 255, 255, 0.8)',
+                    fontSize: '0.95rem'
+                  }}>
+                    <span style={{ fontSize: '1.5rem' }}>🛡️</span>
+                    <span>Enterprise Security</span>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="col-lg-4">
@@ -72,6 +138,28 @@ function HomePage() {
                   <div className="stat-item">
                     <div className="stat-number">24/7</div>
                     <div className="stat-label">Monitoring</div>
+                  </div>
+                </div>
+                
+                {/* Enhanced live indicator */}
+                <div className="live-indicator-container" style={{
+                  marginTop: '2rem',
+                  textAlign: 'center',
+                  padding: '1rem',
+                  background: 'rgba(16, 185, 129, 0.1)',
+                  borderRadius: '12px',
+                  border: '1px solid rgba(16, 185, 129, 0.3)'
+                }}>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '0.5rem',
+                    color: '#10b981',
+                    fontWeight: '600'
+                  }}>
+                    <div className="live-indicator"></div>
+                    <span>System Live</span>
                   </div>
                 </div>
               </div>
