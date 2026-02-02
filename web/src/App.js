@@ -2760,19 +2760,19 @@ export default function App() {
               <div className="footer-stats">
                 <div className="stat-card">
                   <div className="stat-number">99.9%</div>
-                  <div className="stat-label">Accuracy</div>
+                  
                 </div>
                 <div className="stat-card">
                   <div className="stat-number">&lt;2s</div>
-                  <div className="stat-label">Processing</div>
+                 
                 </div>
                 <div className="stat-card">
                   <div className="stat-number">24/7</div>
-                  <div className="stat-label">Monitoring</div>
+                 
                 </div>
                 <div className="stat-card">
                   <div className="stat-number">∞</div>
-                  <div className="stat-label">Scalability</div>
+                 
                 </div>
               </div>
             </div>
