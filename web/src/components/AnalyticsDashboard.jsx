@@ -383,65 +383,196 @@ const AnalyticsDashboard = () => {
   }
 
   return (
-    <div className="analytics-dashboard">
+    <div className="analytics-dashboard" style={{
+      background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)',
+      minHeight: '100vh',
+      padding: '2rem',
+      position: 'relative',
+      overflow: 'hidden'
+    }}>
+      {/* Elegant Background Pattern */}
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: 'url("data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" stroke="%23667eea" stroke-opacity="0.1" stroke-width="1"%3E%3Cpath d="M0 50 L100 50 M50 0 L50 100 M25 25 L75 75 M75 25 L25 75"/%3E%3C/g%3E%3C/svg%3E")',
+        opacity: 0.3,
+        pointerEvents: 'none'
+      }}></div>
+
       {/* Header Section */}
-      <section className="analytics-header">
-        <div className="header-content">
-          <h1 className="page-title">
-            <span className="title-icon">📊</span>
-            Real-Time Analytics Dashboard
-          </h1>
-          <p className="page-subtitle">
-            Monitor equipment performance, detect anomalies, and analyze trends in real-time
-          </p>
-        </div>
-        
-        <div className="header-controls">
-          <div className="dataset-selector">
-            <label>Dataset:</label>
-            <select 
-              value={selectedDataset?.id || ''} 
-              onChange={(e) => {
-                const datasetId = e.target.value;
-                const dataset = datasets.find(d => d.id.toString() === datasetId);
-                if (dataset) {
-                  // Mark that user has manually selected a dataset
-                  userHasSelected.current = true;
-                  setSelectedDataset(dataset);
-                  toast.info(`📊 Loading dataset: ${dataset.file?.split('/').pop().split('\\').pop() || `Dataset ${dataset.id}`}`, {
-                    position: 'top-right',
-                    autoClose: 2000,
-                  });
-                }
-              }}
-              className="dataset-select"
-              disabled={loading || datasets.length === 0}
-            >
-              <option value="" disabled>
-                {loading ? 'Loading datasets...' : datasets.length === 0 ? 'No datasets available' : 'Select a dataset...'}
-              </option>
-              {datasets.map(dataset => (
-                <option key={dataset.id} value={dataset.id}>
-                  {dataset.file?.split('/').pop().split('\\').pop() || `Dataset ${dataset.id}`} ({safeDateFormat(dataset.uploaded_at)})
+      <section className="analytics-header" style={{ position: 'relative', zIndex: 1 }}>
+        <div style={{
+          background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(240, 147, 251, 0.1) 100%)',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid rgba(102, 126, 234, 0.2)',
+          borderRadius: '20px',
+          padding: '2rem',
+          marginBottom: '2rem',
+          boxShadow: '0 8px 32px rgba(102, 126, 234, 0.2)'
+        }}>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '2rem'
+          }}>
+            <div>
+              <h1 style={{
+                fontSize: '2.5rem',
+                fontWeight: '800',
+                color: '#ffffff',
+                marginBottom: '0.5rem',
+                textShadow: '0 4px 20px rgba(102, 126, 234, 0.5)',
+                background: 'linear-gradient(135deg, #667eea 0%, #f093fb 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}>
+                🧪 Advanced Analytics Dashboard
+              </h1>
+              <p style={{
+                color: '#94a3b8',
+                fontSize: '1.1rem',
+                margin: 0,
+                opacity: 0.9
+              }}>
+                Real-time equipment monitoring with AI-powered anomaly detection
+              </p>
+            </div>
+            
+            <div className="dataset-selector" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <label style={{ 
+                color: '#e2e8f0', 
+                fontWeight: '600',
+                fontSize: '0.9rem'
+              }}>
+                Dataset:
+              </label>
+              <select 
+                value={selectedDataset?.id || ''} 
+                onChange={(e) => {
+                  const datasetId = e.target.value;
+                  const dataset = datasets.find(d => d.id.toString() === datasetId);
+                  if (dataset) {
+                    userHasSelected.current = true;
+                    setSelectedDataset(dataset);
+                    toast.info(`📊 Loading dataset: ${dataset.file?.split('/').pop().split('\\').pop() || `Dataset ${dataset.id}`}`, {
+                      position: 'top-right',
+                      autoClose: 2000,
+                    });
+                  }
+                }}
+                style={{
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  border: '1px solid rgba(102, 126, 234, 0.3)',
+                  borderRadius: '12px',
+                  padding: '0.75rem 1rem',
+                  color: '#ffffff',
+                  fontSize: '0.9rem',
+                  fontWeight: '500',
+                  backdropFilter: 'blur(10px)',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  minWidth: '250px'
+                }}
+                disabled={loading || datasets.length === 0}
+              >
+                <option value="" disabled style={{ background: '#1e293b' }}>
+                  {loading ? 'Loading datasets...' : datasets.length === 0 ? 'No datasets available' : 'Select a dataset...'}
                 </option>
-              ))}
-            </select>
-            {loading && <div className="dataset-loading">⟳</div>}
+                {datasets.map(dataset => (
+                  <option key={dataset.id} value={dataset.id} style={{ background: '#1e293b' }}>
+                    {dataset.file?.split('/').pop().split('\\').pop() || `Dataset ${dataset.id}`} ({safeDateFormat(dataset.uploaded_at)})
+                  </option>
+                ))}
+              </select>
+              {loading && (
+                <div style={{
+                  color: '#667eea',
+                  fontSize: '1.2rem',
+                  animation: 'spin 1s linear infinite'
+                }}>
+                  ⟳
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>
 
       {/* Stats Overview */}
-      <section className="stats-overview">
-        <div className="row g-4">
+      <section className="stats-overview" style={{ position: 'relative', zIndex: 1 }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '1.5rem',
+          marginBottom: '2rem'
+        }}>
           {statsCards.map((stat, index) => (
-            <div key={index} className="col-lg-3 col-md-6">
-              <div className="stat-card">
-                <div className="stat-icon">{stat.icon}</div>
-                <div className="stat-content">
-                  <h3 className="stat-value">{stat.value}</h3>
-                  <p className="stat-label">{stat.title}</p>
-                  <span className={`stat-change ${stat.positive ? 'positive' : 'negative'}`}>
+            <div key={index} style={{
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              borderRadius: '20px',
+              padding: '1.5rem',
+              position: 'relative',
+              overflow: 'hidden',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
+            }}>
+              {/* Glow Effect */}
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: '4px',
+                background: 'linear-gradient(90deg, #667eea 0%, #f093fb 50%, #667eea 100%)',
+                animation: `slideGradient 3s ease-in-out infinite`
+              }}></div>
+              
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <div style={{
+                  fontSize: '2.5rem',
+                  background: 'linear-gradient(135deg, #667eea 0%, #f093fb 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  filter: 'drop-shadow(0 4px 8px rgba(102, 126, 234, 0.3))'
+                }}>
+                  {stat.icon}
+                </div>
+                <div style={{ flex: 1 }}>
+                  <h3 style={{
+                    fontSize: '2rem',
+                    fontWeight: '800',
+                    color: '#ffffff',
+                    margin: '0 0 0.25rem 0',
+                    textShadow: '0 2px 10px rgba(102, 126, 234, 0.3)'
+                  }}>
+                    {stat.value}
+                  </h3>
+                  <p style={{
+                    color: '#94a3b8',
+                    fontSize: '0.9rem',
+                    margin: '0 0 0.5rem 0',
+                    fontWeight: '500'
+                  }}>
+                    {stat.title}
+                  </p>
+                  <span style={{
+                    background: stat.positive ? 'linear-gradient(135deg, #10b981 0%, #059669 100%)' : 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+                    color: '#ffffff',
+                    padding: '0.25rem 0.75rem',
+                    borderRadius: '20px',
+                    fontSize: '0.8rem',
+                    fontWeight: '600',
+                    display: 'inline-block'
+                  }}>
                     {stat.change}
                   </span>
                 </div>
