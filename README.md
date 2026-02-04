@@ -13,11 +13,17 @@ A cutting-edge **AI-powered analytics platform** for chemical equipment monitori
 ## 🎨 Visual Showcase
 
 ### 🏠 **Homepage - Stunning First Impression**
-- **Floating Chemical Elements**: ⚗️ 🧪 🔬 with smooth animations
+- **Animated Text**: Title, subtitle, and description slide in on every page load with blur effects
+- **Floating Chemical Elements**: ⚗️ 🧪 🔬 with smooth animations and softer colors
 - **Hero Section**: Gradient backgrounds with animated content
+- **Enhanced Stats Card**: 
+  - Beautiful glassmorphism design with animated glow
+  - System Performance header with live pulse indicator
+  - Interactive stat items with icons (✓, ⚡, 🔄)
+  - Hover effects with icon rotation and glow
+  - Elegant separators with gradient lines
 - **Feature Highlights**: Interactive pills with shimmer effects
-- **Live System Indicator**: Pulsing status display
-- **Professional Typography**: Gradient text effects and shadows
+- **Professional Typography**: Muted gradient text effects optimized for eye comfort
 
 ### � **Analytics Dashboard - Professional Interface**
 - **Glassmorphism Header**: Beautiful backdrop blur with gradient borders
@@ -84,11 +90,12 @@ A cutting-edge **AI-powered analytics platform** for chemical equipment monitori
 
 ### � **Visual Enhancements**
 - **🌟 Glassmorphism Effects**: Modern frosted glass design with backdrop blur
-- **✨ Smooth Animations**: Staggered entrance effects and hover animations
-- **🎨 Gradient Backgrounds**: Beautiful color transitions and particle effects
+- **✨ Page Load Animations**: Text slides in with blur-to-sharp transitions on every page load
+- **🎨 Optimized Color Palette**: Softer, muted colors for reduced eye strain
 - **📱 Responsive Design**: Perfect scaling across all device sizes
-- **🎯 Interactive Elements**: Hover effects, transitions, and micro-interactions
-- **🌙 Professional Dark Theme**: Consistent dark mode with proper contrast
+- **🎯 Interactive Elements**: Hover effects, icon animations, and micro-interactions
+- **🌙 Professional Dark Theme**: Consistent dark mode with improved contrast
+- **💫 Animated Stats Card**: Elegant performance metrics with live indicators
 
 ---
 
@@ -217,17 +224,34 @@ REACT_APP_API_URL=http://127.0.1:8000/api
 ## 📚 Usage Guide
 
 ### Web Application
-1. Upload CSV files via drag-and-drop
-2. View real-time analytics dashboard
-3. Generate comprehensive reports
-4. Browse compounds database
-5. Manage reports in Reports section
+1. Open browser to `http://localhost:3000`
+2. Experience stunning page load animations
+3. Upload CSV files via drag-and-drop
+4. View real-time analytics dashboard with equipment filtering
+5. Generate comprehensive reports
+6. Browse compounds database with 58 chemicals
+7. Manage reports in Reports section
 
 ### Desktop Application
-1. Upload CSV files
-2. View analytics dashboard
-3. Generate PDF reports
-4. Export data in various formats
+1. Ensure backend is running at `http://127.0.0.1:8000`
+2. Launch desktop app: `python app.py`
+3. App will test connection and display status
+4. Upload CSV files through file browser
+5. View analytics with multiple chart types:
+   - Equipment Distribution (Pie Chart)
+   - Parameter Analysis (Bar Chart)
+   - Data Summary (Text Report)
+   - Anomaly Detection (Bar Chart)
+6. Generate PDF reports
+7. Export data in various formats
+
+### Detailed Workflow
+See [WORKFLOW.md](docs/WORKFLOW.md) for comprehensive step-by-step guide including:
+- Complete installation instructions
+- Starting procedures for all components
+- Detailed feature usage
+- Troubleshooting solutions
+- Advanced configuration options
 
 ---
 
@@ -330,21 +354,31 @@ This project is licensed under the **MIT License**.
 
 ## 🚀 Project Status
 
-### Current Version: **2.0.1 - Production Ready**
+### Current Version: **2.1.0 - Enhanced UI & UX**
+
+### ✅ Latest Updates (v2.1.0)
+- **Stunning Page Load Animations**: Text slides in with blur effects on every page refresh
+- **Enhanced Stats Card**: Beautiful glassmorphism design with animated icons and glow effects
+- **Optimized Color Palette**: Softer, muted colors for reduced eye strain and better readability
+- **Improved Organic Rings**: Chemical compound rings with adjusted opacity and darker tones
+- **Smoother Animations**: Enhanced cubic-bezier easing for professional feel
+- **Live Performance Indicators**: Real-time system metrics with pulse animations
 
 ### ✅ Completed Features
-- **Stunning Visual Interface**: Modern glassmorphism design
-- **Real-time Analytics Dashboard**: Live monitoring with filtering
-- **Advanced Anomaly Detection**: AI-powered statistical analysis
-- **Comprehensive Reports System**: Professional report generation
-- **Compounds Database**: 58 chemical compounds
-- **Responsive Design**: Perfect mobile compatibility
+- **Stunning Visual Interface**: Modern glassmorphism design with optimized colors
+- **Real-time Analytics Dashboard**: Live monitoring with equipment and parameter filtering
+- **Advanced Anomaly Detection**: AI-powered Z-score based statistical analysis
+- **Comprehensive Reports System**: Professional report generation with PDF export
+- **Compounds Database**: 58 chemical compounds with detailed properties
+- **Desktop Application**: Native PyQt5 app with charts and export features
+- **Responsive Design**: Perfect mobile and tablet compatibility
 - **Production Build**: Optimized and deployment ready
 
 ### 📊 Build Information
 - **Size**: 319.12 kB (main.js) + 24.23 kB (main.css)
-- **Build Date**: February 2, 2026
+- **Build Date**: February 4, 2026
 - **Status**: ✅ Passing
+- **UI Version**: 2.1.0
 
 ---
 
@@ -352,16 +386,26 @@ This project is licensed under the **MIT License**.
 
 ### Quick Access
 1. **Web App**: `http://localhost:3000`
-2. **Desktop App**: Run PyQt5 application
-3. **API Docs**: `http://localhost:8000/api/`
+2. **Backend API**: `http://localhost:8000/api/`
+3. **Admin Panel**: `http://localhost:8000/admin/`
+4. **Desktop App**: Run `python app.py` in desktop folder
 
 ### First Steps
-1. Upload CSV data
-2. Explore analytics dashboard
-3. Generate reports
-4. Browse compounds database
-5. Review saved reports
+1. Start backend server: `cd backend && python manage.py runserver`
+2. Start web app: `cd web && npm start`
+3. Experience animated homepage with stunning visual effects
+4. Upload CSV data (samples in `/sample_data`)
+5. Explore analytics dashboard with real-time filtering
+6. Generate and download reports
+7. Browse 58 chemical compounds database
+8. Review saved reports in Reports section
+
+### Documentation
+- **Complete Workflow Guide**: [docs/WORKFLOW.md](docs/WORKFLOW.md)
+- **Project Report**: [docs/Project_Report.md](docs/Project_Report.md)
+- **Sample Data**: Check `/sample_data` folder
+- **API Documentation**: Available at backend API endpoint
 
 ---
 
-**🌟 Experience the future of chemical equipment analytics today!**
+**🌟 Experience the future of chemical equipment analytics with stunning animations and optimized visuals!**

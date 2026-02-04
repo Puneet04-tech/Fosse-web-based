@@ -40,17 +40,33 @@ export default function HeroSection() {
           <div className="col-lg-4">
             <div className="hero-visualization">
               <div className="stats-card">
-                <div className="stat-item">
-                  <div className="stat-number">99.9%</div>
-                  <div className="stat-label">Accuracy</div>
+                <div className="stats-card-glow"></div>
+                <div className="stats-card-header">
+                  <span className="stats-title">System Performance</span>
+                  <div className="stats-pulse"></div>
                 </div>
                 <div className="stat-item">
-                  <div className="stat-number">&lt;2s</div>
-                  <div className="stat-label">Processing</div>
+                  <div className="stat-icon">✓</div>
+                  <div className="stat-content">
+                    <div className="stat-number">99.9%</div>
+                    <div className="stat-label">Accuracy</div>
+                  </div>
+                  <div className="stat-line"></div>
                 </div>
                 <div className="stat-item">
-                  <div className="stat-number">24/7</div>
-                  <div className="stat-label">Monitoring</div>
+                  <div className="stat-icon">⚡</div>
+                  <div className="stat-content">
+                    <div className="stat-number">&lt;2s</div>
+                    <div className="stat-label">Processing</div>
+                  </div>
+                  <div className="stat-line"></div>
+                </div>
+                <div className="stat-item">
+                  <div className="stat-icon">🔄</div>
+                  <div className="stat-content">
+                    <div className="stat-number">24/7</div>
+                    <div className="stat-label">Monitoring</div>
+                  </div>
                 </div>
               </div>
             </div>
