@@ -9,7 +9,7 @@ export default function ChemBackground() {
       <svg className="molecule-svg" viewBox="0 0 2000 1200" preserveAspectRatio="xMidYMid slice">
         <defs>
           <filter id="glow">
-            <feGaussianBlur stdDeviation="4" result="coloredBlur" />
+            <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
             <feMerge>
               <feMergeNode in="coloredBlur" />
               <feMergeNode in="SourceGraphic" />
@@ -17,9 +17,9 @@ export default function ChemBackground() {
           </filter>
 
           <linearGradient id="strokeGrad" x1="0" x2="1">
-            <stop offset="0%" stopColor="#667eea" />
-            <stop offset="50%" stopColor="#764ba2" />
-            <stop offset="100%" stopColor="#f093fb" />
+            <stop offset="0%" stopColor="#3d4d7a" stopOpacity="0.7" />
+            <stop offset="50%" stopColor="#4a3559" stopOpacity="0.65" />
+            <stop offset="100%" stopColor="#7d5891" stopOpacity="0.7" />
           </linearGradient>
         </defs>
 
