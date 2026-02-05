@@ -1,4 +1,7 @@
 PyQt5==5.15.9
-matplotlib
-pandas
-requests
+matplotlib==3.7.1
+pandas==2.0.3
+requests==2.31.0
+numpy==1.24.3
+seaborn==0.12.2
+scipy==1.11.1
